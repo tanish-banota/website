@@ -11,10 +11,12 @@ type Transition = 'idle' | 'cover' | 'reveal';
 
 export default function WorldExperience({ onExit, onFatalError }: { onExit: () => void; onFatalError: () => void }) {
   const devScene = import.meta.env.DEV && /(?:asset-export|preview)=observatory/.test(window.location.search) ? 'observatory' : 'town';
+  const sampleSpawn = import.meta.env.DEV && new URLSearchParams(window.location.search).get('preview') === 'style-sample'
+    ? { x: 0.7, z: -3.6 } : townSpawn;
   const [nearest, setNearest] = useState<Anchor | null>(null);
   const [activePanel, setActivePanel] = useState<PanelId | null>(null);
   const [scene, setScene] = useState<SceneId>(devScene);
-  const [spawn, setSpawn] = useState<Point>(devScene === 'town' ? townSpawn : observatorySpawn);
+  const [spawn, setSpawn] = useState<Point>(devScene === 'town' ? sampleSpawn : observatorySpawn);
   const [transition, setTransition] = useState<Transition>('idle');
   const [assetError, setAssetError] = useState(false);
   const [guideOpen, setGuideOpen] = useState(true);

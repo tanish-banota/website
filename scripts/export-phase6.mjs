@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { isAbsolute, join, relative, resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 const appPort = 51000 + Math.floor(Math.random() * 10000);
@@ -61,6 +61,7 @@ try {
   }
   await command('Runtime.enable');
   await command('Page.enable');
+  await command('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
   await mkdir(resolve(root, 'public/models'), { recursive: true });
   for (const [name, file, global] of [
     ['Town', 'town.glb', '__twilightTownKit'],
@@ -92,6 +93,30 @@ try {
   const expected = process.argv.find((arg) => arg.startsWith('--expect-clock-color='))?.split('=')[1]?.replace('#', '').toLowerCase();
   if (expected) assert.ok(runtime.colors.includes(expected), `normal application clock colors ${runtime.colors.join(', ')} lack ${expected}`);
   console.log(`Normal application loaded exported GLB; clock colors: ${runtime.colors.join(', ')}`);
+  const screenshot = process.argv.find((arg) => arg.startsWith('--screenshot='))?.slice('--screenshot='.length);
+  if (screenshot) {
+    await command('Page.navigate', { url: `${appUrl}?preview=style-sample` });
+    await until(() => evaluate('Boolean(window.__twilightRuntimeAsset)'), 'style sample GLB');
+    await evaluate("document.querySelector('.world-guide-close')?.click()");
+    await delay(800);
+    const capture = await command('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
+    const destination = resolve(root, screenshot);
+    const previewRoot = resolve(root, 'preview');
+    const screenshotWithinPreview = relative(previewRoot, destination);
+    if (!screenshotWithinPreview || screenshotWithinPreview.startsWith('..') || isAbsolute(screenshotWithinPreview)) throw new Error('Screenshot path must be inside preview/');
+    await mkdir(resolve(root, 'preview'), { recursive: true });
+    await writeFile(destination, Buffer.from(capture.data, 'base64'));
+    console.log(`Normal gameplay zoom screenshot: ${screenshot}`);
+    if (process.argv.includes('--shadow-check')) {
+      await evaluate("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'd' }))");
+      await delay(400);
+      await evaluate("window.dispatchEvent(new KeyboardEvent('keyup', { key: 'd' }))");
+      await delay(650);
+      const moved = await command('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
+      await writeFile(resolve(previewRoot, 'style-sample-moved.png'), Buffer.from(moved.data, 'base64'));
+      console.log('Movement shadow check: preview/style-sample-moved.png');
+    }
+  }
 } finally {
   clearInterval(keepAlive);
   socket?.close();

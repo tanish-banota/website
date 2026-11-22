@@ -39,6 +39,12 @@ Edit code geometry in `src/world/Town.tsx`, `ClockTower.tsx`, `Fountain.tsx`, `O
 
 These models are code-built approximations of the supplied references: the clock tower has a simple faceted roof and face, the fountain has a compact stone basin and animated flat water, and the observatory uses a simple dome and cutaway room. The reference images' detailed masonry, sculpted fountain figure, telescope silhouette, stained glass, and moon facial features are not reproduced in this preparation phase.
 
+### Fountain-reference style sample
+
+`src/world/StyleSample.tsx` replaces the rear house beside the square with a rounded cream stone corner, individually beveled purple roof tiles, jointed pavers, and a flower planter. The nearby trees now have rounded overlapping canopies. The sample uses shared rough, nonmetallic materials and thin ground insets for contact shade. The grass no longer emits light; a warm directional key, soft hemisphere and opposite fill, and a low-intensity generated room reflection keep the fixed twilight scene readable. No bloom or depth-of-field effect is used.
+
+Run `npm run dev` and open `/?preview=style-sample` to inspect the normal GLB at gameplay zoom near the sample. `npm run export:assets -- --screenshot=preview/style-sample.png --shadow-check` regenerates the assets and captures [the gameplay screenshot](preview/style-sample.png) plus [a second view after a short walk](preview/style-sample-moved.png) for comparing shadow edges. The reference's detailed stone carving, dense flowers, textured paving, and sculpted foliage remain approximations made from simple geometry and restrained color variation.
+
 ## Phase 6 measured performance
 
 Measured November 21, 2026 at a 1440 x 900 browser viewport in headless Microsoft Edge with software WebGL (SwiftShader). Five-second samples after loading recorded **town: 68 draw calls, 9,274 triangles, 11.4 FPS** and **observatory: 71 draw calls, 5,113 triangles, 20.7 FPS**. After correcting ground shadows and the square surface, the town sample recorded **45 draw calls and 5,445 triangles**. The software renderer is slower than a normal GPU, so these FPS values are not laptop gameplay claims. Draw calls and triangles are below the plan's starting budgets of 150 and 100k–200k respectively. The town GLB is now **237,160 bytes** and the observatory GLB **106,604 bytes**; each is well below the 8 MB starting download budget. The Phase 6 model loader chunk was 21.11 KB gzip and its initial JS chunk was 320.49 KB gzip.

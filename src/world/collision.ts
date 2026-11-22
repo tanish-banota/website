@@ -30,7 +30,8 @@ export const townObstacles: Rect[] = [
   { minX: -11.42, maxX: -11.08, minZ: 2.43, maxZ: 2.77 },
   { minX: -11.38, maxX: -11.02, minZ: -2.78, maxZ: -2.42 },
   { minX: -4.35, maxX: -4.05, minZ: -7.85, maxZ: -7.55 },
-  { minX: 3.25, maxX: 3.55, minZ: -8.45, maxZ: -8.15 },
+  { minX: 4.65, maxX: 4.95, minZ: -7.65, maxZ: -7.35 },
+  { minX: 3.55, maxX: 4.25, minZ: -3.9, maxZ: -3.15 }, // flower planter
   { minX: 10.55, maxX: 10.85, minZ: 1.55, maxZ: 1.85 },
   { minX: 10.42, maxX: 10.78, minZ: 7.22, maxZ: 7.58 },
   { minX: -3.43, maxX: -3.27, minZ: -0.58, maxZ: -0.42 },

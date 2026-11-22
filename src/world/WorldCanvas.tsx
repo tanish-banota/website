@@ -1,7 +1,9 @@
-import { Suspense, lazy, useRef } from 'react';
+import { Suspense, lazy, useEffect, useRef } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { useFrame } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
+import { PMREMGenerator } from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import type { Point } from './collision';
 import { FollowCamera } from './FollowCamera';
 import { InteractionTracker } from './InteractionTracker';
@@ -17,6 +19,27 @@ const ObservatorySource = lazy(() => import('./Observatory').then((module) => ({
 const ModelAsset = lazy(() => import('./ModelAsset').then((module) => ({ default: module.ModelAsset })));
 
 type WorldMetrics = { scene: SceneId; seconds: number; frames: number; fps: number; drawCalls: number; triangles: number; capturedAt: string };
+
+function ReflectionEnvironment() {
+  const { gl, scene } = useThree();
+  useEffect(() => {
+    const generator = new PMREMGenerator(gl);
+    const room = new RoomEnvironment();
+    const reflection = generator.fromScene(room).texture;
+    const previous = scene.environment;
+    const previousIntensity = scene.environmentIntensity;
+    scene.environment = reflection;
+    scene.environmentIntensity = 0.35;
+    room.dispose();
+    generator.dispose();
+    return () => {
+      scene.environment = previous;
+      scene.environmentIntensity = previousIntensity;
+      reflection.dispose();
+    };
+  }, [gl, scene]);
+  return null;
+}
 
 function PerformanceProbe({ scene }: { scene: SceneId }) {
   const { gl } = useThree();
@@ -93,16 +116,19 @@ export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPane
         }}
       >
         <SceneCamera scene={scene} spawn={spawn} />
+        <ReflectionEnvironment />
         <PerformanceProbe scene={scene} />
-        <ambientLight intensity={1.25} color="#D3C8E8" />
+        <ambientLight intensity={0.5} color="#B9A8CF" />
+        <hemisphereLight args={['#D4C7E1', '#798873', 0.65]} />
+        <directionalLight position={[-6, 9, -5]} intensity={0.3} color="#A9BBD0" />
         <directionalLight
           position={[8, 14, 6]}
-          intensity={1.35}
-          color="#EDBC70"
+          intensity={1.8}
+          color="#F7D9A2"
           castShadow
-          shadow-normalBias={0.02}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
+          shadow-normalBias={0.025}
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
           shadow-camera-left={-14}
           shadow-camera-right={14}
           shadow-camera-top={14}

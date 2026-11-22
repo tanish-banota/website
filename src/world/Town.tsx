@@ -4,6 +4,7 @@ import { StoneCourse, Window } from './TownDetails';
 import { ClockTower } from './ClockTower';
 import { ObservatoryExterior } from './ObservatoryExterior';
 import { Fountain } from './Fountain';
+import { StyleSample } from './StyleSample';
 
 type Point = [number, number];
 type Position = [number, number, number];
@@ -129,15 +130,19 @@ function PostBox() {
 function Tree({ position, scale = 1 }: { position: Position; scale?: number }) {
   return (
     <group position={position} scale={scale}>
+      <mesh position={[0, 0.018, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <circleGeometry args={[0.58, 16]} />
+        <meshStandardMaterial color={paint.blue} transparent opacity={0.14} depthWrite={false} />
+      </mesh>
       <mesh position={[0, 0.52, 0]} castShadow>
-        <cylinderGeometry args={[0.13, 0.17, 1.04, 8]} />
-        <meshStandardMaterial color={paint.blue} />
+        <cylinderGeometry args={[0.14, 0.2, 1.04, 10]} />
+        <meshStandardMaterial color={paint.blue} roughness={0.85} />
       </mesh>
-      <mesh position={[0, 1.55, 0]} castShadow>
-        <coneGeometry args={[0.85, 1.65, 7]} />
-        <meshStandardMaterial color={paint.evergreen} roughness={1} />
-      </mesh>
-      <mesh position={[0, 2.08, 0]} castShadow><coneGeometry args={[0.65, 1.45, 7]} /><meshStandardMaterial color={paint.grass} roughness={1} /></mesh>
+      {[[0, 1.58, 0, 0.82], [-0.47, 1.35, 0.08, 0.57], [0.43, 1.45, -0.08, 0.58], [0, 2.02, 0, 0.62]].map(([x, y, z, radius], index) =>
+        <mesh key={`${x}-${y}-${z}`} position={[x, y, z]} scale={[1, 0.88, 0.95]} castShadow>
+          <sphereGeometry args={[radius, 16, 12]} />
+          <meshStandardMaterial color={index % 2 ? paint.grass : paint.evergreen} roughness={0.86} metalness={0} />
+        </mesh>)}
       <mesh position={[0, 0.12, 0]}><cylinderGeometry args={[0.36, 0.42, 0.23, 8]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
     </group>
   );
@@ -174,7 +179,7 @@ export function Town() {
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 0]} receiveShadow>
         <planeGeometry args={[25.8, 20.8]} />
-        <meshStandardMaterial color={paint.grass} emissive={paint.grass} emissiveIntensity={0.25} roughness={1} />
+        <meshStandardMaterial color={paint.grass} roughness={0.95} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.08, 1.2]} receiveShadow>
         <circleGeometry args={[4.15, 40]} />
@@ -196,12 +201,12 @@ export function Town() {
       <group name="TownHall"><TownHall /></group>
       <group name="PostBox"><PostBox /></group>
       <group name="ObservatoryExterior"><ObservatoryExterior /></group>
-      <Building position={[2.95, 0, -6.2]} groundedFoundation />
+      <StyleSample />
       <Building position={[9.4, 0, -6.3]} width={1.9} depth={1.9} height={1.95} groundedFoundation />
       <Tree position={[-11.25, 0, 2.6]} scale={0.9} />
       <Tree position={[-11.2, 0, -2.6]} scale={1.05} />
       <Tree position={[-4.2, 0, -7.7]} scale={0.8} />
-      <Tree position={[3.4, 0, -8.3]} scale={0.9} />
+      <Tree position={[4.8, 0, -7.5]} scale={0.9} />
       <Tree position={[10.7, 0, 1.7]} scale={0.85} />
       <Tree position={[10.6, 0, 7.4]} scale={1.1} />
       <Lantern position={[-3.35, 0, -0.5]} />
