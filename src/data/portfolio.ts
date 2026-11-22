@@ -25,7 +25,7 @@ export type PortfolioData = {
   affiliation: string;
   intro: string;
   email: string;
-  worldPlaceholder: { eyebrow: string; title: string; description: string };
+  worldIntro: { eyebrow: string; title: string; description: string };
   projects: Project[];
   experience: Experience[];
   resumeHref: string | null;
@@ -37,10 +37,10 @@ export const portfolio: PortfolioData = {
   affiliation: 'Rutgers University',
   intro: 'My projects and experience are collected below. A fuller introduction is coming soon.',
   email: 'banotatanish@gmail.com',
-  worldPlaceholder: {
-    eyebrow: 'Town blockout / Phase 2',
+  worldIntro: {
+    eyebrow: 'Town walk / Phase 3',
     title: 'A quiet town at twilight.',
-    description: 'Static preview: clock square, notice board, town hall, post box, and observatory. Walking and interactions arrive later.',
+    description: 'Walk with WASD or arrow keys. Explore the clock square and observatory path; landmark interactions arrive later.',
   },
   projects: [
     {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { portfolio } from './data/portfolio';
 import { Portfolio } from './ui/Portfolio';
 import { WorldCanvas } from './world/WorldCanvas';
@@ -8,6 +8,11 @@ type View = 'portfolio' | 'world';
 export default function App() {
   const [view, setView] = useState<View>('portfolio');
   const isWorld = view === 'world';
+  const worldMain = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (isWorld) worldMain.current?.focus({ preventScroll: true });
+  }, [isWorld]);
 
   return (
     <div className="site-shell">
@@ -29,13 +34,13 @@ export default function App() {
         </div>
       </header>
       {isWorld ? (
-        <main id="main-content" className="world-view">
+        <main id="main-content" className="world-view" ref={worldMain} tabIndex={-1}>
           <div className="world-moon" aria-hidden="true" />
           <WorldCanvas />
           <div className="world-overlay">
-            <p className="eyebrow">{portfolio.worldPlaceholder.eyebrow}</p>
-            <h1>{portfolio.worldPlaceholder.title}</h1>
-            <p>{portfolio.worldPlaceholder.description}</p>
+            <p className="eyebrow">{portfolio.worldIntro.eyebrow}</p>
+            <h1>{portfolio.worldIntro.title}</h1>
+            <p>{portfolio.worldIntro.description}</p>
             <button type="button" className="primary-button" onClick={() => setView('portfolio')}>View portfolio</button>
           </div>
         </main>

@@ -1,5 +1,9 @@
+import { useRef } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
+import { townSpawn } from './collision';
+import { FollowCamera } from './FollowCamera';
+import { Player } from './Player';
 import { Town } from './Town';
 
 function TownCamera() {
@@ -10,15 +14,17 @@ function TownCamera() {
     <OrthographicCamera
       makeDefault
       zoom={zoom}
-      position={[0, 18, 20]}
+      position={[townSpawn.x, 18, townSpawn.z + 20]}
       near={0.1}
       far={65}
-      onUpdate={(camera) => camera.lookAt(0, 0, 0)}
+      onUpdate={(camera) => camera.lookAt(townSpawn.x, 0, townSpawn.z)}
     />
   );
 }
 
 export function WorldCanvas() {
+  const playerPosition = useRef({ ...townSpawn });
+
   return (
     <div className="world-canvas" aria-hidden="true">
       <Canvas
@@ -44,6 +50,8 @@ export function WorldCanvas() {
           shadow-camera-far={45}
         />
         <Town />
+        <Player position={playerPosition} />
+        <FollowCamera position={playerPosition} />
       </Canvas>
     </div>
   );
