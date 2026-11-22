@@ -39,6 +39,12 @@ Edit code geometry in `src/world/Town.tsx`, `ClockTower.tsx`, `Fountain.tsx`, `O
 
 The code-built town and observatory models approximate the supplied references. Their detailed masonry, sculpted fountain figure, and refractive stained glass are simplified. The code-built fallback moon remains an approximation of the moon reference.
 
+### Surrounding scenery and character
+
+`TownScenery.tsx` builds rounded, clustered trees with visible trunks, small shrubs, and edged flower beds. Its repeated leaves, flowers, stones, and finishes share geometry and materials, and `BatchedStaticKit` merges compatible static meshes within the `TownScenery` group for export. `TownBuilding.tsx` refines the existing town hall with a rounded foundation, thick tiled gable roof, framed windows, and a rounded door. The two houses removed earlier remain absent. The flower beds and hall foundation have matching footprints in `collision.ts`; the plaza routes and observatory entrance remain open. `Player.tsx` keeps the existing ground footprint and identity while adding a larger face, rounded hands and boots, clearer clothing, and a small walking swing that stops for reduced motion.
+
+The paired normal-runtime captures use identical 1440 × 900 camera positions: [plaza before](preview/scenery-before-plaza.png) and [after](preview/scenery-after-plaza.png); [observatory approach before](preview/scenery-before-observatory.png) and [after](preview/scenery-after-observatory.png). The greenery and flower shapes remain deliberately simple at gameplay zoom rather than using detailed foliage textures.
+
 ### Northern lookout and moon
 
 `Town.tsx` builds the stone-framed terrace west of the clock tower near the north edge of the map. Its side walls have matching footprints in `collision.ts`, and the E anchor is on the flat, reachable center of the terrace. The terrace is exported in `town.glb` as `NorthLookout`. The user-provided [`majoras-moon.glb`](public/models/majoras-moon.glb) is ["The Legend Of Zelda Majoras Mask 3D - Moon" by Warrior364](https://sketchfab.com/3d-models/the-legend-of-zelda-majoras-mask-3d-moon-062f9773cb5b43338a60780e1e61c4bc), offered by its uploader under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The lookout UI also credits the author and license. The supplied original OBJ package and converted GLB both use a 256-pixel color texture; the GLB is the runtime asset.

@@ -28,7 +28,10 @@ export const townObstacles: Obstacle[] = [
   { minX: -3.7, maxX: -2.9, minZ: 3.0, maxZ: 3.8 }, // front plaza planters
   { minX: 2.9, maxX: 3.7, minZ: 3.0, maxZ: 3.8 },
   { minX: -7.75, maxX: -5.25, minZ: 2.0, maxZ: 2.3 }, // notice board
-  { minX: 4.35, maxX: 8.65, minZ: -3.2, maxZ: -0.1 }, // town hall
+  { minX: 4.24, maxX: 8.76, minZ: -3.31, maxZ: 0.01 }, // rounded town hall foundation
+  { x: -10.1, z: 5.2, radius: 0.68 }, // edged flower beds
+  { x: 9.35, z: -2.4, radius: 0.58 },
+  { x: 8.9, z: 7.85, radius: 0.61 },
   { minX: 7.0, maxX: 7.8, minZ: 4.33, maxZ: 4.97 }, // post box
   { minX: -10.72, maxX: -5.88, minZ: -8.87, maxZ: -4.03 }, // faceted observatory base
   { minX: -8.9, maxX: -7.7, minZ: -4.16, maxZ: -3.85 }, // entrance vestibule

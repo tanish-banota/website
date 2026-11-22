@@ -1,9 +1,10 @@
 import { paint } from './palette';
 import { BatchedStaticKit } from './BatchedStaticKit';
-import { StoneCourse, Window } from './TownDetails';
 import { ClockTower } from './ClockTower';
 import { ObservatoryExterior } from './ObservatoryExterior';
 import { Fountain } from './Fountain';
+import { TownHall } from './TownBuilding';
+import { GardenPatch, Shrub, Tree } from './TownScenery';
 import { northLookout } from './collision';
 
 type Point = [number, number];
@@ -46,36 +47,6 @@ function PlazaPaving() {
   </group>;
 }
 
-function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint.roof }: {
-  position: Position; width?: number; depth?: number; height?: number; roof?: string;
-}) {
-  return (
-    <group position={position}>
-      <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
-        <boxGeometry args={[width, height, depth]} />
-        <meshStandardMaterial color={paint.cream} roughness={1} />
-      </mesh>
-      <StoneCourse width={width} depth={depth} y={0.18} thickness={0.13} />
-      <StoneCourse width={width} depth={depth} y={height - 0.18} />
-      <mesh position={[0, height + 0.38, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
-        <coneGeometry args={[Math.max(width, depth) * 0.66, 0.92, 4]} />
-        <meshStandardMaterial color={roof} roughness={0.9} />
-      </mesh>
-      <mesh position={[0, height + 0.02, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
-        <coneGeometry args={[Math.max(width, depth) * 0.72, 0.18, 4]} />
-        <meshStandardMaterial color={paint.blue} roughness={0.9} />
-      </mesh>
-      <mesh position={[0, 0.8, depth / 2 + 0.03]}>
-        <boxGeometry args={[0.68, 1.56, 0.06]} />
-        <meshStandardMaterial color={paint.blue} />
-      </mesh>
-      <mesh position={[0, 1.62, depth / 2 + 0.08]}><boxGeometry args={[0.8, 0.11, 0.15]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
-      <mesh position={[0.23, 0.85, depth / 2 + 0.08]}><sphereGeometry args={[0.045, 8, 6]} /><meshStandardMaterial color={paint.gold} metalness={0.3} /></mesh>
-      {[-1, 1].map((side) => <Window key={side} x={side * width * 0.31} y={height * 0.65} z={depth / 2 + 0.04} />)}
-    </group>
-  );
-}
-
 function NoticeBoard() {
   return (
     <group position={[-6.5, 0, 2.15]}>
@@ -110,25 +81,6 @@ function NoticeBoard() {
   );
 }
 
-function TownHall() {
-  return (
-    <group position={[6.5, 0, -1.65]}>
-      <Building position={[0, 0, 0]} width={4.3} depth={3.1} height={3} roof={paint.roof} />
-      <mesh position={[0, 3.4, 1.6]}>
-        <boxGeometry args={[2.15, 0.47, 0.12]} />
-        <meshStandardMaterial color={paint.steel} />
-      </mesh>
-      <mesh position={[0, 1.06, 1.6]}>
-        <boxGeometry args={[1.15, 2.04, 0.08]} />
-        <meshStandardMaterial color={paint.blue} />
-      </mesh>
-      <mesh position={[0, 3.74, 1.62]}><boxGeometry args={[1.4, 0.14, 0.16]} /><meshStandardMaterial color={paint.gold} /></mesh>
-      <mesh position={[0, 2.15, 1.68]}><boxGeometry args={[1.3, 0.13, 0.22]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
-      {[-1, 1].map((side) => <Window key={side} x={side * 1.48} y={1.85} z={1.61} />)}
-    </group>
-  );
-}
-
 function PostBox() {
   return (
     <group position={[7.4, 0, 4.65]}>
@@ -146,27 +98,6 @@ function PostBox() {
       </mesh>
       <mesh position={[0, 0.12, 0]}><boxGeometry args={[1.02, 0.23, 0.83]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
       <mesh position={[0, 0.93, 0.335]}><boxGeometry args={[0.54, 0.09, 0.04]} /><meshStandardMaterial color={paint.cream} /></mesh>
-    </group>
-  );
-}
-
-function Tree({ position, scale = 1 }: { position: Position; scale?: number }) {
-  return (
-    <group position={position} scale={scale}>
-      <mesh position={[0, 0.018, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <circleGeometry args={[0.58, 16]} />
-        <meshStandardMaterial color={paint.blue} transparent opacity={0.14} depthWrite={false} />
-      </mesh>
-      <mesh position={[0, 0.52, 0]} castShadow>
-        <cylinderGeometry args={[0.14, 0.2, 1.04, 10]} />
-        <meshStandardMaterial color={paint.blue} roughness={0.85} />
-      </mesh>
-      {[[0, 1.58, 0, 0.82], [-0.47, 1.35, 0.08, 0.57], [0.43, 1.45, -0.08, 0.58], [0, 2.02, 0, 0.62]].map(([x, y, z, radius], index) =>
-        <mesh key={`${x}-${y}-${z}`} position={[x, y, z]} scale={[1, 0.88, 0.95]} castShadow>
-          <sphereGeometry args={[radius, 16, 12]} />
-          <meshStandardMaterial color={index % 2 ? paint.grass : paint.evergreen} roughness={0.86} metalness={0} />
-        </mesh>)}
-      <mesh position={[0, 0.12, 0]}><cylinderGeometry args={[0.36, 0.42, 0.23, 8]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
     </group>
   );
 }
@@ -242,11 +173,21 @@ export function Town() {
       <group name="TownHall"><TownHall /></group>
       <group name="PostBox"><PostBox /></group>
       <group name="ObservatoryExterior"><ObservatoryExterior /></group>
-      <Tree position={[-11.25, 0, 2.6]} scale={0.9} />
-      <Tree position={[-11.2, 0, -2.6]} scale={1.05} />
-      <Tree position={[4.8, 0, -7.5]} scale={0.9} />
-      <Tree position={[10.7, 0, 1.7]} scale={0.85} />
-      <Tree position={[10.6, 0, 7.4]} scale={1.1} />
+      <group name="TownScenery">
+        <Tree position={[-11.25, 0, 2.6]} scale={0.9} />
+        <Tree position={[-11.2, 0, -2.6]} scale={1.05} />
+        <Tree position={[4.8, 0, -7.5]} scale={0.9} />
+        <Tree position={[10.7, 0, 1.7]} scale={0.85} />
+        <Tree position={[10.6, 0, 7.4]} scale={1.1} />
+        <GardenPatch position={[-10.1, 0, 5.2]} />
+        <GardenPatch position={[9.35, 0, -2.4]} size={0.85} />
+        <GardenPatch position={[8.9, 0, 7.85]} size={0.9} />
+        <Shrub position={[-11.75, 0, 4.4]} />
+        <Shrub position={[-10.25, 0, -0.95]} scale={0.8} />
+        <Shrub position={[5.8, 0, -8.2]} scale={0.85} />
+        <Shrub position={[11.65, 0, 2.8]} scale={0.8} />
+        <Shrub position={[11.8, 0, 6.15]} scale={0.9} />
+      </group>
       <Lantern position={[-4.55, 0, 0.25]} />
       <Lantern position={[-5.95, 0, -3.9]} />
       <Lantern position={[4.6, 0, 2.1]} />
