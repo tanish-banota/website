@@ -1,16 +1,24 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import type { MutableRefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import type { Point } from './collision';
+import type { SceneId } from './interactions';
 
-const CAMERA_HEIGHT = 18;
-const CAMERA_DEPTH = 20;
+function offset(scene: SceneId) {
+  return scene === 'town' ? { height: 18, depth: 20 } : { height: 9, depth: 11 };
+}
 
-export function FollowCamera({ position }: { position: MutableRefObject<Point> }) {
+export function FollowCamera({ position, spawn, scene }: { position: MutableRefObject<Point>; spawn: Point; scene: SceneId }) {
   const camera = useThree((state) => state.camera);
   const destination = useRef(new Vector3());
   const reduceMotion = useRef(false);
+
+  useLayoutEffect(() => {
+    const { height, depth } = offset(scene);
+    camera.position.set(spawn.x, height, spawn.z + depth);
+    camera.lookAt(spawn.x, 0, spawn.z);
+  }, [camera, scene, spawn]);
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -21,10 +29,11 @@ export function FollowCamera({ position }: { position: MutableRefObject<Point> }
   }, []);
 
   useFrame((_, delta) => {
-    destination.current.set(position.current.x, CAMERA_HEIGHT, position.current.z + CAMERA_DEPTH);
+    const { height, depth } = offset(scene);
+    destination.current.set(position.current.x, height, position.current.z + depth);
     const follow = reduceMotion.current ? 1 : 1 - Math.exp(-8 * Math.max(0, delta));
     camera.position.lerp(destination.current, follow);
-    camera.lookAt(camera.position.x, camera.position.y - CAMERA_HEIGHT, camera.position.z - CAMERA_DEPTH);
+    camera.lookAt(camera.position.x, camera.position.y - height, camera.position.z - depth);
   });
 
   return null;

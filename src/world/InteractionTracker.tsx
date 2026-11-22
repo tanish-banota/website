@@ -3,7 +3,7 @@ import type { MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import type { Point } from './collision';
 import { anchors, nearestAnchor } from './interactions';
-import type { Anchor, PanelId, SceneId } from './interactions';
+import type { Anchor, SceneId } from './interactions';
 import { isUiTarget } from './useInput';
 
 export function InteractionTracker({ position, scene, enabled, onNearestChange, onActivate }: {
@@ -11,7 +11,7 @@ export function InteractionTracker({ position, scene, enabled, onNearestChange, 
   scene: SceneId;
   enabled: boolean;
   onNearestChange: (anchor: Anchor | null) => void;
-  onActivate: (panel: PanelId) => void;
+  onActivate: (anchor: Anchor) => void;
 }) {
   const current = useRef<Anchor | null>(null);
 
@@ -33,7 +33,7 @@ export function InteractionTracker({ position, scene, enabled, onNearestChange, 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key.toLowerCase() !== 'e' || event.repeat || isUiTarget(event.target) || document.querySelector('dialog[open]')) return;
       const target = current.current;
-      if (target) onActivate(target.target);
+      if (target) onActivate(target);
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);

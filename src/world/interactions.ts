@@ -2,6 +2,7 @@ import type { ProjectId } from '../data/portfolio';
 
 export type SceneId = 'town' | 'observatory';
 export type PanelId = 'about' | 'experience' | 'contact' | ProjectId;
+export type Destination = { type: 'panel'; id: PanelId } | { type: 'scene'; id: SceneId };
 
 export type Anchor = {
   id: string;
@@ -10,16 +11,18 @@ export type Anchor = {
   z: number;
   radius: number;
   label: string;
-  target: PanelId;
+  target: Destination;
 };
 
-// Anchors are on reachable ground in front of town landmarks. The observatory
-// interior and telescope anchor are reserved for Phase 5.
+// Anchors sit on reachable ground in front of their landmark.
 export const anchors: Anchor[] = [
-  { id: 'clock-square', scene: 'town', x: 0, z: 2.5, radius: 1.35, label: 'About Tanish', target: 'about' },
-  { id: 'notice-board', scene: 'town', x: -6.5, z: 3.1, radius: 1.1, label: 'Event Finder', target: 'event-finder' },
-  { id: 'town-hall', scene: 'town', x: 6.5, z: 0.65, radius: 1.2, label: 'Experience', target: 'experience' },
-  { id: 'post-box', scene: 'town', x: 7.4, z: 5.55, radius: 1.05, label: 'Contact', target: 'contact' },
+  { id: 'clock-square', scene: 'town', x: 0, z: 2.5, radius: 1.35, label: 'About Tanish', target: { type: 'panel', id: 'about' } },
+  { id: 'notice-board', scene: 'town', x: -6.5, z: 3.1, radius: 1.1, label: 'Event Finder', target: { type: 'panel', id: 'event-finder' } },
+  { id: 'town-hall', scene: 'town', x: 6.5, z: 0.65, radius: 1.2, label: 'Experience', target: { type: 'panel', id: 'experience' } },
+  { id: 'post-box', scene: 'town', x: 7.4, z: 5.55, radius: 1.05, label: 'Contact', target: { type: 'panel', id: 'contact' } },
+  { id: 'observatory-door', scene: 'town', x: -8.3, z: -3.35, radius: 0.85, label: 'Enter observatory', target: { type: 'scene', id: 'observatory' } },
+  { id: 'telescope', scene: 'observatory', x: 0, z: 0.25, radius: 0.9, label: 'Use telescope', target: { type: 'panel', id: 'tranquility-base' } },
+  { id: 'observatory-exit', scene: 'observatory', x: 0, z: 2.35, radius: 0.75, label: 'Exit observatory', target: { type: 'scene', id: 'town' } },
 ];
 
 export function nearestAnchor(x: number, z: number, scene: SceneId, candidates: Anchor[]): Anchor | null {

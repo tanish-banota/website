@@ -2,13 +2,21 @@ import { useRef } from 'react';
 import type { MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import type { Group } from 'three';
-import { moveOnGround, townBounds, townObstacles, townSpawn } from './collision';
+import { useLayoutEffect } from 'react';
+import { moveOnGround, observatoryBounds, observatoryObstacles, townBounds, townObstacles } from './collision';
 import type { Point } from './collision';
+import type { SceneId } from './interactions';
 import { useInput } from './useInput';
 
-export function Player({ position, enabled }: { position: MutableRefObject<Point>; enabled: boolean }) {
+export function Player({ position, spawn, scene, enabled }: { position: MutableRefObject<Point>; spawn: Point; scene: SceneId; enabled: boolean }) {
   const model = useRef<Group>(null);
   const keys = useInput(enabled);
+
+  useLayoutEffect(() => {
+    position.current = { ...spawn };
+    model.current?.position.set(spawn.x, 0, spawn.z);
+    if (model.current) model.current.rotation.y = 0;
+  }, [position, spawn, scene]);
 
   useFrame((_, delta) => {
     if (!enabled) return;
@@ -17,14 +25,16 @@ export function Player({ position, enabled }: { position: MutableRefObject<Point
       x: Number(held.right) - Number(held.left),
       z: Number(held.down) - Number(held.up),
     };
-    position.current = moveOnGround(position.current, input, delta, townObstacles, townBounds);
+    const obstacles = scene === 'town' ? townObstacles : observatoryObstacles;
+    const bounds = scene === 'town' ? townBounds : observatoryBounds;
+    position.current = moveOnGround(position.current, input, delta, obstacles, bounds);
     if (!model.current) return;
     model.current.position.set(position.current.x, 0, position.current.z);
     if (input.x || input.z) model.current.rotation.y = Math.atan2(input.x, input.z);
   });
 
   return (
-    <group ref={model} position={[townSpawn.x, 0, townSpawn.z]}>
+    <group ref={model} position={[spawn.x, 0, spawn.z]}>
       <mesh position={[0, 0.45, 0]} castShadow>
         <cylinderGeometry args={[0.27, 0.3, 0.8, 10]} />
         <meshStandardMaterial color="#665087" roughness={1} />

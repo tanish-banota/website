@@ -25,7 +25,7 @@ export type PortfolioData = {
   affiliation: string;
   intro: string;
   email: string;
-  worldIntro: { eyebrow: string; title: string; description: string };
+  worldIntro: Record<'town' | 'observatory', { eyebrow: string; title: string; description: string }>;
   projects: Project[];
   experience: Experience[];
   resumeHref: string | null;
@@ -38,9 +38,16 @@ export const portfolio: PortfolioData = {
   intro: 'My projects and experience are collected below. A fuller introduction is coming soon.',
   email: 'banotatanish@gmail.com',
   worldIntro: {
-    eyebrow: 'Town walk / Phase 4',
-    title: 'A quiet town at twilight.',
-    description: 'Walk with WASD or arrow keys. Press E near a landmark to read its panel. The observatory interior arrives later.',
+    town: {
+      eyebrow: 'Town walk / Phase 5',
+      title: 'A quiet town at twilight.',
+      description: 'Walk with WASD or arrow keys. Press E near the observatory door to go inside.',
+    },
+    observatory: {
+      eyebrow: 'Observatory / Phase 5',
+      title: 'Look to the Moon.',
+      description: 'Press E at the telescope to see Tranquility Base, or at the doorway to return to town.',
+    },
   },
   projects: [
     {
@@ -53,7 +60,10 @@ export const portfolio: PortfolioData = {
       id: 'tranquility-base',
       title: 'Tranquility Base',
       summary: 'A lunar south-pole landing-site explorer that visualizes terrain, sunlight, and Earth visibility in 3D and compares alternative sites and dates against mission constraints.',
-      links: [{ label: 'GitHub', href: 'https://github.com/rohansh2017/Space-Apps-2026' }],
+      links: [
+        { label: 'Live demo', href: 'https://tranquility-base.rohansh2017.workers.dev' },
+        { label: 'GitHub', href: 'https://github.com/rohansh2017/Space-Apps-2026' },
+      ],
     },
     {
       id: 'scarlet-exchange',

@@ -8,6 +8,14 @@ export const MAX_FRAME_DELTA = 0.033;
 // The visible terrain is 25.8 x 20.8, centered on the origin.
 export const townBounds: Rect = { minX: -12.9, maxX: 12.9, minZ: -10.4, maxZ: 10.4 };
 export const townSpawn: Point = { x: 0, z: 3.5 };
+export const townReturnSpawn: Point = { x: -7.0, z: -3.5 };
+export const observatorySpawn: Point = { x: 0, z: 1.4 };
+export const observatoryBounds: Rect = { minX: -2.4, maxX: 2.4, minZ: -2.8, maxZ: 3.1 };
+export const observatoryObstacles: Rect[] = [
+  { minX: -0.58, maxX: 0.58, minZ: -1.8, maxZ: -0.65 }, // telescope pedestal
+  { minX: -1.2, maxX: -0.9, minZ: 2.8, maxZ: 3.2 }, // exit frame
+  { minX: 0.9, maxX: 1.2, minZ: 2.8, maxZ: 3.2 },
+];
 
 // Hand-authored ground footprints for Phase 2 geometry. Decorative roofs do not affect walking.
 export const townObstacles: Rect[] = [

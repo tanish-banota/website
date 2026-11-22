@@ -72,7 +72,7 @@ export function ProjectDialog({ panel, onDismiss }: { panel: PanelId | null; onD
   };
 
   return (
-    <dialog ref={dialog} className="project-dialog" aria-labelledby="dialog-title" onClose={close}>
+    <dialog ref={dialog} className={`project-dialog ${panel === 'tranquility-base' ? 'lunar-dialog' : ''}`} aria-labelledby="dialog-title" onClose={close}>
       <div className="dialog-heading">
         <h2 id="dialog-title" ref={title} tabIndex={-1}>{heading}</h2>
         <button type="button" className="dialog-close" onClick={() => dialog.current?.close()} aria-label="Close panel">Close</button>
