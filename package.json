@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "biome lint src scripts vite.config.ts",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "export:assets": "node scripts/export-phase6.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

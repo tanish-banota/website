@@ -19,6 +19,7 @@ export const observatoryObstacles: Rect[] = [
 
 // Hand-authored ground footprints for Phase 2 geometry. Decorative roofs do not affect walking.
 export const townObstacles: Rect[] = [
+  { minX: -3.18, maxX: -1.42, minZ: 0.37, maxZ: 2.13 }, // fountain basin
   { minX: -1.15, maxX: 1.15, minZ: -2.75, maxZ: -0.65 }, // clock tower
   { minX: -7.75, maxX: -5.25, minZ: 2.0, maxZ: 2.3 }, // notice board
   { minX: 4.35, maxX: 8.65, minZ: -3.2, maxZ: -0.1 }, // town hall

@@ -1,44 +1,102 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 
-const targets = await (await fetch('http://127.0.0.1:9222/json')).json();
-const target = targets.find((item) => item.type === 'page' && item.url.includes('127.0.0.1:5173'));
-if (!target) throw new Error('Local preview tab not found');
-const socket = new WebSocket(target.webSocketDebuggerUrl);
-await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });
-let id = 0;
-const pending = new Map();
-socket.onmessage = ({ data }) => {
-  const message = JSON.parse(data);
-  if (!message.id) return;
-  const entry = pending.get(message.id);
-  pending.delete(message.id);
-  if (message.error) entry.reject(new Error(message.error.message)); else entry.resolve(message.result);
-};
-function command(method, params = {}) {
-  const next = ++id;
-  return new Promise((resolve, reject) => {
-    pending.set(next, { resolve, reject });
-    socket.send(JSON.stringify({ id: next, method, params }));
-  });
-}
-async function evaluate(expression) {
-  const result = await command('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });
-  if (result.exceptionDetails) throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
-  return result.result.value;
-}
-await command('Runtime.enable');
-await command('Page.enable');
-await command('Page.navigate', { url: 'http://127.0.0.1:5173/?asset-export=town' });
-await new Promise((resolve) => setTimeout(resolve, 1500));
-await mkdir('public/models', { recursive: true });
-for (const [name, path] of [['Town', 'town.glb'], ['Observatory', 'observatory.glb']]) {
-  if (name === 'Observatory') {
-    await command('Page.navigate', { url: 'http://127.0.0.1:5173/?asset-export=observatory' });
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+const root = resolve(import.meta.dirname, '..');
+const appPort = 51000 + Math.floor(Math.random() * 10000);
+const appUrl = `http://127.0.0.1:${appPort}/`;
+const browserPath = process.env.TWILIGHT_BROWSER || [
+  'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
+  'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
+  'C:/Program Files/Google/Chrome/Application/chrome.exe',
+].find(existsSync);
+if (!browserPath) throw new Error('Set TWILIGHT_BROWSER to a Chrome or Edge executable');
+const profile = await mkdtemp(join(tmpdir(), 'twilight-export-'));
+const vite = spawn(process.execPath, [resolve(root, 'node_modules/vite/bin/vite.js'), '--host', '127.0.0.1', '--port', String(appPort), '--strictPort'], { cwd: root, stdio: 'ignore' });
+const browser = spawn(browserPath, ['--headless=new', '--disable-gpu', '--enable-unsafe-swiftshader', '--no-first-run', '--remote-debugging-port=0', `--user-data-dir=${profile}`, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
+browser.stderr.on('data', (chunk) => { if (process.env.TWILIGHT_EXPORT_DEBUG) process.stderr.write(chunk); });
+const delay = (ms) => new Promise((resolveDelay) => setTimeout(resolveDelay, ms));
+async function until(task, label) {
+  const deadline = Date.now() + 30000;
+  let last;
+  while (Date.now() < deadline) {
+    try { const result = await task(); if (result) return result; } catch (error) { last = error; }
+    await delay(150);
   }
-  const base64 = await evaluate(`import('/src/world/exportAssets.ts').then(m => m.exportKit('${name}'))`);
-  const buffer = Buffer.from(base64, 'base64');
-  await writeFile(`public/models/${path}`, buffer);
-  console.log(path, buffer.length, 'bytes');
+  throw new Error(`Timed out waiting for ${label}${last ? `: ${last.message}` : ''}`);
 }
-socket.close();
+let socket;
+const keepAlive = setInterval(() => {}, 1000);
+try {
+  await until(async () => (await fetch(appUrl)).ok, 'Vite');
+  const port = await until(async () => Number((await readFile(join(profile, 'DevToolsActivePort'), 'utf8')).split('\n')[0]), 'browser debugger');
+  const target = await until(async () => (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find((item) => item.type === 'page'), 'browser page');
+  socket = new WebSocket(target.webSocketDebuggerUrl);
+  await new Promise((resolveOpen, reject) => { socket.onopen = resolveOpen; socket.onerror = reject; });
+  if (process.env.TWILIGHT_EXPORT_DEBUG) console.log('Connected to', target.webSocketDebuggerUrl);
+  let id = 0;
+  const pending = new Map();
+  socket.onmessage = ({ data }) => {
+    const message = JSON.parse(data);
+    if (!message.id) return;
+    const entry = pending.get(message.id);
+    pending.delete(message.id);
+    if (message.error) entry.reject(new Error(message.error.message)); else entry.resolve(message.result);
+  };
+  function command(method, params = {}) {
+    const next = ++id;
+    return new Promise((resolveCommand, reject) => {
+      pending.set(next, { resolve: resolveCommand, reject });
+      socket.send(JSON.stringify({ id: next, method, params }));
+      setTimeout(() => { if (pending.delete(next)) reject(new Error(`${method} timed out (socket ${socket.readyState})`)); }, 10000);
+    });
+  }
+  async function evaluate(expression) {
+    const result = await command('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });
+    if (result.exceptionDetails) throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+    return result.result.value;
+  }
+  await command('Runtime.enable');
+  await command('Page.enable');
+  await mkdir(resolve(root, 'public/models'), { recursive: true });
+  for (const [name, file, global] of [
+    ['Town', 'town.glb', '__twilightTownKit'],
+    ['Observatory', 'observatory.glb', '__twilightObservatoryKit'],
+  ]) {
+    await command('Page.navigate', { url: `${appUrl}?asset-export=${name.toLowerCase()}` });
+    await until(() => evaluate(`Boolean(window.${global})`), `${name} source kit`);
+    const base64 = await evaluate(`import('/src/world/exportAssets.ts').then(m => m.exportKit('${name}'))`);
+    const buffer = Buffer.from(base64, 'base64');
+    assert.equal(buffer.toString('ascii', 0, 4), 'glTF');
+    const jsonLength = buffer.readUInt32LE(12);
+    const names = JSON.parse(buffer.toString('utf8', 20, 20 + jsonLength)).nodes?.map((node) => node.name) ?? [];
+    assert.ok(names.includes(name === 'Town' ? 'ClockTower' : 'Telescope'), `${file} lost replaceable groups`);
+    assert.ok(!names.includes('FountainWater'), `${file} contains runtime water`);
+    await writeFile(resolve(root, 'public/models', file), buffer);
+    console.log(`${file}: ${buffer.length} bytes; landmark groups preserved`);
+  }
+  await command('Page.navigate', { url: appUrl });
+  await until(() => evaluate('Boolean(window.__twilightRuntimeAsset)'), 'normal application GLB');
+  const runtime = await evaluate(`(() => {
+    const asset = window.__twilightRuntimeAsset;
+    const tower = asset.getObjectByName('ClockTower');
+    const colors = [];
+    tower?.traverse(object => { if (object.isMesh && object.material.color) colors.push(object.material.color.getHexString()); });
+    return { tower: Boolean(tower), fountain: Boolean(asset.getObjectByName('Fountain')), colors,
+      request: performance.getEntriesByType('resource').some(entry => entry.name.includes('/models/town.glb')) };
+  })()`);
+  assert.ok(runtime.tower && runtime.fountain && runtime.request, 'normal application did not load the exported town GLB');
+  const expected = process.argv.find((arg) => arg.startsWith('--expect-clock-color='))?.split('=')[1]?.replace('#', '').toLowerCase();
+  if (expected) assert.ok(runtime.colors.includes(expected), `normal application clock colors ${runtime.colors.join(', ')} lack ${expected}`);
+  console.log(`Normal application loaded exported GLB; clock colors: ${runtime.colors.join(', ')}`);
+} finally {
+  clearInterval(keepAlive);
+  socket?.close();
+  browser.kill();
+  vite.kill();
+  await delay(300);
+  await rm(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
+}

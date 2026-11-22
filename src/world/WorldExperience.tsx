@@ -18,18 +18,25 @@ export default function WorldExperience({ onExit, onFatalError }: { onExit: () =
   const [transition, setTransition] = useState<Transition>('idle');
   const [assetError, setAssetError] = useState(false);
   const [guideOpen, setGuideOpen] = useState(true);
+  const [moonVisible, setMoonVisible] = useState(false);
   const worldMain = useRef<HTMLElement>(null);
   const pendingScene = useRef<SceneId | null>(null);
 
   const handleNearestChange = useCallback((next: Anchor | null) => {
     setNearest((current) => current?.id === next?.id ? current : next);
+    if (next?.id !== 'north-lookout') setMoonVisible(false);
   }, []);
   const activateAnchor = useCallback((anchor: Anchor) => {
+    if (anchor.target.type === 'lookout') {
+      setMoonVisible((visible) => !visible);
+      return;
+    }
     if (anchor.target.type === 'panel') {
       setActivePanel(anchor.target.id);
       return;
     }
     const next = anchor.target.id;
+    setMoonVisible(false);
     pendingScene.current = next;
     setNearest(null);
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -67,7 +74,7 @@ export default function WorldExperience({ onExit, onFatalError }: { onExit: () =
 
   return <>
     <main id="main-content" className={`world-view ${scene === 'observatory' ? 'interior' : ''} ${guideOpen ? '' : 'guide-closed'}`} ref={worldMain} tabIndex={-1}>
-      <div className="world-moon" aria-hidden="true" />
+      {scene === 'town' && moonVisible && <div className="world-moon" aria-hidden="true" />}
       <WorldCanvas scene={scene} spawn={spawn} enabled={activePanel === null && transition === 'idle'}
         onNearestChange={handleNearestChange} onOpenPanel={activateAnchor}
         onAssetError={() => setAssetError(true)} onFatalError={onFatalError} />

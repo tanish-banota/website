@@ -24,7 +24,7 @@ test('anchors from another scene cannot be selected', () => {
 });
 
 test('town and interior anchors and transition spawns are clear of obstacles', () => {
-  assert.equal(anchors.filter((anchor) => anchor.scene === 'town').length, 5);
+  assert.equal(anchors.filter((anchor) => anchor.scene === 'town').length, 6);
   assert.equal(anchors.filter((anchor) => anchor.scene === 'observatory').length, 2);
   for (const anchor of anchors.filter((item) => item.scene === 'town')) {
     assert.equal(blocked(anchor.x, anchor.z, PLAYER_RADIUS, townObstacles, townBounds), false, anchor.id);
@@ -38,4 +38,5 @@ test('town and interior anchors and transition spawns are clear of obstacles', (
   assert.equal(blocked(observatorySpawn.x, observatorySpawn.z, PLAYER_RADIUS, observatoryObstacles, observatoryBounds), false);
   assert.deepEqual(anchors.find((anchor) => anchor.id === 'observatory-door')?.target, { type: 'scene', id: 'observatory' });
   assert.deepEqual(anchors.find((anchor) => anchor.id === 'observatory-exit')?.target, { type: 'scene', id: 'town' });
+  assert.deepEqual(anchors.find((anchor) => anchor.id === 'north-lookout')?.target, { type: 'lookout' });
 });

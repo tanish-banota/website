@@ -1,28 +1,15 @@
 import { paint } from './palette';
 import { BatchedStaticKit } from './BatchedStaticKit';
+import { StoneCourse, Window } from './TownDetails';
+import { ClockTower } from './ClockTower';
+import { ObservatoryExterior } from './ObservatoryExterior';
+import { Fountain } from './Fountain';
 
 type Point = [number, number];
 type Position = [number, number, number];
 
 // The kit is built at world scale with bases at y=0. Decorative pieces never
 // participate in collision; collision.ts retains the approved footprints.
-function StoneCourse({ width, depth, y, thickness = 0.13 }: { width: number; depth: number; y: number; thickness?: number }) {
-  return <mesh position={[0, y, 0]} castShadow receiveShadow>
-    <boxGeometry args={[width + 0.12, thickness, depth + 0.12]} />
-    <meshStandardMaterial color={paint.stoneShade} roughness={1} />
-  </mesh>;
-}
-
-function Window({ x, y, z }: { x: number; y: number; z: number }) {
-  return <group position={[x, y, z]}>
-    <mesh><boxGeometry args={[0.53, 0.73, 0.09]} /><meshStandardMaterial color={paint.blue} /></mesh>
-    <mesh position={[0, 0, 0.052]}><boxGeometry args={[0.38, 0.56, 0.025]} /><meshStandardMaterial color={paint.gold} emissive={paint.gold} emissiveIntensity={0.45} /></mesh>
-    <mesh position={[0, 0, 0.08]}><boxGeometry args={[0.055, 0.61, 0.03]} /><meshStandardMaterial color={paint.cream} /></mesh>
-    <mesh position={[0, 0, 0.08]}><boxGeometry args={[0.42, 0.05, 0.03]} /><meshStandardMaterial color={paint.cream} /></mesh>
-    <mesh position={[0, -0.4, 0.03]} castShadow><boxGeometry args={[0.66, 0.09, 0.2]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
-  </group>;
-}
-
 function Path({ from, to, width = 1.2 }: { from: Point; to: Point; width?: number }) {
   const dx = to[0] - from[0];
   const dz = to[1] - from[1];
@@ -61,46 +48,6 @@ function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint
       <mesh position={[0, 1.62, depth / 2 + 0.08]}><boxGeometry args={[0.8, 0.11, 0.15]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
       <mesh position={[0.23, 0.85, depth / 2 + 0.08]}><sphereGeometry args={[0.045, 8, 6]} /><meshStandardMaterial color={paint.gold} metalness={0.3} /></mesh>
       {[-1, 1].map((side) => <Window key={side} x={side * width * 0.31} y={height * 0.65} z={depth / 2 + 0.04} />)}
-    </group>
-  );
-}
-
-function ClockTower() {
-  return (
-    <group position={[0, 0, -1.7]}>
-      <mesh position={[0, 2.35, 0]} castShadow receiveShadow>
-        <boxGeometry args={[2.3, 4.7, 2.1]} />
-        <meshStandardMaterial color={paint.cream} roughness={1} />
-      </mesh>
-      <mesh position={[0, 4.98, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
-        <coneGeometry args={[1.75, 1.55, 4]} />
-        <meshStandardMaterial color={paint.roof} />
-      </mesh>
-      <StoneCourse width={2.3} depth={2.1} y={0.16} />
-      <StoneCourse width={2.3} depth={2.1} y={2.0} />
-      <StoneCourse width={2.3} depth={2.1} y={4.55} />
-      {[-1, 1].map((side) => <Window key={side} x={side * 0.69} y={2.52} z={1.09} />)}
-      <mesh position={[0, 3.45, 1.075]}>
-        <circleGeometry args={[0.67, 32]} />
-        <meshStandardMaterial color={paint.blue} />
-      </mesh>
-      <mesh position={[0, 3.45, 1.09]}>
-        <torusGeometry args={[0.66, 0.08, 8, 32]} />
-        <meshStandardMaterial color={paint.gold} />
-      </mesh>
-      <mesh position={[0.12, 3.65, 1.1]} rotation={[0, 0, -0.55]}>
-        <boxGeometry args={[0.055, 0.55, 0.04]} />
-        <meshStandardMaterial color={paint.cream} />
-      </mesh>
-      <mesh position={[-0.16, 3.43, 1.1]} rotation={[0, 0, Math.PI / 2]}>
-        <boxGeometry args={[0.055, 0.42, 0.04]} />
-        <meshStandardMaterial color={paint.cream} />
-      </mesh>
-      <mesh position={[0, 0.82, 1.08]}>
-        <boxGeometry args={[0.8, 1.62, 0.05]} />
-        <meshStandardMaterial color={paint.blue} />
-      </mesh>
-      <mesh position={[0, 1.67, 1.12]}><boxGeometry args={[0.93, 0.12, 0.18]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
     </group>
   );
 }
@@ -179,32 +126,6 @@ function PostBox() {
   );
 }
 
-function Observatory() {
-  return (
-    <group position={[-8.3, 0, -6.45]}>
-      <mesh position={[0, 1.05, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[2.25, 2.35, 2.1, 20]} />
-        <meshStandardMaterial color={paint.cream} roughness={1} />
-      </mesh>
-      <mesh position={[0, 2.1, 0]} castShadow>
-        <sphereGeometry args={[2.28, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
-        <meshStandardMaterial color={paint.steel} emissive={paint.steel} emissiveIntensity={0.2} roughness={0.7} metalness={0.15} />
-      </mesh>
-      <mesh position={[0, 2.13, 0]}><torusGeometry args={[2.25, 0.08, 6, 32]} /><meshStandardMaterial color={paint.blue} /></mesh>
-      <mesh position={[0, 0.18, 0]}><cylinderGeometry args={[2.43, 2.43, 0.35, 20]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
-      <mesh position={[0, 2.8, 1.68]} rotation={[-0.4, 0, 0]}><boxGeometry args={[0.2, 1.35, 0.12]} /><meshStandardMaterial color={paint.blue} /></mesh>
-      <mesh position={[0, 0.85, 2.25]}>
-        <boxGeometry args={[0.96, 1.6, 0.11]} />
-        <meshStandardMaterial color={paint.blue} />
-      </mesh>
-      <mesh position={[0, 1.75, 2.31]}>
-        <boxGeometry args={[1.25, 0.12, 0.13]} />
-        <meshStandardMaterial color={paint.gold} emissive={paint.gold} emissiveIntensity={0.4} />
-      </mesh>
-    </group>
-  );
-}
-
 function Tree({ position, scale = 1 }: { position: Position; scale?: number }) {
   return (
     <group position={position} scale={scale}>
@@ -265,11 +186,16 @@ export function Town() {
       <Path from={[-4, 2]} to={[-6.2, 2]} width={1.1} />
       <Path from={[3.6, 1.2]} to={[5.2, -0.2]} width={1.4} />
       <Path from={[3.6, 2.3]} to={[7.1, 4.1]} width={1.05} />
-      <ClockTower />
-      <NoticeBoard />
-      <TownHall />
-      <PostBox />
-      <Observatory />
+      <group name="NorthLookout" position={[0, 0, -8.8]}>
+        <mesh position={[0, 0.1, 0]} receiveShadow><cylinderGeometry args={[0.75, 0.82, 0.2, 12]} /><meshStandardMaterial color={paint.stoneShade} roughness={1} /></mesh>
+        <mesh position={[0, 0.22, 0]} rotation={[-Math.PI / 2, 0, 0]}><ringGeometry args={[0.55, 0.65, 12]} /><meshStandardMaterial color={paint.gold} /></mesh>
+      </group>
+      <group name="ClockTower"><ClockTower /></group>
+      <Fountain />
+      <group name="NoticeBoard"><NoticeBoard /></group>
+      <group name="TownHall"><TownHall /></group>
+      <group name="PostBox"><PostBox /></group>
+      <group name="ObservatoryExterior"><ObservatoryExterior /></group>
       <Building position={[2.95, 0, -6.2]} groundedFoundation />
       <Building position={[9.4, 0, -6.3]} width={1.9} depth={1.9} height={1.95} groundedFoundation />
       <Tree position={[-11.25, 0, 2.6]} scale={0.9} />

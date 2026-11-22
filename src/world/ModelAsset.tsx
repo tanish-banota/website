@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { Mesh } from 'three';
+import type { Group } from 'three';
 
 export function ModelAsset({ file }: { file: 'town.glb' | 'observatory.glb' }) {
   const { scene } = useGLTF(`${import.meta.env.BASE_URL}models/${file}`);
@@ -17,5 +18,10 @@ export function ModelAsset({ file }: { file: 'town.glb' | 'observatory.glb' }) {
     });
     return copy;
   }, [scene, file]);
+  useLayoutEffect(() => {
+    if (!import.meta.env.DEV) return;
+    (window as Window & { __twilightRuntimeAsset?: Group }).__twilightRuntimeAsset = model;
+    return () => { delete (window as Window & { __twilightRuntimeAsset?: Group }).__twilightRuntimeAsset; };
+  }, [model]);
   return <primitive object={model} />;
 }

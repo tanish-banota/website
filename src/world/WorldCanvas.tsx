@@ -10,6 +10,7 @@ import { AssetBoundary } from './AssetBoundary';
 import { ObservatoryFallback } from './ObservatoryFallback';
 import { Player } from './Player';
 import { TownFallback } from './TownFallback';
+import { FountainWater } from './Fountain';
 
 const TownSource = lazy(() => import('./Town').then((module) => ({ default: module.Town })));
 const ObservatorySource = lazy(() => import('./Observatory').then((module) => ({ default: module.Observatory })));
@@ -118,6 +119,7 @@ export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPane
             <Suspense fallback={<ObservatoryFallback />}>{exportMode ? <ObservatorySource /> : <ModelAsset file="observatory.glb" />}</Suspense>
           </AssetBoundary>
         )}
+        {scene === 'town' && <FountainWater />}
         <Player position={playerPosition} spawn={spawn} scene={scene} enabled={enabled} />
         <FollowCamera position={playerPosition} spawn={spawn} scene={scene} />
         <InteractionTracker
