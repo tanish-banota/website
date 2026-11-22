@@ -8,6 +8,15 @@ import type { Point } from './collision';
 import type { Anchor, PanelId, SceneId } from './interactions';
 
 type Transition = 'idle' | 'cover' | 'reveal';
+const guideDismissedKey = 'twilight-town-guide-dismissed';
+
+function guideWasDismissed() {
+  try {
+    return window.localStorage.getItem(guideDismissedKey) === 'true';
+  } catch {
+    return false;
+  }
+}
 
 export default function WorldExperience({ onExit, onFatalError }: { onExit: () => void; onFatalError: () => void }) {
   const params = new URLSearchParams(window.location.search);
@@ -22,7 +31,7 @@ export default function WorldExperience({ onExit, onFatalError }: { onExit: () =
   const [spawn, setSpawn] = useState<Point>(devScene === 'town' ? previewSpawn : observatorySpawn);
   const [transition, setTransition] = useState<Transition>('idle');
   const [assetError, setAssetError] = useState(false);
-  const [guideOpen, setGuideOpen] = useState(true);
+  const [guideOpen, setGuideOpen] = useState(() => !guideWasDismissed());
   const [moonVisible, setMoonVisible] = useState(false);
   const worldMain = useRef<HTMLElement>(null);
   const pendingScene = useRef<SceneId | null>(null);
@@ -72,8 +81,17 @@ export default function WorldExperience({ onExit, onFatalError }: { onExit: () =
 
   useLayoutEffect(() => { worldMain.current?.focus({ preventScroll: true }); }, []);
 
-  const toggleGuide = () => {
-    setGuideOpen((open) => !open);
+  const closeGuide = () => {
+    setGuideOpen(false);
+    try {
+      window.localStorage.setItem(guideDismissedKey, 'true');
+    } catch {
+      // Keep the current view usable when storage is unavailable.
+    }
+    requestAnimationFrame(() => worldMain.current?.focus({ preventScroll: true }));
+  };
+  const showGuide = () => {
+    setGuideOpen(true);
     requestAnimationFrame(() => worldMain.current?.focus({ preventScroll: true }));
   };
 
@@ -84,13 +102,13 @@ export default function WorldExperience({ onExit, onFatalError }: { onExit: () =
         onNearestChange={handleNearestChange} onOpenPanel={activateAnchor}
         onAssetError={() => setAssetError(true)} onFatalError={onFatalError} />
       {guideOpen ? <div className="world-overlay" id="town-guide">
-        <button type="button" className="world-guide-close" onClick={toggleGuide} aria-label="Close town guide">×</button>
+        <button type="button" className="world-guide-close" onClick={closeGuide} aria-label="Close town guide">×</button>
         <p className="eyebrow">{portfolio.worldIntro[scene].eyebrow}</p>
         <h1>{portfolio.worldIntro[scene].title}</h1>
         <p>{portfolio.worldIntro[scene].description}</p>
         {assetError && <p role="status">Scene detail failed to load. Landmarks and interactions remain available.</p>}
         <button type="button" className="primary-button" onClick={onExit}>View portfolio</button>
-      </div> : <button type="button" className="world-guide-reopen" onClick={toggleGuide}>Show town guide</button>}
+      </div> : <button type="button" className="world-guide-reopen" onClick={showGuide}>Show town guide</button>}
       {activePanel === null && transition === 'idle' && <Hud nearest={nearest} />}
       <div className={`scene-fade ${transition}`} aria-hidden="true" onTransitionEnd={handleFadeEnd} />
     </main>

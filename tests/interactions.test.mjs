@@ -73,3 +73,16 @@ test('the fountain has two clear side routes and every town interaction is reach
       `${target.id ?? 'town return spawn'} is unreachable`);
   }
 });
+
+test('the observatory spawn can reach the eyepiece and exit on open floor', () => {
+  for (const id of ['telescope', 'observatory-exit']) {
+    const anchor = anchors.find((item) => item.id === id);
+    assert.ok(anchor);
+    for (let step = 0; step <= 20; step++) {
+      const amount = step / 20;
+      const x = observatorySpawn.x + (anchor.x - observatorySpawn.x) * amount;
+      const z = observatorySpawn.z + (anchor.z - observatorySpawn.z) * amount;
+      assert.equal(blocked(x, z, PLAYER_RADIUS, observatoryObstacles, observatoryBounds), false, `${id} route at ${amount}`);
+    }
+  }
+});

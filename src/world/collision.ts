@@ -12,11 +12,10 @@ export const townBounds: Rect = { minX: -12.9, maxX: 12.9, minZ: -10.4, maxZ: 10
 export const townSpawn: Point = { x: 0, z: 4.25 };
 export const townReturnSpawn: Point = { x: -7.1, z: -3.25 };
 export const observatorySpawn: Point = { x: 0, z: 1.4 };
-export const observatoryBounds: Rect = { minX: -2.4, maxX: 2.4, minZ: -2.8, maxZ: 3.1 };
+export const observatoryBounds: Rect = { minX: -2.4, maxX: 2.4, minZ: -2.65, maxZ: 2.75 };
 export const observatoryObstacles: Rect[] = [
-  { minX: -0.58, maxX: 0.58, minZ: -1.8, maxZ: -0.65 }, // telescope pedestal
-  { minX: -1.2, maxX: -0.9, minZ: 2.8, maxZ: 3.2 }, // exit frame
-  { minX: 0.9, maxX: 1.2, minZ: 2.8, maxZ: 3.2 },
+  { minX: -1.6, maxX: -0.2, minZ: -1.75, maxZ: -0.45 }, // telescope mount
+  { minX: 0.55, maxX: 1.65, minZ: -2.55, maxZ: -1.45 }, // decorative display pedestal
 ];
 
 // Hand-authored ground footprints for Phase 2 geometry. Decorative roofs do not affect walking.

@@ -6,6 +6,7 @@ import { PMREMGenerator } from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import type { Point } from './collision';
 import { FollowCamera } from './FollowCamera';
+import { interiorCameraPreset } from './interiorCamera';
 import { InteractionTracker } from './InteractionTracker';
 import type { Anchor, SceneId } from './interactions';
 import { AssetBoundary } from './AssetBoundary';
@@ -73,19 +74,21 @@ function SceneCamera({ scene, spawn }: { scene: SceneId; spawn: Point }) {
   const { size } = useThree();
   const zoom = scene === 'town'
     ? Math.min(size.width / 27, size.height / 17)
-    : Math.min(size.width / 10, size.height / 11);
-  const height = scene === 'town' ? 18 : 9;
-  const depth = scene === 'town' ? 20 : 11;
+    : Math.min(size.width / 9.3, size.height / 8.2);
+  const height = scene === 'town' ? 18 : interiorCameraPreset.height;
+  const depth = scene === 'town' ? 20 : interiorCameraPreset.depth;
   const focusZ = scene === 'town' ? spawn.z - 4 : spawn.z;
 
   return (
     <OrthographicCamera
       makeDefault
       zoom={zoom}
-      position={[spawn.x, height, focusZ + depth]}
+      position={scene === 'town' ? [spawn.x, height, focusZ + depth] : [0, height, depth]}
       near={0.1}
       far={65}
-      onUpdate={(camera) => camera.lookAt(spawn.x, 0, focusZ)}
+      onUpdate={(camera) => scene === 'town'
+        ? camera.lookAt(spawn.x, 0, focusZ)
+        : camera.lookAt(0, interiorCameraPreset.targetHeight, interiorCameraPreset.targetZ)}
     />
   );
 }
@@ -119,12 +122,12 @@ export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPane
         <SceneCamera scene={scene} spawn={spawn} />
         <ReflectionEnvironment />
         <PerformanceProbe scene={scene} />
-        <ambientLight intensity={0.5} color="#B9A8CF" />
-        <hemisphereLight args={['#D4C7E1', '#798873', 0.65]} />
-        <directionalLight position={[-6, 9, -5]} intensity={0.3} color="#A9BBD0" />
+        <ambientLight intensity={scene === 'town' ? 0.5 : 0.22} color="#B9A8CF" />
+        <hemisphereLight args={['#D4C7E1', '#798873', scene === 'town' ? 0.65 : 0.38]} />
+        <directionalLight position={[-6, 9, -5]} intensity={scene === 'town' ? 0.3 : 0.38} color="#A9BBD0" />
         <directionalLight
           position={[8, 14, 6]}
-          intensity={1.8}
+          intensity={scene === 'town' ? 1.8 : 0.72}
           color="#F7D9A2"
           castShadow
           shadow-normalBias={0.025}
@@ -137,6 +140,11 @@ export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPane
           shadow-camera-near={1}
           shadow-camera-far={45}
         />
+        {scene === 'observatory' && <>
+          <pointLight position={[1.1, 2, -2]} intensity={1.4} distance={4.5} color="#6FCAEC" />
+          <pointLight position={[-2.75, 1.8, -2.9]} intensity={0.55} distance={3.2} color="#EDBC70" />
+          <pointLight position={[2.75, 1.8, -2.9]} intensity={0.55} distance={3.2} color="#EDBC70" />
+        </>}
         {scene === 'town' ? (
           <AssetBoundary key="town" fallback={<TownFallback />} onError={onAssetError}>
             <Suspense fallback={<TownFallback />}>{exportMode ? <TownSource /> : <ModelAsset file="town.glb" />}</Suspense>

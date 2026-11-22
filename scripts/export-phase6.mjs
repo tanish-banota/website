@@ -76,7 +76,7 @@ try {
     const names = JSON.parse(buffer.toString('utf8', 20, 20 + jsonLength)).nodes?.map((node) => node.name) ?? [];
     const requiredGroups = name === 'Town'
       ? ['ClockTower', 'Fountain', 'FountainCrest', 'ObservatoryExterior', 'TriangulatedDome', 'DomePanels', 'DomeRibs', 'ObservatoryDoor', 'RoofTelescope']
-      : ['Telescope'];
+      : ['ObservatoryInterior', 'ObservatoryFloor', 'InteriorStarDome', 'TiledLowerWall', 'StarPanels', 'DomeRibs', 'Telescope', 'Eyepiece', 'StarDisplay'];
     assert.ok(requiredGroups.every((group) => names.includes(group)), `${file} lost replaceable groups`);
     assert.ok(!names.includes('FountainWater'), `${file} contains runtime water`);
     await writeFile(resolve(root, 'public/models', file), buffer);
@@ -101,10 +101,26 @@ try {
   const expected = process.argv.find((arg) => arg.startsWith('--expect-clock-color='))?.split('=')[1]?.replace('#', '').toLowerCase();
   if (expected) assert.ok(runtime.colors.includes(expected), `normal application clock colors ${runtime.colors.join(', ')} lack ${expected}`);
   console.log(`Normal application loaded exported GLB; clock colors: ${runtime.colors.join(', ')}`);
+  await command('Page.navigate', { url: `${appUrl}?preview=observatory` });
+  await until(() => evaluate("Boolean(window.__twilightRuntimeAsset?.getObjectByName('ObservatoryInterior'))"), 'normal application observatory GLB');
+  const interior = await evaluate(`(() => {
+    const asset = window.__twilightRuntimeAsset;
+    return {
+      dome: Boolean(asset.getObjectByName('InteriorStarDome')),
+      panels: Boolean(asset.getObjectByName('StarPanels')),
+      eyepiece: Boolean(asset.getObjectByName('Eyepiece')),
+      display: Boolean(asset.getObjectByName('StarDisplay')),
+      wall: Boolean(asset.getObjectByName('TiledLowerWall')),
+      request: performance.getEntriesByType('resource').some(entry => entry.name.includes('/models/observatory.glb')),
+    };
+  })()`);
+  assert.ok(interior.dome && interior.panels && interior.eyepiece && interior.display && interior.wall && interior.request,
+    'normal application did not load the exported observatory landmarks');
+  console.log('Normal application loaded exported observatory GLB');
   const screenshot = process.argv.find((arg) => arg.startsWith('--screenshot='))?.slice('--screenshot='.length);
   if (screenshot) {
     const preview = process.argv.find((arg) => arg.startsWith('--preview='))?.slice('--preview='.length) ?? 'style-sample';
-    await command('Page.navigate', { url: preview === 'plaza' ? appUrl : `${appUrl}?preview=style-sample` });
+    await command('Page.navigate', { url: preview === 'plaza' ? appUrl : `${appUrl}?preview=${encodeURIComponent(preview)}` });
     await until(() => evaluate('Boolean(window.__twilightRuntimeAsset)'), `${preview} GLB`);
     await evaluate("document.querySelector('.world-guide-close')?.click()");
     await delay(800);

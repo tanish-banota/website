@@ -4,10 +4,9 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import type { Point } from './collision';
 import type { SceneId } from './interactions';
+import { interiorCameraOffset, interiorCameraPreset } from './interiorCamera';
 
-function offset(scene: SceneId) {
-  return scene === 'town' ? { height: 18, depth: 20, focus: 4 } : { height: 9, depth: 11, focus: 0 };
-}
+const townOffset = { height: 18, depth: 20, focus: 4 };
 
 export function FollowCamera({ position, spawn, scene }: { position: MutableRefObject<Point>; spawn: Point; scene: SceneId }) {
   const camera = useThree((state) => state.camera);
@@ -15,9 +14,13 @@ export function FollowCamera({ position, spawn, scene }: { position: MutableRefO
   const reduceMotion = useRef(false);
 
   useLayoutEffect(() => {
-    const { height, depth, focus } = offset(scene);
-    camera.position.set(spawn.x, height, spawn.z + depth - focus);
-    camera.lookAt(spawn.x, 0, spawn.z - focus);
+    if (scene === 'observatory') {
+      camera.position.set(0, interiorCameraPreset.height, interiorCameraPreset.depth);
+      camera.lookAt(0, interiorCameraPreset.targetHeight, interiorCameraPreset.targetZ);
+    } else {
+      camera.position.set(spawn.x, townOffset.height, spawn.z + townOffset.depth - townOffset.focus);
+      camera.lookAt(spawn.x, 0, spawn.z - townOffset.focus);
+    }
   }, [camera, scene, spawn]);
 
   useEffect(() => {
@@ -29,11 +32,20 @@ export function FollowCamera({ position, spawn, scene }: { position: MutableRefO
   }, []);
 
   useFrame((_, delta) => {
-    const { height, depth, focus } = offset(scene);
-    destination.current.set(position.current.x, height, position.current.z + depth - focus);
+    if (scene === 'observatory') {
+      const { x, z } = interiorCameraOffset(position.current, spawn);
+      destination.current.set(x, interiorCameraPreset.height, interiorCameraPreset.depth + z);
+      const follow = reduceMotion.current ? 1 : 1 - Math.exp(-8 * Math.max(0, delta));
+      camera.position.lerp(destination.current, follow);
+      camera.lookAt(camera.position.x, interiorCameraPreset.targetHeight,
+        camera.position.z - interiorCameraPreset.depth + interiorCameraPreset.targetZ);
+      return;
+    }
+    destination.current.set(position.current.x, townOffset.height,
+      position.current.z + townOffset.depth - townOffset.focus);
     const follow = reduceMotion.current ? 1 : 1 - Math.exp(-8 * Math.max(0, delta));
     camera.position.lerp(destination.current, follow);
-    camera.lookAt(camera.position.x, camera.position.y - height, camera.position.z - depth);
+    camera.lookAt(camera.position.x, camera.position.y - townOffset.height, camera.position.z - townOffset.depth);
   });
 
   return null;
