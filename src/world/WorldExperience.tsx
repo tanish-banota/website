@@ -10,13 +10,16 @@ import type { Anchor, PanelId, SceneId } from './interactions';
 type Transition = 'idle' | 'cover' | 'reveal';
 
 export default function WorldExperience({ onExit, onFatalError }: { onExit: () => void; onFatalError: () => void }) {
-  const devScene = import.meta.env.DEV && /(?:asset-export|preview)=observatory/.test(window.location.search) ? 'observatory' : 'town';
-  const sampleSpawn = import.meta.env.DEV && new URLSearchParams(window.location.search).get('preview') === 'style-sample'
-    ? { x: 4.4, z: -4.4 } : townSpawn;
+  const params = new URLSearchParams(window.location.search);
+  const devScene = import.meta.env.DEV && (params.get('asset-export') === 'observatory' || params.get('preview') === 'observatory')
+    ? 'observatory' : 'town';
+  const preview = import.meta.env.DEV ? params.get('preview') : null;
+  const previewSpawn = preview === 'style-sample' ? { x: 4.4, z: -4.4 }
+    : preview === 'observatory-exterior' ? { x: -7, z: -3.5 } : townSpawn;
   const [nearest, setNearest] = useState<Anchor | null>(null);
   const [activePanel, setActivePanel] = useState<PanelId | null>(null);
   const [scene, setScene] = useState<SceneId>(devScene);
-  const [spawn, setSpawn] = useState<Point>(devScene === 'town' ? sampleSpawn : observatorySpawn);
+  const [spawn, setSpawn] = useState<Point>(devScene === 'town' ? previewSpawn : observatorySpawn);
   const [transition, setTransition] = useState<Transition>('idle');
   const [assetError, setAssetError] = useState(false);
   const [guideOpen, setGuideOpen] = useState(true);

@@ -20,7 +20,7 @@ export const anchors: Anchor[] = [
   { id: 'notice-board', scene: 'town', x: -6.5, z: 3.1, radius: 1.1, label: 'Event Finder', target: { type: 'panel', id: 'event-finder' } },
   { id: 'town-hall', scene: 'town', x: 6.5, z: 0.65, radius: 1.2, label: 'Experience', target: { type: 'panel', id: 'experience' } },
   { id: 'post-box', scene: 'town', x: 7.4, z: 5.55, radius: 1.05, label: 'Contact', target: { type: 'panel', id: 'contact' } },
-  { id: 'observatory-door', scene: 'town', x: -8.3, z: -3.35, radius: 0.85, label: 'Enter observatory', target: { type: 'scene', id: 'observatory' } },
+  { id: 'observatory-door', scene: 'town', x: -8.3, z: -3.32, radius: 0.82, label: 'Enter observatory', target: { type: 'scene', id: 'observatory' } },
   { id: 'north-lookout', scene: 'town', x: 0, z: -8.8, radius: 0.85, label: 'Look at the moon', target: { type: 'lookout' } },
   { id: 'telescope', scene: 'observatory', x: 0, z: 0.25, radius: 0.9, label: 'Use telescope', target: { type: 'panel', id: 'tranquility-base' } },
   { id: 'observatory-exit', scene: 'observatory', x: 0, z: 2.35, radius: 0.75, label: 'Exit observatory', target: { type: 'scene', id: 'town' } },

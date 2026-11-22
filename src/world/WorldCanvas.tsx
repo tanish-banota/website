@@ -76,7 +76,7 @@ function SceneCamera({ scene, spawn }: { scene: SceneId; spawn: Point }) {
     : Math.min(size.width / 10, size.height / 11);
   const height = scene === 'town' ? 18 : 9;
   const depth = scene === 'town' ? 20 : 11;
-  const focusZ = scene === 'town' ? spawn.z - 3.5 : spawn.z;
+  const focusZ = scene === 'town' ? spawn.z - 4 : spawn.z;
 
   return (
     <OrthographicCamera

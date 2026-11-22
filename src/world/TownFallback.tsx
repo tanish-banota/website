@@ -8,6 +8,8 @@ export function TownFallback() {
     <mesh position={[-6.5, 1.55, 2.15]}><boxGeometry args={[2.5, 1.35, 0.22]} /><meshStandardMaterial color={paint.blue} /></mesh>
     <mesh position={[6.5, 1.5, -1.65]}><boxGeometry args={[4.3, 3, 3.1]} /><meshStandardMaterial color={paint.cream} /></mesh>
     <mesh position={[7.4, 0.73, 4.65]}><boxGeometry args={[0.8, 1.45, 0.64]} /><meshStandardMaterial color={paint.blue} /></mesh>
-    <mesh position={[-8.3, 1.05, -6.45]}><cylinderGeometry args={[2.25, 2.35, 2.1, 16]} /><meshStandardMaterial color={paint.steel} /></mesh>
+    <mesh position={[-8.3, 0.71, -6.45]}><cylinderGeometry args={[2.22, 2.3, 1.16, 12]} /><meshStandardMaterial color={paint.blue} /></mesh>
+    <mesh position={[-8.3, 1.9, -6.45]}><coneGeometry args={[2.2, 1.6, 12]} /><meshStandardMaterial color={paint.steel} /></mesh>
+    <mesh position={[-8.3, 0.7, -3.94]}><boxGeometry args={[0.9, 1.4, 0.12]} /><meshStandardMaterial color={paint.blue} /></mesh>
   </group>;
 }

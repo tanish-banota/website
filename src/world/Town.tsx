@@ -207,7 +207,8 @@ export function Town() {
       </mesh>
       <PlazaPaving />
       <Path from={[-3.2, 0]} to={[-5.15, -2.65]} />
-      <Path from={[-5.15, -2.65]} to={[-7.95, -4.75]} />
+      <Path from={[-5.15, -2.65]} to={[-7.1, -3.25]} />
+      <Path from={[-7.1, -3.25]} to={[-8.3, -3.4]} width={1.1} />
       <Path from={[-4, 2]} to={[-6.2, 2]} width={1.1} />
       <Path from={[3.6, 1.2]} to={[5.2, -0.2]} width={1.4} />
       <Path from={[3.6, 2.3]} to={[7.1, 4.1]} width={1.05} />

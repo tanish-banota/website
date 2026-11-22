@@ -8,7 +8,7 @@ export const MAX_FRAME_DELTA = 0.033;
 // The visible terrain is 25.8 x 20.8, centered on the origin.
 export const townBounds: Rect = { minX: -12.9, maxX: 12.9, minZ: -10.4, maxZ: 10.4 };
 export const townSpawn: Point = { x: 0, z: 4.25 };
-export const townReturnSpawn: Point = { x: -7.0, z: -3.5 };
+export const townReturnSpawn: Point = { x: -7.1, z: -3.25 };
 export const observatorySpawn: Point = { x: 0, z: 1.4 };
 export const observatoryBounds: Rect = { minX: -2.4, maxX: 2.4, minZ: -2.8, maxZ: 3.1 };
 export const observatoryObstacles: Rect[] = [
@@ -28,7 +28,8 @@ export const townObstacles: Rect[] = [
   { minX: -7.75, maxX: -5.25, minZ: 2.0, maxZ: 2.3 }, // notice board
   { minX: 4.35, maxX: 8.65, minZ: -3.2, maxZ: -0.1 }, // town hall
   { minX: 7.0, maxX: 7.8, minZ: 4.33, maxZ: 4.97 }, // post box
-  { minX: -10.65, maxX: -5.95, minZ: -8.8, maxZ: -4.1 }, // observatory
+  { minX: -10.72, maxX: -5.88, minZ: -8.87, maxZ: -4.03 }, // faceted observatory base
+  { minX: -8.9, maxX: -7.7, minZ: -4.16, maxZ: -3.85 }, // entrance vestibule
   { minX: 1.85, maxX: 4.05, minZ: -7.2, maxZ: -5.2 }, // house
   { minX: 8.45, maxX: 10.35, minZ: -7.25, maxZ: -5.35 }, // house
   { minX: -11.42, maxX: -11.08, minZ: 2.43, maxZ: 2.77 },

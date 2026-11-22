@@ -16,6 +16,12 @@ export function Player({ position, spawn, scene, enabled }: { position: MutableR
   const reducedMotion = useRef(false);
 
   useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    (window as Window & { __twilightPlayerPosition?: MutableRefObject<Point> }).__twilightPlayerPosition = position;
+    return () => { delete (window as Window & { __twilightPlayerPosition?: MutableRefObject<Point> }).__twilightPlayerPosition; };
+  }, [position]);
+
+  useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
     const update = () => { reducedMotion.current = query.matches; };
     update();

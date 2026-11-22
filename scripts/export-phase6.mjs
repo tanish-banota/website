@@ -74,7 +74,10 @@ try {
     assert.equal(buffer.toString('ascii', 0, 4), 'glTF');
     const jsonLength = buffer.readUInt32LE(12);
     const names = JSON.parse(buffer.toString('utf8', 20, 20 + jsonLength)).nodes?.map((node) => node.name) ?? [];
-    assert.ok(names.includes(name === 'Town' ? 'ClockTower' : 'Telescope'), `${file} lost replaceable groups`);
+    const requiredGroups = name === 'Town'
+      ? ['ClockTower', 'Fountain', 'ObservatoryExterior', 'TriangulatedDome', 'DomePanels', 'DomeRibs', 'ObservatoryDoor', 'RoofTelescope']
+      : ['Telescope'];
+    assert.ok(requiredGroups.every((group) => names.includes(group)), `${file} lost replaceable groups`);
     assert.ok(!names.includes('FountainWater'), `${file} contains runtime water`);
     await writeFile(resolve(root, 'public/models', file), buffer);
     console.log(`${file}: ${buffer.length} bytes; landmark groups preserved`);
@@ -88,10 +91,12 @@ try {
     tower?.traverse(object => { if (object.isMesh && object.material.color) colors.push(object.material.color.getHexString()); });
     return { tower: Boolean(tower), face: Boolean(asset.getObjectByName('ClockFace')),
       paving: Boolean(asset.getObjectByName('PlazaPaving')),
-      fountain: Boolean(asset.getObjectByName('Fountain')), colors,
+      fountain: Boolean(asset.getObjectByName('Fountain')),
+      dome: Boolean(asset.getObjectByName('TriangulatedDome')),
+      telescope: Boolean(asset.getObjectByName('RoofTelescope')), colors,
       request: performance.getEntriesByType('resource').some(entry => entry.name.includes('/models/town.glb')) };
   })()`);
-  assert.ok(runtime.tower && runtime.face && runtime.paving && runtime.fountain && runtime.request,
+  assert.ok(runtime.tower && runtime.face && runtime.paving && runtime.fountain && runtime.dome && runtime.telescope && runtime.request,
     'normal application did not load the exported square landmarks');
   const expected = process.argv.find((arg) => arg.startsWith('--expect-clock-color='))?.split('=')[1]?.replace('#', '').toLowerCase();
   if (expected) assert.ok(runtime.colors.includes(expected), `normal application clock colors ${runtime.colors.join(', ')} lack ${expected}`);

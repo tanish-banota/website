@@ -6,7 +6,7 @@ import type { Point } from './collision';
 import type { SceneId } from './interactions';
 
 function offset(scene: SceneId) {
-  return scene === 'town' ? { height: 18, depth: 20, focus: 3.5 } : { height: 9, depth: 11, focus: 0 };
+  return scene === 'town' ? { height: 18, depth: 20, focus: 4 } : { height: 9, depth: 11, focus: 0 };
 }
 
 export function FollowCamera({ position, spawn, scene }: { position: MutableRefObject<Point>; spawn: Point; scene: SceneId }) {
