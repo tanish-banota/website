@@ -3,6 +3,8 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import { townSpawn } from './collision';
 import { FollowCamera } from './FollowCamera';
+import { InteractionTracker } from './InteractionTracker';
+import type { Anchor, PanelId, SceneId } from './interactions';
 import { Player } from './Player';
 import { Town } from './Town';
 
@@ -22,7 +24,12 @@ function TownCamera() {
   );
 }
 
-export function WorldCanvas() {
+export function WorldCanvas({ scene, panelOpen, onNearestChange, onOpenPanel }: {
+  scene: SceneId;
+  panelOpen: boolean;
+  onNearestChange: (anchor: Anchor | null) => void;
+  onOpenPanel: (panel: PanelId) => void;
+}) {
   const playerPosition = useRef({ ...townSpawn });
 
   return (
@@ -50,8 +57,15 @@ export function WorldCanvas() {
           shadow-camera-far={45}
         />
         <Town />
-        <Player position={playerPosition} />
+        <Player position={playerPosition} enabled={!panelOpen} />
         <FollowCamera position={playerPosition} />
+        <InteractionTracker
+          position={playerPosition}
+          scene={scene}
+          enabled={!panelOpen}
+          onNearestChange={onNearestChange}
+          onActivate={onOpenPanel}
+        />
       </Canvas>
     </div>
   );

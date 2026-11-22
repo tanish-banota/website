@@ -3,7 +3,7 @@ import type { MutableRefObject } from 'react';
 
 export type HeldKeys = { up: boolean; down: boolean; left: boolean; right: boolean };
 
-function isUiTarget(target: EventTarget | null): boolean {
+export function isUiTarget(target: EventTarget | null): boolean {
   return target instanceof Element && Boolean(target.closest('input, textarea, select, button, a, [contenteditable], dialog'));
 }
 

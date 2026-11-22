@@ -1,6 +1,6 @@
-# Twilight Town portfolio — Phase 3
+# Twilight Town portfolio — Phase 4
 
-A static portfolio with a compact 3D town. The portfolio remains the default view. A placeholder character can walk around the town; landmarks do not have interactions yet.
+A static portfolio with a compact 3D town. The portfolio remains the default view. The placeholder character can walk to town landmarks and open shared portfolio content in HTML dialogs.
 
 ## Run
 
@@ -20,6 +20,6 @@ Installed versions: Vite 8.3.8, React 19.3.1, TypeScript 7.0.2, Three.js 0.187.0
 
 Edit `src/data/portfolio.ts` to update both the HTML portfolio and future world panels. Project summaries describe the linked repositories without claiming personal contributions. Experience details come from the supplied resume, which is served unchanged from `public/resume.pdf`. The About text remains a placeholder. The contact email comes from the supplied plan.
 
-## Phase 3 movement
+## Phase 4 interactions
 
-`src/world/Town.tsx` uses primitive geometry for the flat map and landmarks. `src/world/Player.tsx` walks with WASD or arrow keys using delta time and normalized diagonals. `src/world/collision.ts` holds hand-authored footprints, ground bounds, and pure axis-separated movement. `src/world/useInput.ts` clears held keys on blur or view changes and ignores gameplay input in form controls and dialogs. `src/world/FollowCamera.tsx` tracks the player at a fixed elevated angle. Landmark interactions, interiors, timers, and backend services are not part of Phase 3.
+`src/world/Town.tsx` uses primitive geometry for the flat map and landmarks. `src/world/Player.tsx` walks with WASD or arrow keys, while `src/world/collision.ts` keeps the character within the town and outside obstacles. `src/world/interactions.ts` declares scene-specific anchors for the clock square, notice board, town hall, and post box. The nearest one shows a single E prompt; `src/ui/ProjectDialog.tsx` uses a native modal dialog to show content from `src/data/portfolio.ts`. Movement pauses and held keys clear while a panel is open. The observatory interior and telescope interaction are reserved for Phase 5. Timers, NPC dialogue, quests, and backend services are not included.

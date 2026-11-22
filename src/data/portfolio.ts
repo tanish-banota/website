@@ -38,9 +38,9 @@ export const portfolio: PortfolioData = {
   intro: 'My projects and experience are collected below. A fuller introduction is coming soon.',
   email: 'banotatanish@gmail.com',
   worldIntro: {
-    eyebrow: 'Town walk / Phase 3',
+    eyebrow: 'Town walk / Phase 4',
     title: 'A quiet town at twilight.',
-    description: 'Walk with WASD or arrow keys. Explore the clock square and observatory path; landmark interactions arrive later.',
+    description: 'Walk with WASD or arrow keys. Press E near a landmark to read its panel. The observatory interior arrives later.',
   },
   projects: [
     {

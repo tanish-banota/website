@@ -6,11 +6,12 @@ import { moveOnGround, townBounds, townObstacles, townSpawn } from './collision'
 import type { Point } from './collision';
 import { useInput } from './useInput';
 
-export function Player({ position }: { position: MutableRefObject<Point> }) {
+export function Player({ position, enabled }: { position: MutableRefObject<Point>; enabled: boolean }) {
   const model = useRef<Group>(null);
-  const keys = useInput(true);
+  const keys = useInput(enabled);
 
   useFrame((_, delta) => {
+    if (!enabled) return;
     const held = keys.current;
     const input = {
       x: Number(held.right) - Number(held.left),
