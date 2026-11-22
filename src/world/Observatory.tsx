@@ -1,9 +1,8 @@
-import { DoubleSide } from 'three';
+import { useLayoutEffect, useRef } from 'react';
+import { DoubleSide, Group } from 'three';
+import { paint } from './palette';
 
-const cream = '#F3EBDD';
-const steel = '#627D93';
-const blue = '#263750';
-const gold = '#EDBC70';
+const { cream, steel, blue, gold } = paint;
 
 function Telescope() {
   return (
@@ -16,6 +15,8 @@ function Telescope() {
         <sphereGeometry args={[0.38, 12, 8]} />
         <meshStandardMaterial color={gold} roughness={0.7} />
       </mesh>
+      <mesh position={[0, 0.17, 0]}><cylinderGeometry args={[0.57, 0.62, 0.25, 12]} /><meshStandardMaterial color={steel} /></mesh>
+      <mesh position={[0, 1.49, 0]}><torusGeometry args={[0.31, 0.065, 6, 16]} /><meshStandardMaterial color={blue} /></mesh>
       <mesh position={[0, 1.95, -0.34]} rotation={[-0.55, 0, 0]} castShadow>
         <cylinderGeometry args={[0.42, 0.32, 2.1, 16]} />
         <meshStandardMaterial color={steel} metalness={0.2} roughness={0.6} />
@@ -24,6 +25,7 @@ function Telescope() {
         <torusGeometry args={[0.42, 0.08, 8, 20]} />
         <meshStandardMaterial color={gold} emissive={gold} emissiveIntensity={0.25} />
       </mesh>
+      <mesh position={[0, 2.92, -1.0]} rotation={[-0.55, 0, 0]}><cylinderGeometry args={[0.3, 0.3, 0.18, 16]} /><meshStandardMaterial color={blue} /></mesh>
       <mesh position={[0, 1.2, 0.62]} rotation={[-0.55, 0, 0]}>
         <cylinderGeometry args={[0.16, 0.16, 0.5, 12]} />
         <meshStandardMaterial color={blue} />
@@ -31,7 +33,6 @@ function Telescope() {
     </group>
   );
 }
-
 function ExitFrame() {
   return (
     <group position={[0, 0, 3.45]}>
@@ -49,13 +50,19 @@ function ExitFrame() {
         <boxGeometry args={[0.65, 0.2, 0.38]} />
         <meshStandardMaterial color={gold} emissive={gold} emissiveIntensity={0.3} />
       </mesh>
+      <mesh position={[0, 0.14, 0]}><boxGeometry args={[2.45, 0.28, 0.52]} /><meshStandardMaterial color={steel} /></mesh>
     </group>
   );
 }
 
 export function Observatory() {
+  const root = useRef<Group>(null);
+  useLayoutEffect(() => {
+    if (import.meta.env.DEV) (window as Window & { __twilightObservatoryKit?: Group }).__twilightObservatoryKit = root.current ?? undefined;
+    return () => { if (import.meta.env.DEV) delete (window as Window & { __twilightObservatoryKit?: Group }).__twilightObservatoryKit; };
+  }, []);
   return (
-    <group>
+    <group ref={root}>
       <mesh position={[0, -0.22, 0]} receiveShadow>
         <cylinderGeometry args={[4.25, 4.25, 0.44, 32]} />
         <meshStandardMaterial color={blue} />
@@ -64,6 +71,7 @@ export function Observatory() {
         <circleGeometry args={[4.18, 40]} />
         <meshStandardMaterial color={cream} roughness={1} />
       </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[3.65, 4.02, 32]} /><meshStandardMaterial color={steel} /></mesh>
       {/* The back wall and roof trim are cut away on the camera-facing side. */}
       <mesh position={[0, 1.25, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[4.08, 4.08, 2.5, 32, 1, true, Math.PI / 2, Math.PI]} />
@@ -73,6 +81,10 @@ export function Observatory() {
         <torusGeometry args={[4.07, 0.12, 8, 32, Math.PI]} />
         <meshStandardMaterial color={blue} />
       </mesh>
+      {[-2.1, 0, 2.1].map((x) => <group key={x} position={[x, 1.55, -3.55]}>
+        <mesh><boxGeometry args={[0.45, 0.7, 0.08]} /><meshStandardMaterial color={blue} /></mesh>
+        <mesh position={[0, 0, 0.05]}><boxGeometry args={[0.3, 0.54, 0.025]} /><meshStandardMaterial color={gold} emissive={gold} emissiveIntensity={0.35} /></mesh>
+      </group>)}
       {[-2.6, 2.6].map((x) => (
         <group key={x} position={[x, 0, -2.7]}>
           <mesh position={[0, 1.1, 0]} castShadow>
@@ -86,22 +98,6 @@ export function Observatory() {
         </group>
       ))}
       <Telescope />
-      <ExitFrame />
-    </group>
-  );
-}
-
-export function ObservatoryFallback() {
-  return (
-    <group>
-      <mesh position={[0, -0.2, 0]} receiveShadow>
-        <cylinderGeometry args={[4.25, 4.25, 0.4, 20]} />
-        <meshStandardMaterial color={cream} />
-      </mesh>
-      <mesh position={[0, 0.95, -1.2]} castShadow>
-        <boxGeometry args={[1, 1.9, 1.1]} />
-        <meshStandardMaterial color={steel} />
-      </mesh>
       <ExitFrame />
     </group>
   );

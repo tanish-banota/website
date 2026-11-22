@@ -24,3 +24,8 @@
 .scene-fade{position:absolute;inset:0;z-index:5;background:#29213f;opacity:0;pointer-events:none;transition:opacity .22s ease}.scene-fade.cover{opacity:1;pointer-events:auto}.scene-fade.reveal{opacity:0;pointer-events:auto}
 .lunar-dialog .dialog-heading{position:relative;min-height:150px;align-items:flex-end;background:radial-gradient(circle at 80% 42%,#f3ebdd 0 37px,transparent 39px),radial-gradient(circle at 22% 28%,#edbc70 0 2px,transparent 3px),radial-gradient(circle at 48% 17%,#f3ebdd 0 1px,transparent 2px),radial-gradient(circle at 63% 67%,#f3ebdd 0 2px,transparent 3px),linear-gradient(130deg,#29213f,#263750);color:#f3ebdd}.lunar-dialog .dialog-heading h2{position:relative;color:#f3ebdd}.lunar-dialog .dialog-close{position:absolute;top:1rem;right:1rem;border-color:#f3ebdd;color:#f3ebdd}.lunar-dialog .dialog-close:hover{background:#f3ebdd;color:#263750}
 @media(prefers-reduced-motion:reduce){.scene-fade{transition:none}}
+
+/* A few fixed stars add depth without changing the hour or adding scene lights. */
+.world-view:not(.interior)::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle,#f3ebdd 1px,transparent 1.5px),radial-gradient(circle,#edbc70 1px,transparent 1.5px);background-size:171px 137px,233px 181px;background-position:13px 19px,88px 52px;opacity:.55;animation:starlight 7s ease-in-out infinite alternate}
+@keyframes starlight{to{opacity:.3}}
+@media(prefers-reduced-motion:reduce){.world-view:not(.interior)::before{animation:none}}

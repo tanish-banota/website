@@ -12,13 +12,13 @@ type View = 'portfolio' | 'world';
 type Transition = 'idle' | 'cover' | 'reveal';
 
 export default function App() {
-  const [view, setView] = useState<View>('portfolio');
+  const [view, setView] = useState<View>(() => import.meta.env.DEV && /(?:asset-export|preview)=/.test(window.location.search) ? 'world' : 'portfolio');
   const [nearest, setNearest] = useState<Anchor | null>(null);
   const [activePanel, setActivePanel] = useState<PanelId | null>(null);
-  const [scene, setScene] = useState<SceneId>('town');
-  const [spawn, setSpawn] = useState<Point>(townSpawn);
+  const [scene, setScene] = useState<SceneId>(() => import.meta.env.DEV && /(?:asset-export|preview)=observatory/.test(window.location.search) ? 'observatory' : 'town');
+  const [spawn, setSpawn] = useState<Point>(() => import.meta.env.DEV && /(?:asset-export|preview)=observatory/.test(window.location.search) ? observatorySpawn : townSpawn);
   const [transition, setTransition] = useState<Transition>('idle');
-  const [interiorError, setInteriorError] = useState(false);
+  const [assetError, setAssetError] = useState(false);
   const isWorld = view === 'world';
   const worldMain = useRef<HTMLElement>(null);
   const pendingScene = useRef<SceneId | null>(null);
@@ -46,6 +46,7 @@ export default function App() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setScene(next);
       setSpawn(next === 'town' ? townReturnSpawn : observatorySpawn);
+      setAssetError(false);
       pendingScene.current = null;
       return;
     }
@@ -59,7 +60,7 @@ export default function App() {
       if (next) {
         setScene(next);
         setSpawn(next === 'town' ? townReturnSpawn : observatorySpawn);
-        if (next === 'observatory') setInteriorError(false);
+        setAssetError(false);
         pendingScene.current = null;
       }
       setTransition('reveal');
@@ -100,13 +101,13 @@ export default function App() {
             enabled={activePanel === null && transition === 'idle'}
             onNearestChange={handleNearestChange}
             onOpenPanel={activateAnchor}
-            onInteriorError={() => setInteriorError(true)}
+            onAssetError={() => setAssetError(true)}
           />
           <div className="world-overlay">
             <p className="eyebrow">{portfolio.worldIntro[scene].eyebrow}</p>
             <h1>{portfolio.worldIntro[scene].title}</h1>
             <p>{portfolio.worldIntro[scene].description}</p>
-            {scene === 'observatory' && interiorError && <p role="status">Interior detail failed to load. You can still use the telescope or exit.</p>}
+            {assetError && <p role="status">Scene detail failed to load. Landmarks and interactions remain available.</p>}
             <button type="button" className="primary-button" onClick={showPortfolio}>View portfolio</button>
           </div>
           {activePanel === null && transition === 'idle' && <Hud nearest={nearest} />}

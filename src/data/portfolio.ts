@@ -39,12 +39,12 @@ export const portfolio: PortfolioData = {
   email: 'banotatanish@gmail.com',
   worldIntro: {
     town: {
-      eyebrow: 'Town walk / Phase 5',
+      eyebrow: 'Town walk',
       title: 'A quiet town at twilight.',
       description: 'Walk with WASD or arrow keys. Press E near the observatory door to go inside.',
     },
     observatory: {
-      eyebrow: 'Observatory / Phase 5',
+      eyebrow: 'Observatory',
       title: 'Look to the Moon.',
       description: 'Press E at the telescope to see Tranquility Base, or at the doorway to return to town.',
     },
