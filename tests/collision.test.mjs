@@ -31,6 +31,16 @@ test('expanded rectangle blocks its corner and allows a wall slide', () => {
   assert.equal(blocked(next.x, next.z, PLAYER_RADIUS, wall, openBounds), false);
 });
 
+test('fountain collider follows its stone rim without blocking empty square corners', () => {
+  assert.equal(blocked(0, 1.35, PLAYER_RADIUS, townObstacles, townBounds), true);
+  assert.equal(blocked(1.7, 1.35, PLAYER_RADIUS, townObstacles, townBounds), true);
+  assert.equal(blocked(1.85, 1.35, PLAYER_RADIUS, townObstacles, townBounds), false);
+  assert.equal(blocked(1.35, 2.7, PLAYER_RADIUS, townObstacles, townBounds), false);
+  const next = moveOnGround({ x: 1.85, z: 1.35 }, { x: 0, z: -1 }, MAX_FRAME_DELTA, townObstacles, townBounds);
+  assert.ok(next.z < 1.35);
+  assert.equal(blocked(next.x, next.z, PLAYER_RADIUS, townObstacles, townBounds), false);
+});
+
 test('ground edge blocks outward motion while allowing motion along the edge', () => {
   const start = { x: townBounds.maxX - PLAYER_RADIUS - 0.02, z: 0 };
   const next = moveOnGround(start, { x: 1, z: 1 }, MAX_FRAME_DELTA, [], townBounds);

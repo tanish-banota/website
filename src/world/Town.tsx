@@ -4,7 +4,6 @@ import { StoneCourse, Window } from './TownDetails';
 import { ClockTower } from './ClockTower';
 import { ObservatoryExterior } from './ObservatoryExterior';
 import { Fountain } from './Fountain';
-import { StyleSample } from './StyleSample';
 
 type Point = [number, number];
 type Position = [number, number, number];
@@ -46,8 +45,8 @@ function PlazaPaving() {
   </group>;
 }
 
-function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint.roof, groundedFoundation = false }: {
-  position: Position; width?: number; depth?: number; height?: number; roof?: string; groundedFoundation?: boolean;
+function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint.roof }: {
+  position: Position; width?: number; depth?: number; height?: number; roof?: string;
 }) {
   return (
     <group position={position}>
@@ -55,8 +54,7 @@ function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint
         <boxGeometry args={[width, height, depth]} />
         <meshStandardMaterial color={paint.cream} roughness={1} />
       </mesh>
-      {/* Rear houses need a continuous stone edge below the terrain plane. */}
-      <StoneCourse width={width} depth={depth} y={groundedFoundation ? 0.1 : 0.18} thickness={groundedFoundation ? 0.24 : 0.13} />
+      <StoneCourse width={width} depth={depth} y={0.18} thickness={0.13} />
       <StoneCourse width={width} depth={depth} y={height - 0.18} />
       <mesh position={[0, height + 0.38, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
         <coneGeometry args={[Math.max(width, depth) * 0.66, 0.92, 4]} />
@@ -222,8 +220,6 @@ export function Town() {
       <group name="TownHall"><TownHall /></group>
       <group name="PostBox"><PostBox /></group>
       <group name="ObservatoryExterior"><ObservatoryExterior /></group>
-      <StyleSample />
-      <Building position={[9.4, 0, -6.3]} width={1.9} depth={1.9} height={1.95} groundedFoundation />
       <Tree position={[-11.25, 0, 2.6]} scale={0.9} />
       <Tree position={[-11.2, 0, -2.6]} scale={1.05} />
       <Tree position={[-4.2, 0, -7.7]} scale={0.8} />

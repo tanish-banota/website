@@ -1,5 +1,7 @@
 export type Point = { x: number; z: number };
 export type Rect = { minX: number; maxX: number; minZ: number; maxZ: number };
+export type Circle = Point & { radius: number };
+export type Obstacle = Rect | Circle;
 
 export const PLAYER_RADIUS = 0.3;
 export const WALK_SPEED = 3;
@@ -18,8 +20,8 @@ export const observatoryObstacles: Rect[] = [
 ];
 
 // Hand-authored ground footprints for Phase 2 geometry. Decorative roofs do not affect walking.
-export const townObstacles: Rect[] = [
-  { minX: -1.5, maxX: 1.5, minZ: -0.15, maxZ: 2.85 }, // fountain basin, including stone rim
+export const townObstacles: Obstacle[] = [
+  { x: 0, z: 1.35, radius: 1.48 }, // fountain's outer stone plinth
   { minX: -3.2, maxX: 3.2, minZ: -5.05, maxZ: -2.38 }, // clock tower and side walls
   { minX: -3.7, maxX: -2.9, minZ: -1.1, maxZ: -0.3 }, // rear plaza planters
   { minX: 2.9, maxX: 3.7, minZ: -1.1, maxZ: -0.3 },
@@ -30,8 +32,6 @@ export const townObstacles: Rect[] = [
   { minX: 7.0, maxX: 7.8, minZ: 4.33, maxZ: 4.97 }, // post box
   { minX: -10.72, maxX: -5.88, minZ: -8.87, maxZ: -4.03 }, // faceted observatory base
   { minX: -8.9, maxX: -7.7, minZ: -4.16, maxZ: -3.85 }, // entrance vestibule
-  { minX: 1.85, maxX: 4.05, minZ: -7.2, maxZ: -5.2 }, // house
-  { minX: 8.45, maxX: 10.35, minZ: -7.25, maxZ: -5.35 }, // house
   { minX: -11.42, maxX: -11.08, minZ: 2.43, maxZ: 2.77 },
   { minX: -11.38, maxX: -11.02, minZ: -2.78, maxZ: -2.42 },
   { minX: -4.35, maxX: -4.05, minZ: -7.85, maxZ: -7.55 },
@@ -44,17 +44,18 @@ export const townObstacles: Rect[] = [
   { minX: 4.52, maxX: 4.68, minZ: 2.02, maxZ: 2.18 },
 ];
 
-export function blocked(x: number, z: number, radius: number, obstacles: Rect[], bounds: Rect): boolean {
+export function blocked(x: number, z: number, radius: number, obstacles: Obstacle[], bounds: Rect): boolean {
   if (x - radius < bounds.minX || x + radius > bounds.maxX || z - radius < bounds.minZ || z + radius > bounds.maxZ) {
     return true;
   }
-  return obstacles.some((rect) =>
-    x > rect.minX - radius && x < rect.maxX + radius &&
-    z > rect.minZ - radius && z < rect.maxZ + radius,
-  );
+  return obstacles.some((obstacle) => {
+    if ('radius' in obstacle) return Math.hypot(x - obstacle.x, z - obstacle.z) < obstacle.radius + radius;
+    return x > obstacle.minX - radius && x < obstacle.maxX + radius &&
+      z > obstacle.minZ - radius && z < obstacle.maxZ + radius;
+  });
 }
 
-export function moveOnGround(position: Point, input: Point, delta: number, obstacles: Rect[], bounds: Rect, radius = PLAYER_RADIUS): Point {
+export function moveOnGround(position: Point, input: Point, delta: number, obstacles: Obstacle[], bounds: Rect, radius = PLAYER_RADIUS): Point {
   const length = Math.hypot(input.x, input.z);
   if (length === 0 || delta <= 0) return position;
 

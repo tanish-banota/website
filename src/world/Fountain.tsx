@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { MeshStandardMaterial } from 'three';
+import { ExtrudeGeometry, MeshStandardMaterial, Shape, Vector2 } from 'three';
 import type { Group } from 'three';
 import { paint } from './palette';
 
@@ -14,6 +14,38 @@ const weathered = new MeshStandardMaterial({ color: paint.stoneShade, roughness:
 const blue = new MeshStandardMaterial({ color: paint.blue, roughness: 0.8 });
 const gold = new MeshStandardMaterial({ color: paint.gold, roughness: 0.7, metalness: 0.08 });
 const leaf = new MeshStandardMaterial({ color: paint.evergreen, roughness: 0.9 });
+const crestStone = new MeshStandardMaterial({ color: paint.steel, roughness: 0.82, metalness: 0.04 });
+
+function carvedShape(points: [number, number][]) {
+  return new ExtrudeGeometry(new Shape(points.map(([x, y]) => new Vector2(x, y))), {
+    depth: 0.1, bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.018, bevelSegments: 2,
+  });
+}
+
+const wingOutline: [number, number][] = [
+  [0.09, 0.3], [0.3, 0.43], [0.48, 0.42], [0.58, 0.55], [0.86, 0.68],
+  [0.81, 0.4], [0.69, 0.34], [0.76, 0.21], [0.57, 0.25], [0.61, 0.12],
+  [0.38, 0.19], [0.17, 0.16],
+];
+const rightWing = carvedShape(wingOutline);
+const leftWing = carvedShape(wingOutline.map(([x, y]): [number, number] => [-x, y]).reverse());
+const crestBody = carvedShape([
+  [-0.16, 0.25], [0, 0.12], [0.16, 0.25], [0.13, 0.49], [0, 0.56], [-0.13, 0.49],
+]);
+const crestTriangle = carvedShape([[-0.15, -0.12], [0.15, -0.12], [0, 0.15]]);
+
+function FountainCrest() {
+  return <group name="FountainCrest" position={[0, 1.62, 0]} scale={[1.18, 1.12, 1]}>
+    <mesh position={[0, 0.07, 0]} material={weathered} castShadow>
+      <cylinderGeometry args={[0.13, 0.17, 0.3, 10]} />
+    </mesh>
+    <mesh geometry={leftWing} material={crestStone} castShadow />
+    <mesh geometry={rightWing} material={crestStone} castShadow />
+    <mesh geometry={crestBody} material={weathered} position={[0, 0, 0.03]} castShadow />
+    {[[0, 0.78], [-0.16, 0.5], [0.16, 0.5]].map(([x, y]) =>
+      <mesh key={`${x}-${y}`} geometry={crestTriangle} material={gold} position={[x, y, 0.11]} castShadow />)}
+  </group>;
+}
 
 function PlazaPlanter({ x, z }: { x: number; z: number }) {
   return <group position={[x, 0, z]}>
@@ -57,16 +89,7 @@ export function Fountain() {
     <mesh position={[0, 1.42, 0]} rotation={[-Math.PI / 2, 0, 0]} material={weathered}>
       <torusGeometry args={[0.46, 0.09, 6, 24]} />
     </mesh>
-    {/* Original compass-flower crest, separate from the reference's sculpture. */}
-    <mesh position={[0, 1.66, 0]} material={weathered} castShadow>
-      <cylinderGeometry args={[0.12, 0.17, 0.45, 8]} />
-    </mesh>
-    <mesh position={[0, 1.94, 0]} material={blue}><sphereGeometry args={[0.17, 12, 8]} /></mesh>
-    {[-1, 1].map((side) => <mesh key={side} position={[side * 0.25, 1.95, 0]}
-      rotation={[0, 0, side * 0.28]} material={stone}>
-      <octahedronGeometry args={[0.18]} />
-    </mesh>)}
-    <mesh position={[0, 2.2, 0]} material={gold}><octahedronGeometry args={[0.16]} /></mesh>
+    <FountainCrest />
     {plazaPlanterOffsets.map(([x, z]) => <PlazaPlanter key={`${x}-${z}`} x={x} z={z} />)}
   </group>;
 }

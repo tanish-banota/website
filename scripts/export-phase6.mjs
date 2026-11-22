@@ -75,7 +75,7 @@ try {
     const jsonLength = buffer.readUInt32LE(12);
     const names = JSON.parse(buffer.toString('utf8', 20, 20 + jsonLength)).nodes?.map((node) => node.name) ?? [];
     const requiredGroups = name === 'Town'
-      ? ['ClockTower', 'Fountain', 'ObservatoryExterior', 'TriangulatedDome', 'DomePanels', 'DomeRibs', 'ObservatoryDoor', 'RoofTelescope']
+      ? ['ClockTower', 'Fountain', 'FountainCrest', 'ObservatoryExterior', 'TriangulatedDome', 'DomePanels', 'DomeRibs', 'ObservatoryDoor', 'RoofTelescope']
       : ['Telescope'];
     assert.ok(requiredGroups.every((group) => names.includes(group)), `${file} lost replaceable groups`);
     assert.ok(!names.includes('FountainWater'), `${file} contains runtime water`);
