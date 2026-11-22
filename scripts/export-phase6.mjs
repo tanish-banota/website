@@ -73,7 +73,12 @@ try {
     const buffer = Buffer.from(base64, 'base64');
     assert.equal(buffer.toString('ascii', 0, 4), 'glTF');
     const jsonLength = buffer.readUInt32LE(12);
-    const names = JSON.parse(buffer.toString('utf8', 20, 20 + jsonLength)).nodes?.map((node) => node.name) ?? [];
+    const assetJson = JSON.parse(buffer.toString('utf8', 20, 20 + jsonLength));
+    const names = assetJson.nodes?.map((node) => node.name) ?? [];
+    const meshNodes = assetJson.nodes?.filter((node) => node.mesh !== undefined) ?? [];
+    assert.ok(meshNodes.length > 0 && meshNodes.every((node) =>
+      typeof node.extras?.twilightShadow?.cast === 'boolean' && typeof node.extras?.twilightShadow?.receive === 'boolean'),
+    `${file} lost source shadow settings`);
     const requiredGroups = name === 'Town'
       ? ['ClockTower', 'Fountain', 'FountainCrest', 'NorthLookout', 'ObservatoryExterior', 'TriangulatedDome', 'DomePanels', 'DomeRibs', 'ObservatoryDoor', 'RoofTelescope']
       : ['ObservatoryInterior', 'ObservatoryFloor', 'InteriorStarDome', 'TiledLowerWall', 'StarPanels', 'DomeRibs', 'Telescope', 'Eyepiece', 'StarDisplay'];

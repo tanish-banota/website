@@ -47,9 +47,22 @@ function ReflectionEnvironment() {
 }
 
 function PerformanceProbe({ scene }: { scene: SceneId }) {
-  const { gl } = useThree();
+  const { gl, scene: threeScene, camera } = useThree();
   const sample = useRef({ started: 0, frames: 0, calls: 0, triangles: 0, scene });
+  const diagnostics = useRef(new URLSearchParams(window.location.search).has('diagnostics'));
   useFrame(() => {
+    if (diagnostics.current) {
+      (window as Window & { __twilightRenderInfo?: { scene: SceneId; calls: number; triangles: number; geometries: number; textures: number; moon: boolean; water: boolean; camera: number[] } }).__twilightRenderInfo = {
+        scene,
+        calls: gl.info.render.calls,
+        triangles: gl.info.render.triangles,
+        geometries: gl.info.memory.geometries,
+        textures: gl.info.memory.textures,
+        moon: Boolean(threeScene.getObjectByName('LookoutMoon')),
+        water: Boolean(threeScene.getObjectByName('FountainWater')),
+        camera: camera.position.toArray(),
+      };
+    }
     const now = performance.now();
     if (sample.current.scene !== scene) sample.current = { started: now, frames: 0, calls: 0, triangles: 0, scene };
     if (sample.current.started === Infinity) return;

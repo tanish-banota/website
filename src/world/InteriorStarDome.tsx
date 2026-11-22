@@ -178,7 +178,7 @@ export function InteriorStarDome() {
     <group name="StarPanels">
       {geometry.panels.map((panel, index) => <mesh key={panel.uuid} geometry={panel} material={materials[index]} />)}
     </group>
-    <mesh name="DomeRibs" geometry={geometry.ribs} material={frame} castShadow />
-    <mesh name="TiledLowerWall" geometry={wallGeometry} material={wallMaterial} receiveShadow />
+    <mesh name="DomeRibs" geometry={geometry.ribs} material={frame} />
+    <mesh name="TiledLowerWall" geometry={wallGeometry} material={wallMaterial} />
   </group>;
 }

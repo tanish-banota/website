@@ -50,6 +50,7 @@ export function BatchedStaticKit({ children }: { children: ReactNode }) {
           object.material = canonical;
         } else shared.set(signature, material);
       }
+      object.userData.twilightShadow = { cast: object.castShadow, receive: object.receiveShadow };
       object.name = object.castShadow ? 'casts-shadow' : 'receives-only';
       // Keep each named landmark intact for a future GLB replacement.
       const key = `${sectionFor(object, group).uuid}:${keyFor(object)}`;
@@ -68,6 +69,7 @@ export function BatchedStaticKit({ children }: { children: ReactNode }) {
       batch.name = meshes[0].name;
       batch.castShadow = meshes[0].castShadow;
       batch.receiveShadow = meshes[0].receiveShadow;
+      batch.userData.twilightShadow = { cast: batch.castShadow, receive: batch.receiveShadow };
       meshes.forEach((mesh) => { mesh.visible = false; });
       section.add(batch);
       batches.push(batch);

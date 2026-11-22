@@ -9,11 +9,13 @@ export function ModelAsset({ file, lookoutOnly = false }: { file: 'town.glb' | '
     const copy = scene.clone(true);
     copy.traverse((object) => {
       if (object instanceof Mesh) {
-        object.castShadow = file === 'town.glb' ? object.name === 'casts-shadow' : true;
-        // The town's buildings cast onto the terrain, but do not sample the
-        // shadow map on their own walls and foundations. That avoids the
-        // camera-dependent dark shimmer at the two rear house bases.
-        object.receiveShadow = file === 'town.glb' ? object.name === 'receives-only' : true;
+        const shadow = object.userData.twilightShadow as { cast?: unknown; receive?: unknown } | undefined;
+        // glTF omits Three.js shadow flags. Exported extras preserve the source
+        // choices even when GLTFLoader suffixes duplicate mesh names.
+        object.castShadow = typeof shadow?.cast === 'boolean' ? shadow.cast
+          : file === 'town.glb' ? object.name.startsWith('casts-shadow') : true;
+        object.receiveShadow = typeof shadow?.receive === 'boolean' ? shadow.receive
+          : file === 'town.glb' ? object.name.startsWith('receives-only') : true;
       }
     });
     if (lookoutOnly && file === 'town.glb') {

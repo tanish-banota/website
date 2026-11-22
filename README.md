@@ -1,94 +1,131 @@
-# Twilight Town portfolio — Phase 7
+# Twilight Town portfolio
 
-A static portfolio with a compact 3D town. Visitors arrive in the town first, with the portfolio one click away in the upper-right view switch. The original miniature character can walk to town landmarks, enter the observatory, use its telescope to read the Tranquility Base panel, and exit back to town.
+A portfolio that opens in a small, explorable 3D town. Walk to a landmark to open portfolio content, enter the observatory to use its telescope, or visit the northern lookout to see the moon. The regular HTML portfolio is always available through **View portfolio**.
 
-## Run
+The town stays at twilight. The clock is decorative; there is no countdown, day cycle, quest, or reset.
 
-Use Node.js 22.20.0 or a compatible current LTS release.
+## Start the project
+
+Use Node.js 22.20.0 or a compatible current Node 22 release.
 
 ```sh
-npm install
+npm ci
 npm run dev
+```
+
+Open the local URL printed by Vite. The `/` route opens the town. Add `?view=portfolio` to open the HTML portfolio directly without loading the 3D world.
+
+```sh
 npm run build
-npm run lint
-npm test
 npm run preview
 ```
 
-Installed versions: Vite 8.3.8, React 19.3.1, TypeScript 7.0.2, Three.js 0.187.0, React Three Fiber 9.8.2, and Drei 10.7.9. The lockfile records exact versions for the complete dependency tree.
+`npm run build` creates the static site in `dist/`. The build includes the models and `public/resume.pdf`.
 
-## Content
+## Explore the town
 
-Edit `src/data/portfolio.ts` to update both the HTML portfolio and world panels. Project summaries describe the linked repositories without claiming personal contributions. Experience details and contact information come from the supplied resume; the email also matches the plan. The resume is served unchanged from `public/resume.pdf`. Its download action is included only when that file exists at build time. The three project repositories, GitHub profile, LinkedIn profile, and Tranquility Base demo were checked on November 21, 2026; the demo returned HTTP 200. Keep claims and links current before publishing.
+| Action | Control |
+| --- | --- |
+| Move | WASD or arrow keys |
+| Use a nearby landmark | E when its prompt appears |
+| Close a project panel | Escape or its close button |
+| Leave the moon lookout | Escape or **Return to town** |
+| Switch to the HTML portfolio | **View portfolio** in the upper right |
 
-## Phase 5 observatory
+The town guide can be closed and reopened with **Show town guide**. Once dismissed, it stays closed on later town visits until reopened. Project dialogs manage focus, and movement keys clear when a panel, scene transition, or lookout view takes control. Reduced-motion preferences shorten or remove camera, scene, star, and walking animation.
 
-`src/world/Observatory.tsx` exposes the code-built interior kit. `src/world/interactions.ts` declares town and interior anchors. `src/App.tsx` fades between scenes, resets player and camera to safe spawn points, and skips the fade for reduced motion. `src/ui/ProjectDialog.tsx` gives the telescope panel a lunar backdrop and reads its verified demo and GitHub links from `src/data/portfolio.ts`. An asset error boundary supplies primitive fallbacks; interaction anchors remain usable if detail rendering fails. Timers, NPC dialogue, quests, and backend services are not included.
+The observatory door, telescope eyepiece, and exit form a repeatable loop. The northern lookout is near the top edge of the exterior map; the faced moon loads only after pressing E there. During that view, the player and terrace remain visible while the other town scenery is hidden. Town movement is flat X/Z, so steps and raised details are decorative. The fountain basin and substantial props have collision footprints, with walkable routes around them.
 
-## Phase 6 art and asset credits
+## How the project developed
 
-The miniature kit consists of the character, clock tower, house module, town hall facade, notice board, post box, observatory dome and telescope, evergreen trees, and lanterns. These town and observatory meshes and materials are original, authored in this repository with React Three Fiber and Three.js primitives. The exported `public/models/town.glb` and `public/models/observatory.glb` contain this original geometry. The lookout moon is a separate third-party asset credited below. The character remains an original code-native model so its subtle walking bob can run independently. `src/world/palette.ts` keeps cream stone, roof purple, muted green, warm gold, deep blue, and steel blue consistent. All decorative geometry begins at the approved ground plane; colliders and interaction anchors remain in their original data files. `BatchedStaticKit` merges stationary town meshes by material and shadow behavior before export.
+| Phase | What it added |
+| --- | --- |
+| 1. Foundation | The HTML portfolio, world-first entry, view switch, character movement, and keyboard interactions. |
+| 2. Miniature style | Rounded cream stone, roof tiles, paving, flowers, soft lighting, and the fixed twilight palette. The archived [style sample](preview/style-sample.png) records this pass. |
+| 3. Central square | The decorative clock tower, circular fountain, paved plaza, planters, and clear routes around the basin. |
+| 4. Observatory exterior | A low blue faceted dome, triangular panels and ribs, a telescope silhouette, and a reachable entrance. |
+| 5. Observatory interior | A star-panel dome, tiled walls, telescope and eyepiece, crystal display, and a lower camera with constrained follow. |
+| 6. Assets and rendering | Code geometry exported as GLBs, compatible material batching, lighting and shadow work, and runtime asset checks. |
+| 7. Access and recovery | Direct portfolio access, persistent guide dismissal, accessible panels, reduced motion, and fallbacks for WebGL or model failures. |
 
-Town and observatory GLBs load on demand within the canvas with predictable scene origins and scale 1. Their Suspense fallbacks are simple landmark geometry, and asset errors show the same navigable fallbacks plus a visible status message. The direct HTML portfolio button remains available. Walking bob and faint star opacity motion stop for visitors who request reduced motion. Lighting stays fixed. Press E at the north lookout to enter a stationary moon view; Escape or Return to town restores exploration. The clock is decorative.
+Later passes added the E-triggered moon lookout, fuller trees and gardens, the refined town hall and player, and a production review. The two houses removed earlier remain absent.
 
-### Editing and exporting world assets
+## Where to make changes
 
-Edit code geometry in `src/world/Town.tsx`, `ClockTower.tsx`, `Fountain.tsx`, `ObservatoryExterior.tsx`, and `ObservatoryInterior.tsx`. With `npm run dev`, preview source geometry at `/?asset-export=town` and `/?asset-export=observatory`; the ordinary `/` route loads the GLBs in `public/models/`. Run `npm run export:assets` after editing static geometry. This starts its own temporary Vite server and headless Edge or Chrome, exports both GLBs, checks landmark groups and the normal app's GLB load, then closes its browser and server. Set `TWILIGHT_BROWSER` to a browser executable if neither default location exists. Commit the updated source and both GLBs together. Run `npm run build` afterward to copy the GLBs into `dist/models/`.
+| Change | Main files |
+| --- | --- |
+| Portfolio text, links, projects, experience, contact | `src/data/portfolio.ts` |
+| Town layout and static landmarks | `src/world/Town.tsx`, `ClockTower.tsx`, `Fountain.tsx`, `ObservatoryExterior.tsx` |
+| Trees, gardens, town hall | `src/world/TownScenery.tsx`, `TownBuilding.tsx` |
+| Observatory room | `src/world/ObservatoryInterior.tsx`, `InteriorStarDome.tsx`, `InteriorTelescope.tsx` |
+| Player appearance and walking motion | `src/world/Player.tsx` |
+| Collision and interaction locations | `src/world/collision.ts`, `interactions.ts` |
+| Camera presets and scene behavior | `src/world/FollowCamera.tsx`, `interiorCamera.ts`, `WorldExperience.tsx` |
+| Lighting and runtime-only water and moon | `src/world/WorldCanvas.tsx`, `Fountain.tsx`, `SketchfabMoon.tsx`, `LookoutMoon.tsx` |
 
-`BatchedStaticKit` explicitly shares equivalent opaque, textureless basic or standard materials, then batches only meshes with the same material object and shadow settings within a named landmark. Textured, transparent, or custom shader materials stay separate. Named groups such as `ClockTower`, `Fountain`, `ObservatoryExterior`, `Telescope`, and `InteriorStarDome` remain in the GLBs as replacement points for future custom models. Fountain water is a live runtime layer in `WorldCanvas`, outside the town export. The moon is a runtime lookout reveal and is not part of either GLB. Source preview and the normal route both include the live water. A temporary magenta clock face was exported and observed in the normal app, then removed and exported again; this confirmed that source edits reach the runtime asset.
+`public/resume.pdf` is served as provided. The resume download appears only when the file exists at build time. Check portfolio claims and external links before publishing.
 
-The code-built town and observatory models approximate the supplied references. Their detailed masonry, sculpted fountain figure, and refractive stained glass are simplified. The code-built fallback moon remains an approximation of the moon reference.
+The core palette is in `src/world/palette.ts`: sky `#29213F`, roofs `#665087`, terrain `#68765A`, windows `#EDBC70`, deep blue `#263750`, steel blue `#627D93`, and cream stone `#F3EBDD`.
 
-### Surrounding scenery and character
+## Edit, export, and check 3D assets
 
-`TownScenery.tsx` builds rounded, clustered trees with visible trunks, small shrubs, and edged flower beds. Its repeated leaves, flowers, stones, and finishes share geometry and materials, and `BatchedStaticKit` merges compatible static meshes within the `TownScenery` group for export. `TownBuilding.tsx` refines the existing town hall with a rounded foundation, thick tiled gable roof, framed windows, and a rounded door. The two houses removed earlier remain absent. The flower beds and hall foundation have matching footprints in `collision.ts`; the plaza routes and observatory entrance remain open. `Player.tsx` keeps the existing ground footprint and identity while adding a larger face, rounded hands and boots, clearer clothing, and a small walking swing that stops for reduced motion.
+The source geometry is built in code. **The ordinary application loads exported GLBs**, so a source edit will not appear there until the assets are regenerated.
 
-The paired normal-runtime captures use identical 1440 × 900 camera positions: [plaza before](preview/scenery-before-plaza.png) and [after](preview/scenery-after-plaza.png); [observatory approach before](preview/scenery-before-observatory.png) and [after](preview/scenery-after-observatory.png). The greenery and flower shapes remain deliberately simple at gameplay zoom rather than using detailed foliage textures.
+1. Run `npm run dev`. Use `/?asset-export=town` or `/?asset-export=observatory` to inspect source geometry. The ordinary `/` route loads `public/models/town.glb`; `/?preview=observatory` loads `public/models/observatory.glb` in development. Other development preview positions include `?preview=observatory-exterior` and `?preview=lookout`.
+2. Run `npm run export:assets` after editing static geometry. The script starts its own local Vite server and headless Edge or Chrome, regenerates **both** GLBs, checks their named groups and shadow settings, and verifies that the normal app loads them. It does not require an existing browser debugging session. Set `TWILIGHT_BROWSER` to a browser executable if neither default Windows path applies.
+3. Run `npm run build` to copy the exported files into `dist/models/`. Keep source changes and their regenerated GLBs together.
+4. Run `npm run review:production` to exercise the built site, compare source and GLB views, capture screenshots, and write [the review data](preview/production-review.json). This also starts its own temporary browser and local servers. Build first; the review script does not build for you.
 
-### Northern lookout and moon
+`BatchedStaticKit.tsx` batches compatible stationary meshes within named landmarks. It shares only equivalent opaque materials and keeps textured, transparent, or custom shader materials separate. The exporter records each mesh's shadow choices in glTF extras; `ModelAsset.tsx` restores them when loading the GLB. Groups such as `ClockTower`, `Fountain`, `NorthLookout`, `ObservatoryExterior`, `Telescope`, and `InteriorStarDome` remain named for later model replacement.
 
-`Town.tsx` builds the stone-framed terrace west of the clock tower near the north edge of the map. Its side walls have matching footprints in `collision.ts`, and the E anchor is on the flat, reachable center of the terrace. The terrace is exported in `town.glb` as `NorthLookout`. The user-provided [`majoras-moon.glb`](public/models/majoras-moon.glb) is ["The Legend Of Zelda Majoras Mask 3D - Moon" by Warrior364](https://sketchfab.com/3d-models/the-legend-of-zelda-majoras-mask-3d-moon-062f9773cb5b43338a60780e1e61c4bc), offered by its uploader under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The lookout UI also credits the author and license. The supplied original OBJ package and converted GLB both use a 256-pixel color texture; the GLB is the runtime asset.
+Fountain water, falling streams, and ripples are animated at runtime, outside `town.glb`. The moon is also a separate runtime reveal and is absent from both static exports. The observatory star and nebula textures are generated in code and embedded in `observatory.glb`. Static town and interior materials are opaque; translucent water uses depth writing disabled. The supplied `public/models/majoras-moon.glb` is **not** regenerated by `export:assets`.
 
-`SketchfabMoon.tsx` centers, scales, tilts, and darkens the GLB at runtime and turns off its emissive layer; the supplied GLB file itself is unchanged. It stays outside the static town export. `LookoutMoon.tsx` is the original generated-geometry fallback if the GLB fails to load; its `moonFace` parameters remain editable. The moon exists only in lookout mode, so replacing its GLB does not change movement or interactions. `LookoutHorizon.tsx` adds a small dark landscape silhouette to tie the miniature foreground to the twilight sky.
+## Checks and current captures
 
-`FollowCamera.tsx` owns the camera for exploration, the interior, and lookout mode. The lookout camera pans slowly toward a centered moon and frames the terrace and character; reduced motion switches instantly. During the shot, `ModelAsset.tsx` shows only the `NorthLookout` group from the town GLB, hiding the observatory, trees, and other town scenery. Movement and E interactions pause; held movement keys clear, and returning requires a fresh E press. The site footer appears in the portfolio but is hidden throughout Explore town. The [approach](preview/lookout-entry.png), [GLB moon view](preview/lookout-moon-mesh.png), [mobile view](preview/lookout-moon-mobile.png), [generated fallback](preview/lookout-moon-fallback.png), and [restored camera](preview/lookout-return.png) were captured from the normal GLB-loaded app at gameplay zoom. The moon does not approach, cast a town-wide shadow, trigger a timer, or reset the world.
+```sh
+npm run lint
+npm test
+npm run build
+npm run review:production
+```
 
-### Fountain-reference style sample (archived)
+The unit tests cover movement, fountain and landmark reachability, observatory spawns, the interior camera, and dome topology. The production review checks world-first arrival and portfolio access; three observatory entry/exit loops and the telescope panel; lookout entry, Escape and button exit, input clearing, and camera return; reduced motion; and town, moon, and WebGL failure recovery. It also checks that the moon and water appear only in their intended scenes and that source and loaded GLBs retain the same mesh shadow settings.
 
-`src/world/StyleSample.tsx` retains the earlier rounded cream stone corner, beveled purple roof tiles, jointed pavers, and flower planter as source geometry, but the house is no longer placed in town. The nearby trees still have rounded overlapping canopies. The grass no longer emits light; a warm directional key, soft hemisphere and opposite fill, and a low-intensity generated room reflection keep the fixed twilight scene readable. No bloom or depth-of-field effect is used.
+| View | Normal runtime capture |
+| --- | --- |
+| Central square | [Square](preview/review-square.png) |
+| Observatory exterior | [Exterior](preview/review-observatory-exterior.png) |
+| Observatory interior | [Interior](preview/review-observatory-interior.png) |
+| Moon lookout | [Lookout](preview/review-lookout.png) |
+| Same location after returning | [Returned to town](preview/review-lookout-return.png) |
 
-The earlier [gameplay screenshot](preview/style-sample.png) and [movement screenshot](preview/style-sample-moved.png) document that sample before its removal from town. The reference's detailed stone carving, dense flowers, textured paving, and sculpted foliage were approximations made from simple geometry and restrained color variation.
+For direct comparisons, see [town source](preview/review-town-source.png) and [loaded town GLB](preview/review-town-runtime.png), plus [interior source](preview/review-interior-source.png) and [loaded interior GLB](preview/review-interior-runtime.png). The [moving shadow capture](preview/review-shadow-motion.png) shows the plaza after a short walk. Earlier [plaza](preview/scenery-before-plaza.png) and [observatory approach](preview/scenery-before-observatory.png) captures can be compared with the [updated plaza](preview/scenery-after-plaza.png) and [updated approach](preview/scenery-after-observatory.png).
 
-### Central square
+### Latest measured performance
 
-`ClockTower.tsx` places a stepped cream-stone tower at the north edge of the square, with a large ringed decorative face, radial markings, side walls, and a central door. `Fountain.tsx` places a segmented basin, upper bowl, and a code-built winged Hyrule-inspired crest in the foreground. Its live blue water, streams, and ripples remain outside the static town export. `Town.tsx` builds the paved radial surround and positions the planters near its edge. All steps and raised stonework are decorative; movement remains flat X/Z. `collision.ts` and `interactions.ts` keep the basin solid, the About prompt on open ground, and clear side routes around the fountain. The town camera frames both landmarks on arrival. [Normal runtime capture](preview/fountain-hyrule-crest.png) was taken from the exported GLB after closing the guide.
+The November 22, 2026 review used a 1440 × 900 headless Edge 158 viewport with hardware accelerated D3D11 on an Intel Arc 140V GPU, Intel Core Ultra 7 256V, and 16 GB RAM. Five-second samples began after the GLBs loaded.
 
-### Observatory exterior
+| Scene | FPS | Draw calls | Triangles |
+| --- | ---: | ---: | ---: |
+| Town | 60.2 | 191 | 124,934 |
+| Observatory interior | 59.9 | 111 | 15,916 |
 
-`ObservatoryExterior.tsx` builds the low polygonal base, brass trim, small entrance, triangular dome, and angled telescope as separate named groups. `observatoryDome.ts` supplies one triangle topology for the inset blue and purple panels and their dark ribs, so the frame follows the shell. The curved telescope support is code geometry. These static groups export inside `town.glb`; the interior remains in `observatory.glb`. Edit the source, run `npm run export:assets`, and inspect the ordinary `/` route to see the GLB used by visitors. `/?preview=observatory-exterior` starts close to the entrance for gameplay zoom inspection. The export script checks the dome, door, and telescope groups in the GLB as future replacement points.
+The browser was capped near 60 FPS. These numbers show that this hardware held that rate; they are not a lower-end-device prediction. The town exceeds the earlier 150-draw-call starting target, so it should be measured again on slower GPUs before reducing shadow or geometry quality. After three observatory loops, the warmed town renderer returned to 180 geometries and 8 textures each time, with no progressive GPU resource increase.
 
-[Before](preview/observatory-baseline-close.png) and [after](preview/observatory-exterior-close.png) captures show the exterior at gameplay zoom; the [town arrival](preview/observatory-after-town.png) shows the full silhouette in context. These were taken with Playwright against the normal GLB-loaded app. The panels use reflective standard materials rather than refraction. Their smooth colors, the simple lens, and the curved mechanical support approximate the detailed glass and metalwork in the reference.
+| Runtime asset | Size |
+| --- | ---: |
+| `town.glb` | 4.12 MB |
+| `observatory.glb` | 0.62 MB |
+| `majoras-moon.glb` | 0.19 MB |
 
-### Observatory interior
+The static GLBs contain no transparent materials. No shadow acne was visible in the captured views; a longer interactive session is still needed to rule out temporal shimmer. The older SwiftShader measurements in `scripts/measure-phase6.mjs` are historical software-renderer results, not evidence of hardware performance.
 
-`ObservatoryInterior.tsx` assembles a decorative floor, central crystal exhibit, warm sconces, exit, and substantial telescope. `InteriorStarDome.tsx` builds opaque triangular purple, blue, and cyan panels with aligned structural ribs and tiled lower walls. Its star and nebula textures are generated deterministically on a canvas and embedded in `observatory.glb`; they do not reuse the reference image. `InteriorTelescope.tsx` keeps the barrel, support, and eyepiece in named groups for future replacement. The display is decorative; the existing project panel remains at the eyepiece.
+## Art, credit, and remaining approximations
 
-`interiorCamera.ts` defines the lower interior view and limits follow to a small translation while keeping its orientation fixed and its position outside the enclosure. The camera looks through the front aperture; only the necessary foreground wall and roof sections are omitted. Movement stays aligned with the town controls. The exporter checks named interior groups and loads `observatory.glb` through the normal application. [Before](preview/interior-baseline.png), [runtime after](preview/interior-runtime.png), and [eyepiece approach](preview/interior-eyepiece.png) captures are at gameplay zoom. The reference's dense star field, intricate instrument mechanisms, and glass depth are simplified into generated textures and opaque geometry.
+The town, observatory, character, scenery, and generated fallback moon are original code geometry in this repository. The supplied runtime moon, [`majoras-moon.glb`](public/models/majoras-moon.glb), is [“The Legend Of Zelda Majoras Mask 3D - Moon” by Warrior364](https://sketchfab.com/3d-models/the-legend-of-zelda-majoras-mask-3d-moon-062f9773cb5b43338a60780e1e61c4bc), shared under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The lookout UI also credits the author. Its color texture is 256 pixels wide.
 
-## Phase 6 measured performance
+Masonry, roof tiles, foliage, the fountain crest, the telescope mechanism, and the star panels use stylized geometry or generated textures. There is no refractive glass, bloom, or depth-of-field effect. The strongest future custom-model candidates are a higher-detail original faced moon, sculpted clock tower and fountain details, and a more intricate observatory telescope. Keep their interaction anchors, collision footprints, and named GLB groups when replacing them.
 
-Measured November 21, 2026 at a 1440 x 900 browser viewport in headless Microsoft Edge with software WebGL (SwiftShader). Five-second samples after loading recorded **town: 68 draw calls, 9,274 triangles, 11.4 FPS** and **observatory: 71 draw calls, 5,113 triangles, 20.7 FPS**. After correcting ground shadows and the square surface, the town sample recorded **45 draw calls and 5,445 triangles**. The software renderer is slower than a normal GPU, so these FPS values are not laptop gameplay claims. Draw calls and triangles are below the plan's starting budgets of 150 and 100k–200k respectively. The town GLB is now **237,160 bytes** and the observatory GLB **106,604 bytes**; each is well below the 8 MB starting download budget. The Phase 6 model loader chunk was 21.11 KB gzip and its initial JS chunk was 320.49 KB gzip.
+## Deployment preparation
 
-The measurement script is `node scripts/measure-phase6.mjs` or `node scripts/measure-phase6.mjs --observatory` against a local Vite dev server and an Edge remote debugging session on port 9222. It writes the screenshots in `preview/`; the scene also exposes its one-time five-second sample as `window.__twilightMetrics`. Phase 7 moves the Three.js runtime out of the initial bundle, so the Phase 6 initial bundle size above is historical. A hardware browser and phone review remain necessary before release.
-
-## Phase 7 access and recovery
-
-The town is the default view. A floating upper-right switch reaches the regular HTML portfolio; appending `?view=portfolio` to the site URL opens a direct portfolio route without downloading the world chunk or GLBs. The town introduction can be closed and reopened. There is no navigation header in town. A loading view always offers a View portfolio button. WebGL availability is checked before entering the world. A render or chunk failure shows a retry and a route back to the portfolio, and context loss replaces the world with that recovery view. Broken model requests retain navigable primitive landmarks. The world requires a keyboard; every section and link remains available in the HTML view on phones and tablets. Native project dialogs keep focus within the panel, close with Escape, and restore the prior focus. Scene fades, camera smoothing, player bob, and stars respect reduced motion. The favicon and page metadata are in `index.html` and `public/favicon.svg`.
-
-The production smoke check (`node scripts/smoke-phase7.mjs` against `npm run preview` and headless Edge on port 9223) checks world-first arrival, the closeable guide, direct portfolio access without world requests, keyboard opening and closing of About, mobile access without horizontal overflow, reduced motion, and return to the portfolio when WebGL is unavailable. Build, lint, and seven collision/interaction tests pass.
-
-The town GLB keeps the source meshes' shadow-casting choices, so flat terrain and paths receive shadows without casting their own. The square surface and rim sit above the joining paths at distinct heights. Town buildings cast shadows but do not sample shadows on their own walls and foundations, to avoid the camera-dependent shimmer at the rear houses. Collision and interaction coordinates did not change.
-
-## Static deployment preparation
-
-No server or rewrite rule is needed: publish the contents of `dist/` as a static site. For a site hosted at its domain root, run `npm ci`, `npm run lint`, `npm test`, and `npm run build`, then inspect it with `npm run preview`. If the host serves the site under a path such as `/portfolio/`, set `VITE_BASE_PATH=/portfolio/` for the build; model, resume, favicon, and generated chunk URLs use that base. Confirm that `dist/models/town.glb`, `dist/models/observatory.glb`, and, when present, `dist/resume.pdf` are included. After choosing a host, check the deployed URL for navigation, links, asset loading, and the observatory loop. No deployment has been made.
+The site is static. Publish the contents of `dist/` to a static host after running the checks above; no server rewrite rule is needed. For hosting below a path such as `/portfolio/`, build with `VITE_BASE_PATH=/portfolio/` so model, resume, favicon, and chunk URLs use that base. Confirm `dist/models/` and `dist/resume.pdf` are included, then test the published URL and its observatory loop. **No deployment has been made.**

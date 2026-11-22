@@ -9,6 +9,7 @@
     "lint": "biome lint src scripts vite.config.ts",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "export:assets": "node scripts/export-phase6.mjs",
+    "review:production": "node scripts/review-production.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

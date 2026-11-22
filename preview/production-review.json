@@ -1,0 +1,142 @@
+{
+  "browser": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36 Edg/158.0.0.0",
+    "vendor": "Google Inc. (Intel)",
+    "renderer": "ANGLE (Intel, Intel(R) Arc(TM) 140V GPU (8GB) (0x000064A0) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "assets": {
+    "town.glb": {
+      "bytes": 4116700,
+      "meshes": 95,
+      "materials": 65,
+      "textures": 0,
+      "opaque": 65,
+      "transparent": 0
+    },
+    "observatory.glb": {
+      "bytes": 624564,
+      "meshes": 56,
+      "materials": 43,
+      "textures": 4,
+      "opaque": 43,
+      "transparent": 0
+    },
+    "majoras-moon.glb": {
+      "bytes": 191756,
+      "meshes": 1,
+      "materials": 1,
+      "textures": 1,
+      "opaque": 1,
+      "transparent": 0
+    }
+  },
+  "sourceTownMeshes": {
+    "meshes": 96,
+    "casters": 51,
+    "receivers": 12
+  },
+  "runtimeTownMeshes": {
+    "meshes": 96,
+    "casters": 51,
+    "receivers": 12
+  },
+  "sourceInteriorMeshes": {
+    "meshes": 56,
+    "casters": 19,
+    "receivers": 18
+  },
+  "runtimeInteriorMeshes": {
+    "meshes": 56,
+    "casters": 19,
+    "receivers": 18
+  },
+  "town": {
+    "seconds": 5.000000000023841,
+    "fps": 60.19999999971295,
+    "drawCalls": 191,
+    "triangles": 124934,
+    "geometries": 124,
+    "textures": 4,
+    "heapBytes": 97818516
+  },
+  "sceneChanges": [
+    {
+      "scene": "town",
+      "calls": 184,
+      "triangles": 124206,
+      "geometries": 180,
+      "textures": 8,
+      "moon": false,
+      "water": true,
+      "camera": [
+        -7.1,
+        18,
+        12.75
+      ]
+    },
+    {
+      "scene": "town",
+      "calls": 184,
+      "triangles": 124206,
+      "geometries": 180,
+      "textures": 8,
+      "moon": false,
+      "water": true,
+      "camera": [
+        -7.1,
+        18,
+        12.75
+      ]
+    },
+    {
+      "scene": "observatory",
+      "calls": 111,
+      "triangles": 15916,
+      "geometries": 172,
+      "textures": 8,
+      "moon": false,
+      "water": false,
+      "camera": [
+        0,
+        5.1,
+        8.4
+      ],
+      "performance": {
+        "seconds": 5.007199999904631,
+        "fps": 59.913724238239716,
+        "drawCalls": 111,
+        "triangles": 15916,
+        "geometries": 172,
+        "textures": 8,
+        "heapBytes": 89575329
+      }
+    },
+    {
+      "scene": "town",
+      "calls": 184,
+      "triangles": 124206,
+      "geometries": 180,
+      "textures": 8,
+      "moon": false,
+      "water": true,
+      "camera": [
+        -7.1,
+        18,
+        12.75
+      ]
+    }
+  ],
+  "checks": {
+    "sourceAndRuntimeCaptured": true,
+    "worldFirstAndPortfolio": true,
+    "fountainCollisionAndAnchors": true,
+    "repeatedObservatoryLoops": 3,
+    "telescopePanel": true,
+    "lookoutEscapeAndButton": true,
+    "moonAndWaterIsolation": true,
+    "clearedInputAndCameraReturn": true,
+    "reducedMotion": true,
+    "moonAssetRecovery": true,
+    "failedAssetRecovery": true
+  }
+}

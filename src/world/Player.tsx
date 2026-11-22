@@ -30,7 +30,7 @@ export function Player({ position, spawn, scene, enabled }: { position: MutableR
   const reducedMotion = useRef(false);
 
   useEffect(() => {
-    if (!import.meta.env.DEV) return;
+    if (!import.meta.env.DEV && !new URLSearchParams(window.location.search).has('diagnostics')) return;
     (window as Window & { __twilightPlayerPosition?: MutableRefObject<Point> }).__twilightPlayerPosition = position;
     return () => { delete (window as Window & { __twilightPlayerPosition?: MutableRefObject<Point> }).__twilightPlayerPosition; };
   }, [position]);

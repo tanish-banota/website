@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
+import { Mesh } from 'three';
 import type { Group } from 'three';
 import { InteriorStarDome } from './InteriorStarDome';
 import { InteriorTelescope } from './InteriorTelescope';
@@ -78,6 +79,9 @@ function WarmSconce({ x }: { x: number }) {
 export function ObservatoryInterior() {
   const root = useRef<Group>(null);
   useLayoutEffect(() => {
+    root.current?.traverse((object) => {
+      if (object instanceof Mesh) object.userData.twilightShadow = { cast: object.castShadow, receive: object.receiveShadow };
+    });
     if (import.meta.env.DEV) (window as Window & { __twilightObservatoryKit?: Group }).__twilightObservatoryKit = root.current ?? undefined;
     return () => { if (import.meta.env.DEV) delete (window as Window & { __twilightObservatoryKit?: Group }).__twilightObservatoryKit; };
   }, []);
