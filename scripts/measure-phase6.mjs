@@ -33,11 +33,20 @@ await command('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, 
 const scene = process.argv.includes('--observatory') ? 'observatory' : 'town';
 await command('Page.navigate', { url: scene === 'town' ? 'http://127.0.0.1:5173/' : 'http://127.0.0.1:5173/?preview=observatory' });
 await new Promise((resolve) => setTimeout(resolve, 1000));
-if (scene === 'town') await evaluate("document.querySelector('.view-switch button:last-child').click()");
+if (scene === 'town' && !(await evaluate("!!document.querySelector('canvas')"))) {
+  await evaluate("document.querySelector('.view-switch button:last-child').click()");
+}
 await new Promise((resolve) => setTimeout(resolve, 6200));
 const metrics = await evaluate('window.__twilightMetrics ?? null');
+const walkKey = process.argv.includes('--walk-up') ? 'w' : process.argv.includes('--walk-down') ? 's' : process.argv.includes('--walk') ? 'd' : null;
+if (scene === 'town' && walkKey) {
+  await evaluate(`window.dispatchEvent(new KeyboardEvent('keydown', {key:'${walkKey}'}))`);
+  await new Promise((resolve) => setTimeout(resolve, walkKey === 's' ? 700 : 1800));
+  await evaluate(`window.dispatchEvent(new KeyboardEvent('keyup', {key:'${walkKey}'}))`);
+  await new Promise((resolve) => setTimeout(resolve, 200));
+}
 const screenshot = await command('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
-const screenshotPath = `preview/phase6-${scene}.png`;
+const screenshotPath = scene === 'town' && walkKey ? `preview/town-walk-${walkKey}.png` : `preview/phase6-${scene}.png`;
 await writeFile(screenshotPath, Buffer.from(screenshot.data, 'base64'));
 console.log(JSON.stringify({ metrics, screenshot: screenshotPath, webgl: await evaluate("!!document.querySelector('canvas')") }, null, 2));
 socket.close();

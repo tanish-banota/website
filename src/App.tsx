@@ -29,19 +29,32 @@ function WorldMessage({ failed, onExit, onRetry }: { failed: boolean; onExit: ()
   </main>;
 }
 
+function ViewSwitch({ isWorld, onPortfolio, onExplore }: { isWorld: boolean; onPortfolio: () => void; onExplore: () => void }) {
+  return <div className="view-switch">
+    <button type="button" aria-pressed={!isWorld} onClick={onPortfolio}>View portfolio</button>
+    <button type="button" aria-pressed={isWorld} onClick={onExplore}>Explore town</button>
+  </div>;
+}
+
 export default function App() {
-  const [view, setView] = useState<View>(() => import.meta.env.DEV && /(?:asset-export|preview)=/.test(window.location.search) ? 'world' : 'portfolio');
-  const [worldFailed, setWorldFailed] = useState(false);
+  const [view, setView] = useState<View>(() => new URLSearchParams(window.location.search).get('view') === 'portfolio' ? 'portfolio' : 'world');
+  const [worldFailed, setWorldFailed] = useState(() => !webglAvailable());
   const [attempt, setAttempt] = useState(0);
   const focusPortfolio = useRef(false);
   const isWorld = view === 'world';
 
   const showPortfolio = () => {
     focusPortfolio.current = true;
+    const url = new URL(window.location.href);
+    url.searchParams.set('view', 'portfolio');
+    window.history.replaceState(null, '', url);
     setView('portfolio');
     setWorldFailed(false);
   };
   const explore = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('view');
+    window.history.replaceState(null, '', url);
     setAttempt((current) => current + 1);
     setWorldFailed(!webglAvailable());
     setView('world');
@@ -57,27 +70,26 @@ export default function App() {
 
   const failure = <WorldMessage failed onExit={showPortfolio} onRetry={explore} />;
 
-  return <div className="site-shell">
+  return <div className={`site-shell ${isWorld ? 'world-mode' : ''}`}>
     <a className="skip-link" href="#main-content">Skip to main content</a>
-    <header className="site-header">
-      <a className="brand" href="#about" onClick={showPortfolio} aria-label={`${portfolio.name}, portfolio home`}>
-        <span className="brand-mark" aria-hidden="true">✦</span>
-        <span>{portfolio.name}</span>
-      </a>
-      <nav aria-label="Main navigation">
-        <a href="#about" onClick={showPortfolio}>About</a>
-        <a href="#projects" onClick={showPortfolio}>Projects</a>
-        <a href="#experience" onClick={showPortfolio}>Experience</a>
-        <a href="#contact" onClick={showPortfolio}>Contact</a>
-      </nav>
+    {!isWorld ? <header className="site-header">
+        <a className="brand" href="#about" onClick={showPortfolio} aria-label={`${portfolio.name}, portfolio home`}>
+          <span className="brand-mark" aria-hidden="true">✦</span>
+          <span>{portfolio.name}</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="#about" onClick={showPortfolio}>About</a>
+          <a href="#projects" onClick={showPortfolio}>Projects</a>
+          <a href="#experience" onClick={showPortfolio}>Experience</a>
+          <a href="#contact" onClick={showPortfolio}>Contact</a>
+        </nav>
       <div className="view-control">
-        <div className="view-switch">
-          <button type="button" aria-pressed={!isWorld} onClick={showPortfolio}>View portfolio</button>
-          <button type="button" aria-pressed={isWorld} onClick={explore}>Explore town</button>
-        </div>
+        <ViewSwitch isWorld={isWorld} onPortfolio={showPortfolio} onExplore={explore} />
         <span className="explore-note">Town exploration needs a keyboard.</span>
       </div>
-    </header>
+    </header> : <div className="world-view-switch">
+      <ViewSwitch isWorld={isWorld} onPortfolio={showPortfolio} onExplore={explore} />
+    </div>}
     {isWorld ? worldFailed ? failure : (
       <WorldErrorBoundary key={attempt} fallback={failure}>
         <Suspense fallback={<WorldMessage failed={false} onExit={showPortfolio} />}>

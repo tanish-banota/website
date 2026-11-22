@@ -6,9 +6,9 @@ type Position = [number, number, number];
 
 // The kit is built at world scale with bases at y=0. Decorative pieces never
 // participate in collision; collision.ts retains the approved footprints.
-function StoneCourse({ width, depth, y }: { width: number; depth: number; y: number }) {
+function StoneCourse({ width, depth, y, thickness = 0.13 }: { width: number; depth: number; y: number; thickness?: number }) {
   return <mesh position={[0, y, 0]} castShadow receiveShadow>
-    <boxGeometry args={[width + 0.12, 0.13, depth + 0.12]} />
+    <boxGeometry args={[width + 0.12, thickness, depth + 0.12]} />
     <meshStandardMaterial color={paint.stoneShade} roughness={1} />
   </mesh>;
 }
@@ -34,8 +34,8 @@ function Path({ from, to, width = 1.2 }: { from: Point; to: Point; width?: numbe
   );
 }
 
-function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint.roof }: {
-  position: Position; width?: number; depth?: number; height?: number; roof?: string;
+function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint.roof, groundedFoundation = false }: {
+  position: Position; width?: number; depth?: number; height?: number; roof?: string; groundedFoundation?: boolean;
 }) {
   return (
     <group position={position}>
@@ -43,7 +43,8 @@ function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint
         <boxGeometry args={[width, height, depth]} />
         <meshStandardMaterial color={paint.cream} roughness={1} />
       </mesh>
-      <StoneCourse width={width} depth={depth} y={0.18} />
+      {/* Rear houses need a continuous stone edge below the terrain plane. */}
+      <StoneCourse width={width} depth={depth} y={groundedFoundation ? 0.1 : 0.18} thickness={groundedFoundation ? 0.24 : 0.13} />
       <StoneCourse width={width} depth={depth} y={height - 0.18} />
       <mesh position={[0, height + 0.38, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
         <coneGeometry args={[Math.max(width, depth) * 0.66, 0.92, 4]} />
@@ -254,11 +255,11 @@ export function Town() {
         <planeGeometry args={[25.8, 20.8]} />
         <meshStandardMaterial color={paint.grass} emissive={paint.grass} emissiveIntensity={0.25} roughness={1} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 1.2]} receiveShadow>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.08, 1.2]} receiveShadow>
         <circleGeometry args={[4.15, 40]} />
         <meshStandardMaterial color={paint.cream} roughness={1} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.07, 1.2]}><ringGeometry args={[3.86, 4.04, 40]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.095, 1.2]}><ringGeometry args={[3.86, 4.04, 40]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
       <Path from={[-3.2, 0]} to={[-5.15, -2.65]} />
       <Path from={[-5.15, -2.65]} to={[-7.95, -4.75]} />
       <Path from={[-4, 2]} to={[-6.2, 2]} width={1.1} />
@@ -269,8 +270,8 @@ export function Town() {
       <TownHall />
       <PostBox />
       <Observatory />
-      <Building position={[2.95, 0, -6.2]} />
-      <Building position={[9.4, 0, -6.3]} width={1.9} depth={1.9} height={1.95} />
+      <Building position={[2.95, 0, -6.2]} groundedFoundation />
+      <Building position={[9.4, 0, -6.3]} width={1.9} depth={1.9} height={1.95} groundedFoundation />
       <Tree position={[-11.25, 0, 2.6]} scale={0.9} />
       <Tree position={[-11.2, 0, -2.6]} scale={1.05} />
       <Tree position={[-4.2, 0, -7.7]} scale={0.8} />

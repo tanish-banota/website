@@ -99,6 +99,7 @@ export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPane
           intensity={1.35}
           color="#EDBC70"
           castShadow
+          shadow-normalBias={0.02}
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
           shadow-camera-left={-14}

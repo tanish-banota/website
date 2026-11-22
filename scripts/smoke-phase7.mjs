@@ -37,35 +37,55 @@ await command('Page.enable');
 await command('Runtime.enable');
 await command('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
 await command('Page.navigate', { url: 'http://127.0.0.1:4173/' });
-await pause(1200);
-const initial = await evaluate(`({heading: document.querySelector('#about-title')?.textContent,
-  note: document.querySelector('.explore-note')?.textContent,
+await pause(2600);
+const initial = await evaluate(`({canvas: !!document.querySelector('canvas'), heading: document.querySelector('.world-overlay h1')?.textContent,
+  header: !!document.querySelector('.site-header'), switcher: !!document.querySelector('.world-view-switch'),
+  switchTop: document.querySelector('.world-view-switch')?.getBoundingClientRect().top,
+  switchRight: document.querySelector('.world-view-switch')?.getBoundingClientRect().right,
   worldRequests: performance.getEntriesByType('resource').filter(e => ['WorldExperience', 'three.core', 'town.glb'].some(part => e.name.includes(part))).length})`);
-assert.equal(initial.heading, 'Tanish Banota');
-assert.match(initial.note, /keyboard/);
-assert.equal(initial.worldRequests, 0);
+assert.equal(initial.canvas, true);
+assert.match(initial.heading, /quiet town/);
+assert.equal(initial.header, false);
+assert.equal(initial.switcher, true);
+assert.ok(initial.switchTop < 60 && initial.switchRight <= 1440);
+assert.ok(initial.worldRequests > 0);
 await screenshot('preview/phase7-desktop.png');
 
-await evaluate("document.querySelector('.view-switch button:last-child').click()");
-await pause(2600);
-const world = await evaluate(`({canvas: !!document.querySelector('canvas'), heading: document.querySelector('.world-overlay h1')?.textContent,
-  worldRequests: performance.getEntriesByType('resource').filter(e => ['WorldExperience', 'three.core', 'town.glb'].some(part => e.name.includes(part))).length})`);
-assert.equal(world.canvas, true);
-assert.match(world.heading, /quiet town/);
-assert.ok(world.worldRequests > 0);
+await evaluate("document.querySelector('.world-guide-close').click()");
+assert.equal(await evaluate("!!document.querySelector('.world-overlay')"), false);
+assert.equal(await evaluate("!!document.querySelector('.world-guide-reopen')"), true);
+await screenshot('preview/town-guide-closed.png');
+await evaluate("document.querySelector('.world-guide-reopen').click()");
+assert.equal(await evaluate("!!document.querySelector('.world-overlay')"), true);
 await evaluate("window.dispatchEvent(new KeyboardEvent('keydown', {key:'e', bubbles:true}))");
 await pause(250);
 assert.equal(await evaluate("document.querySelector('dialog[open] h2')?.textContent"), 'About');
 await evaluate("document.querySelector('dialog[open]').close()");
 await pause(150);
 assert.equal(await evaluate("!!document.querySelector('dialog[open]')"), false);
-await evaluate("document.querySelector('.site-header nav a[href=\"#projects\"]').click()");
+await evaluate("document.querySelector('.world-view-switch button:first-child').click()");
 await pause(150);
-assert.equal(await evaluate("document.querySelector('#projects-title')?.textContent"), 'Projects');
-assert.equal(await evaluate('window.location.hash'), '#projects');
+assert.equal(await evaluate("document.querySelector('#about-title')?.textContent"), 'Tanish Banota');
+assert.equal(await evaluate("!!document.querySelector('.site-header nav')"), true);
+assert.equal(await evaluate("new URLSearchParams(location.search).get('view')"), 'portfolio');
+
+await command('Page.navigate', { url: 'http://127.0.0.1:4173/?view=portfolio' });
+await pause(900);
+const portfolio = await evaluate(`({heading: document.querySelector('#about-title')?.textContent,
+  worldRequests: performance.getEntriesByType('resource').filter(e => ['WorldExperience', 'three.core', 'town.glb'].some(part => e.name.includes(part))).length})`);
+assert.equal(portfolio.heading, 'Tanish Banota');
+assert.equal(portfolio.worldRequests, 0);
 
 await command('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
 await command('Page.navigate', { url: 'http://127.0.0.1:4173/' });
+await pause(1700);
+const mobileTown = await evaluate(`({header: !!document.querySelector('.site-header'),
+  switchRight: document.querySelector('.world-view-switch')?.getBoundingClientRect().right,
+  switchTop: document.querySelector('.world-view-switch')?.getBoundingClientRect().top})`);
+assert.equal(mobileTown.header, false);
+assert.ok(mobileTown.switchRight <= 390 && mobileTown.switchTop < 50);
+await screenshot('preview/town-mobile.png');
+await command('Page.navigate', { url: 'http://127.0.0.1:4173/?view=portfolio' });
 await pause(900);
 const mobile = await evaluate(`({about: !!document.querySelector('#about-title'), projects: !!document.querySelector('#projects-title'),
   contact: !!document.querySelector('#contact-title'), overflow: document.documentElement.scrollWidth > innerWidth})`);
@@ -74,8 +94,6 @@ await screenshot('preview/phase7-mobile.png');
 
 await command('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
 await command('Page.navigate', { url: 'http://127.0.0.1:4173/' });
-await pause(900);
-await evaluate("document.querySelector('.view-switch button:last-child').click()");
 await pause(1200);
 const reducedMotion = await evaluate(`({preferred: matchMedia('(prefers-reduced-motion: reduce)').matches,
   stars: getComputedStyle(document.querySelector('.world-view'), '::before').animationName,
@@ -92,10 +110,8 @@ await command('Page.addScriptToEvaluateOnNewDocument', { source: `(() => {
 })()` });
 await command('Page.navigate', { url: 'http://127.0.0.1:4173/' });
 await pause(900);
-await evaluate("document.querySelector('.view-switch button:last-child').click()");
-await pause(250);
 assert.match(await evaluate("document.querySelector('.world-message h1')?.textContent"), /could not open/);
 await evaluate("document.querySelector('.world-message button:last-child').click()");
 assert.equal(await evaluate("document.querySelector('#about-title')?.textContent"), 'Tanish Banota');
-console.log(JSON.stringify({ initial, world, mobile, reducedMotion, webglFailureRecovered: true }, null, 2));
+console.log(JSON.stringify({ initial, portfolio, mobileTown, mobile, reducedMotion, guideToggle: true, webglFailureRecovered: true }, null, 2));
 socket.close();

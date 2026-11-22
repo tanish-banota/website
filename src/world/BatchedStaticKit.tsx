@@ -25,6 +25,7 @@ export function BatchedStaticKit({ children }: { children: ReactNode }) {
     const buckets = new Map<string, Mesh[]>();
     group.traverse((object) => {
       if (!(object instanceof Mesh) || Array.isArray(object.material)) return;
+      object.name = object.castShadow ? 'casts-shadow' : 'receives-only';
       const key = keyFor(object);
       buckets.set(key, [...(buckets.get(key) ?? []), object]);
     });
@@ -36,6 +37,7 @@ export function BatchedStaticKit({ children }: { children: ReactNode }) {
       geometries.forEach((geometry) => { geometry.dispose(); });
       if (!merged) continue;
       const batch = new Mesh(merged, meshes[0].material);
+      batch.name = meshes[0].name;
       batch.castShadow = meshes[0].castShadow;
       batch.receiveShadow = meshes[0].receiveShadow;
       meshes.forEach((mesh) => { mesh.visible = false; });

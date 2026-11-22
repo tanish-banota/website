@@ -17,6 +17,7 @@ export default function WorldExperience({ onExit, onFatalError }: { onExit: () =
   const [spawn, setSpawn] = useState<Point>(devScene === 'town' ? townSpawn : observatorySpawn);
   const [transition, setTransition] = useState<Transition>('idle');
   const [assetError, setAssetError] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(true);
   const worldMain = useRef<HTMLElement>(null);
   const pendingScene = useRef<SceneId | null>(null);
 
@@ -59,19 +60,25 @@ export default function WorldExperience({ onExit, onFatalError }: { onExit: () =
 
   useLayoutEffect(() => { worldMain.current?.focus({ preventScroll: true }); }, []);
 
+  const toggleGuide = () => {
+    setGuideOpen((open) => !open);
+    requestAnimationFrame(() => worldMain.current?.focus({ preventScroll: true }));
+  };
+
   return <>
-    <main id="main-content" className={`world-view ${scene === 'observatory' ? 'interior' : ''}`} ref={worldMain} tabIndex={-1}>
+    <main id="main-content" className={`world-view ${scene === 'observatory' ? 'interior' : ''} ${guideOpen ? '' : 'guide-closed'}`} ref={worldMain} tabIndex={-1}>
       <div className="world-moon" aria-hidden="true" />
       <WorldCanvas scene={scene} spawn={spawn} enabled={activePanel === null && transition === 'idle'}
         onNearestChange={handleNearestChange} onOpenPanel={activateAnchor}
         onAssetError={() => setAssetError(true)} onFatalError={onFatalError} />
-      <div className="world-overlay">
+      {guideOpen ? <div className="world-overlay" id="town-guide">
+        <button type="button" className="world-guide-close" onClick={toggleGuide} aria-label="Close town guide">×</button>
         <p className="eyebrow">{portfolio.worldIntro[scene].eyebrow}</p>
         <h1>{portfolio.worldIntro[scene].title}</h1>
         <p>{portfolio.worldIntro[scene].description}</p>
         {assetError && <p role="status">Scene detail failed to load. Landmarks and interactions remain available.</p>}
         <button type="button" className="primary-button" onClick={onExit}>View portfolio</button>
-      </div>
+      </div> : <button type="button" className="world-guide-reopen" onClick={toggleGuide}>Show town guide</button>}
       {activePanel === null && transition === 'idle' && <Hud nearest={nearest} />}
       <div className={`scene-fade ${transition}`} aria-hidden="true" onTransitionEnd={handleFadeEnd} />
     </main>
