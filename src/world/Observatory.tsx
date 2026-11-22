@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
-import { DoubleSide, Group } from 'three';
+import { DoubleSide } from 'three';
+import type { Group } from 'three';
 import { paint } from './palette';
 
 const { cream, steel, blue, gold } = paint;

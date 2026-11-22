@@ -23,7 +23,6 @@ function PanelContent({ panel }: { panel: PanelId }) {
       <>
         <p>{portfolio.affiliation}</p>
         <p>{portfolio.intro}</p>
-        {import.meta.env.DEV && <span className="review-badge">Content placeholder</span>}
       </>
     );
   }
@@ -43,6 +42,7 @@ function PanelContent({ panel }: { panel: PanelId }) {
   return (
     <div className="dialog-contact">
       <a href={`mailto:${portfolio.email}`}>{portfolio.email}</a>
+      {portfolio.contactLinks.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>)}
       {portfolio.resumeHref && <a href={portfolio.resumeHref} download>Download resume (PDF)</a>}
     </div>
   );

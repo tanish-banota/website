@@ -65,13 +65,14 @@ function SceneCamera({ scene, spawn }: { scene: SceneId; spawn: Point }) {
   );
 }
 
-export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPanel, onAssetError }: {
+export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPanel, onAssetError, onFatalError }: {
   scene: SceneId;
   spawn: Point;
   enabled: boolean;
   onNearestChange: (anchor: Anchor | null) => void;
   onOpenPanel: (anchor: Anchor) => void;
   onAssetError: () => void;
+  onFatalError: () => void;
 }) {
   const playerPosition = useRef({ ...spawn });
   const exportMode = import.meta.env.DEV && new URLSearchParams(window.location.search).get('asset-export') === scene;
@@ -82,7 +83,13 @@ export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPane
         shadows
         dpr={[1, 1.5]}
         gl={{ alpha: true, antialias: true }}
-        onCreated={({ gl }) => gl.setClearColor('#29213F', 0)}
+        onCreated={({ gl }) => {
+          gl.setClearColor('#29213F', 0);
+          gl.domElement.addEventListener('webglcontextlost', (event) => {
+            event.preventDefault();
+            onFatalError();
+          }, { once: true });
+        }}
       >
         <SceneCamera scene={scene} spawn={spawn} />
         <PerformanceProbe scene={scene} />

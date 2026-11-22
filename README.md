@@ -1,4 +1,4 @@
-# Twilight Town portfolio — Phase 6
+# Twilight Town portfolio — Phase 7
 
 A static portfolio with a compact 3D town. The portfolio remains the default view. The original miniature character can walk to town landmarks, enter the observatory, use its telescope to read the Tranquility Base panel, and exit back to town.
 
@@ -10,6 +10,7 @@ Use Node.js 22.20.0 or a compatible current LTS release.
 npm install
 npm run dev
 npm run build
+npm run lint
 npm test
 npm run preview
 ```
@@ -18,7 +19,7 @@ Installed versions: Vite 8.3.8, React 19.3.1, TypeScript 7.0.2, Three.js 0.187.0
 
 ## Content
 
-Edit `src/data/portfolio.ts` to update both the HTML portfolio and future world panels. Project summaries describe the linked repositories without claiming personal contributions. Experience details come from the supplied resume, which is served unchanged from `public/resume.pdf`. The About text remains a placeholder. The contact email comes from the supplied plan.
+Edit `src/data/portfolio.ts` to update both the HTML portfolio and world panels. Project summaries describe the linked repositories without claiming personal contributions. Experience details and contact information come from the supplied resume; the email also matches the plan. The resume is served unchanged from `public/resume.pdf`. Its download action is included only when that file exists at build time. The three project repositories, GitHub profile, LinkedIn profile, and Tranquility Base demo were checked on November 21, 2026; the demo returned HTTP 200. Keep claims and links current before publishing.
 
 ## Phase 5 observatory
 
@@ -32,6 +33,16 @@ Town and observatory GLBs load on demand within the canvas with predictable scen
 
 ## Phase 6 measured performance
 
-Measured November 21, 2026 at a 1440 x 900 browser viewport in headless Microsoft Edge with software WebGL (SwiftShader). Five-second samples after loading recorded **town: 68 draw calls, 9,274 triangles, 11.4 FPS** and **observatory: 71 draw calls, 5,113 triangles, 20.7 FPS**. The software renderer is slower than a normal GPU, so these FPS values are not laptop gameplay claims. Draw calls and triangles are below the plan's starting budgets of 150 and 100k–200k respectively. The town GLB is **236,548 bytes** and the observatory GLB **106,604 bytes**; each is well below the 8 MB starting download budget. The model loader chunk is 21.11 KB gzip and the initial JS chunk is 320.49 KB gzip. The full 3D framework still ships in the initial application chunk; lazy loading the whole world is Phase 7 scope.
+Measured November 21, 2026 at a 1440 x 900 browser viewport in headless Microsoft Edge with software WebGL (SwiftShader). Five-second samples after loading recorded **town: 68 draw calls, 9,274 triangles, 11.4 FPS** and **observatory: 71 draw calls, 5,113 triangles, 20.7 FPS**. The software renderer is slower than a normal GPU, so these FPS values are not laptop gameplay claims. Draw calls and triangles are below the plan's starting budgets of 150 and 100k–200k respectively. The town GLB is **236,548 bytes** and the observatory GLB **106,604 bytes**; each is well below the 8 MB starting download budget. The Phase 6 model loader chunk was 21.11 KB gzip and its initial JS chunk was 320.49 KB gzip.
 
-The measurement script is `node scripts/measure-phase6.mjs` or `node scripts/measure-phase6.mjs --observatory` against a local Vite dev server and an Edge remote debugging session on port 9222. It writes the screenshots in `preview/`; the scene also exposes its one-time five-second sample as `window.__twilightMetrics`. Production build and all seven movement/interaction tests pass. A hardware browser and phone review remain necessary before release.
+The measurement script is `node scripts/measure-phase6.mjs` or `node scripts/measure-phase6.mjs --observatory` against a local Vite dev server and an Edge remote debugging session on port 9222. It writes the screenshots in `preview/`; the scene also exposes its one-time five-second sample as `window.__twilightMetrics`. Phase 7 moves the Three.js runtime out of the initial bundle, so the Phase 6 initial bundle size above is historical. A hardware browser and phone review remain necessary before release.
+
+## Phase 7 access and recovery
+
+The regular HTML portfolio is the default route and renders without downloading the world chunk or GLBs. “Explore town” loads the 3D code only when selected; a loading view always offers a View portfolio button. WebGL availability is checked before entering the world. A render or chunk failure shows a retry and a route back to the portfolio, and context loss replaces the world with that recovery view. Broken model requests retain navigable primitive landmarks. The world requires a keyboard; every section and link remains available in the HTML view on phones and tablets. Native project dialogs keep focus within the panel, close with Escape, and restore the prior focus. Scene fades, camera smoothing, player bob, and stars respect reduced motion. The favicon and page metadata are in `index.html` and `public/favicon.svg`.
+
+The production smoke check (`node scripts/smoke-phase7.mjs` against `npm run preview` and headless Edge on port 9223) confirmed no world requests on first arrival, a working canvas after Explore, keyboard opening and closing of About, mobile access without horizontal overflow, and return to the portfolio when WebGL is unavailable. Build, lint, and seven collision/interaction tests pass.
+
+## Static deployment preparation
+
+No server or rewrite rule is needed: publish the contents of `dist/` as a static site. For a site hosted at its domain root, run `npm ci`, `npm run lint`, `npm test`, and `npm run build`, then inspect it with `npm run preview`. If the host serves the site under a path such as `/portfolio/`, set `VITE_BASE_PATH=/portfolio/` for the build; model, resume, favicon, and generated chunk URLs use that base. Confirm that `dist/models/town.glb`, `dist/models/observatory.glb`, and, when present, `dist/resume.pdf` are included. After choosing a host, check the deployed URL for navigation, links, asset loading, and the observatory loop. No deployment has been made.

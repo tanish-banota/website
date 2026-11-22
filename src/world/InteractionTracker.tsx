@@ -15,6 +15,7 @@ export function InteractionTracker({ position, scene, enabled, onNearestChange, 
 }) {
   const current = useRef<Anchor | null>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Scene changes intentionally clear a stale interaction prompt.
   useEffect(() => {
     current.current = null;
     onNearestChange(null);

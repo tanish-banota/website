@@ -1,19 +1,14 @@
 import { portfolio } from '../data/portfolio';
 
-function ReviewBadge() {
-  return import.meta.env.DEV ? <span className="review-badge">Content placeholder</span> : null;
-}
-
 export function Portfolio() {
   return (
-    <main id="main-content" className="portfolio">
+    <main id="main-content" className="portfolio" tabIndex={-1}>
       <section id="about" className="hero section" aria-labelledby="about-title">
         <div className="hero-copy">
           <p className="eyebrow">About</p>
           <h1 id="about-title">{portfolio.name}</h1>
           <p className="affiliation">{portfolio.affiliation}</p>
           <p className="intro">{portfolio.intro}</p>
-          <ReviewBadge />
         </div>
         <div className="hero-art" aria-hidden="true">
           <div className="hero-moon" />
@@ -68,6 +63,7 @@ export function Portfolio() {
         <h2 id="contact-title">Contact</h2>
         <div className="contact-links">
           <a className="email-link" href={`mailto:${portfolio.email}`}>{portfolio.email}</a>
+          {portfolio.contactLinks.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>)}
           {portfolio.resumeHref && <a className="resume-link" href={portfolio.resumeHref} download>Download resume (PDF)</a>}
         </div>
       </section>

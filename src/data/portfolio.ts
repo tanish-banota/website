@@ -25,6 +25,7 @@ export type PortfolioData = {
   affiliation: string;
   intro: string;
   email: string;
+  contactLinks: Link[];
   worldIntro: Record<'town' | 'observatory', { eyebrow: string; title: string; description: string }>;
   projects: Project[];
   experience: Experience[];
@@ -35,8 +36,12 @@ export type PortfolioData = {
 export const portfolio: PortfolioData = {
   name: 'Tanish Banota',
   affiliation: 'Rutgers University',
-  intro: 'My projects and experience are collected below. A fuller introduction is coming soon.',
+  intro: 'I build software projects and contribute to research, teaching, and student events at Rutgers University. Explore selected work and experience below.',
   email: 'banotatanish@gmail.com',
+  contactLinks: [
+    { label: 'GitHub', href: 'https://github.com/tanish-banota' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tbanota/' },
+  ],
   worldIntro: {
     town: {
       eyebrow: 'Town walk',
@@ -107,5 +112,5 @@ export const portfolio: PortfolioData = {
       ],
     },
   ],
-  resumeHref: '/resume.pdf',
+  resumeHref: __RESUME_AVAILABLE__ ? `${import.meta.env.BASE_URL}resume.pdf` : null,
 };

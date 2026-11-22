@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
-import { Group, Mesh, MeshBasicMaterial, MeshStandardMaterial } from 'three';
+import { Mesh } from 'three';
+import type { Group, MeshBasicMaterial, MeshStandardMaterial } from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
 type KitMaterial = MeshBasicMaterial | MeshStandardMaterial;
@@ -32,7 +33,7 @@ export function BatchedStaticKit({ children }: { children: ReactNode }) {
       if (meshes.length < 2) continue;
       const geometries = meshes.map((mesh) => mesh.geometry.clone().applyMatrix4(mesh.matrixWorld));
       const merged = mergeGeometries(geometries, false);
-      geometries.forEach((geometry) => geometry.dispose());
+      geometries.forEach((geometry) => { geometry.dispose(); });
       if (!merged) continue;
       const batch = new Mesh(merged, meshes[0].material);
       batch.castShadow = meshes[0].castShadow;

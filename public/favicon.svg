@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Twilight town moon and tower">
+  <rect width="64" height="64" rx="14" fill="#29213f"/>
+  <circle cx="47" cy="17" r="9" fill="#f3ebdd"/>
+  <path d="M8 48h48v9H8z" fill="#68765a"/>
+  <path d="M21 29h20v25H21z" fill="#f3ebdd"/>
+  <path d="M18 29 31 16l13 13z" fill="#665087"/>
+  <circle cx="31" cy="34" r="5" fill="#263750" stroke="#edbc70" stroke-width="2"/>
+  <path d="M29 54V43h5v11" fill="#263750"/>
+</svg>

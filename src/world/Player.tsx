@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import type { MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import type { Group } from 'three';
@@ -13,8 +13,17 @@ export function Player({ position, spawn, scene, enabled }: { position: MutableR
   const body = useRef<Group>(null);
   const stride = useRef(0);
   const keys = useInput(enabled);
-  const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = useRef(false);
 
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => { reducedMotion.current = query.matches; };
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Changing scenes must reset the player even when a spawn coordinate is reused.
   useLayoutEffect(() => {
     position.current = { ...spawn };
     model.current?.position.set(spawn.x, 0, spawn.z);
@@ -35,8 +44,8 @@ export function Player({ position, spawn, scene, enabled }: { position: MutableR
     model.current.position.set(position.current.x, 0, position.current.z);
     if (input.x || input.z) model.current.rotation.y = Math.atan2(input.x, input.z);
     if (body.current) {
-      if ((input.x || input.z) && !reducedMotion) stride.current += Math.min(delta, 0.033) * 10;
-      body.current.position.y = !reducedMotion && (input.x || input.z) ? Math.abs(Math.sin(stride.current)) * 0.055 : 0;
+      if ((input.x || input.z) && !reducedMotion.current) stride.current += Math.min(delta, 0.033) * 10;
+      body.current.position.y = !reducedMotion.current && (input.x || input.z) ? Math.abs(Math.sin(stride.current)) * 0.055 : 0;
     }
   });
 
