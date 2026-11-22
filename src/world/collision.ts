@@ -7,7 +7,7 @@ export const MAX_FRAME_DELTA = 0.033;
 
 // The visible terrain is 25.8 x 20.8, centered on the origin.
 export const townBounds: Rect = { minX: -12.9, maxX: 12.9, minZ: -10.4, maxZ: 10.4 };
-export const townSpawn: Point = { x: 0, z: 3.5 };
+export const townSpawn: Point = { x: 0, z: 4.25 };
 export const townReturnSpawn: Point = { x: -7.0, z: -3.5 };
 export const observatorySpawn: Point = { x: 0, z: 1.4 };
 export const observatoryBounds: Rect = { minX: -2.4, maxX: 2.4, minZ: -2.8, maxZ: 3.1 };
@@ -19,8 +19,12 @@ export const observatoryObstacles: Rect[] = [
 
 // Hand-authored ground footprints for Phase 2 geometry. Decorative roofs do not affect walking.
 export const townObstacles: Rect[] = [
-  { minX: -3.18, maxX: -1.42, minZ: 0.37, maxZ: 2.13 }, // fountain basin
-  { minX: -1.15, maxX: 1.15, minZ: -2.75, maxZ: -0.65 }, // clock tower
+  { minX: -1.5, maxX: 1.5, minZ: -0.15, maxZ: 2.85 }, // fountain basin, including stone rim
+  { minX: -3.2, maxX: 3.2, minZ: -5.05, maxZ: -2.38 }, // clock tower and side walls
+  { minX: -3.7, maxX: -2.9, minZ: -1.1, maxZ: -0.3 }, // rear plaza planters
+  { minX: 2.9, maxX: 3.7, minZ: -1.1, maxZ: -0.3 },
+  { minX: -3.7, maxX: -2.9, minZ: 3.0, maxZ: 3.8 }, // front plaza planters
+  { minX: 2.9, maxX: 3.7, minZ: 3.0, maxZ: 3.8 },
   { minX: -7.75, maxX: -5.25, minZ: 2.0, maxZ: 2.3 }, // notice board
   { minX: 4.35, maxX: 8.65, minZ: -3.2, maxZ: -0.1 }, // town hall
   { minX: 7.0, maxX: 7.8, minZ: 4.33, maxZ: 4.97 }, // post box
@@ -34,9 +38,9 @@ export const townObstacles: Rect[] = [
   { minX: 3.55, maxX: 4.25, minZ: -3.9, maxZ: -3.15 }, // flower planter
   { minX: 10.55, maxX: 10.85, minZ: 1.55, maxZ: 1.85 },
   { minX: 10.42, maxX: 10.78, minZ: 7.22, maxZ: 7.58 },
-  { minX: -3.43, maxX: -3.27, minZ: -0.58, maxZ: -0.42 },
+  { minX: -4.63, maxX: -4.47, minZ: 0.17, maxZ: 0.33 },
   { minX: -6.03, maxX: -5.87, minZ: -3.98, maxZ: -3.82 },
-  { minX: 3.37, maxX: 3.53, minZ: 2.12, maxZ: 2.28 },
+  { minX: 4.52, maxX: 4.68, minZ: 2.02, maxZ: 2.18 },
 ];
 
 export function blocked(x: number, z: number, radius: number, obstacles: Rect[], bounds: Rect): boolean {

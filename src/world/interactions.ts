@@ -16,7 +16,7 @@ export type Anchor = {
 
 // Anchors sit on reachable ground in front of their landmark.
 export const anchors: Anchor[] = [
-  { id: 'clock-square', scene: 'town', x: 0, z: 2.5, radius: 1.35, label: 'About Tanish', target: { type: 'panel', id: 'about' } },
+  { id: 'clock-square', scene: 'town', x: 0, z: 3.55, radius: 0.9, label: 'About Tanish', target: { type: 'panel', id: 'about' } },
   { id: 'notice-board', scene: 'town', x: -6.5, z: 3.1, radius: 1.1, label: 'Event Finder', target: { type: 'panel', id: 'event-finder' } },
   { id: 'town-hall', scene: 'town', x: 6.5, z: 0.65, radius: 1.2, label: 'Experience', target: { type: 'panel', id: 'experience' } },
   { id: 'post-box', scene: 'town', x: 7.4, z: 5.55, radius: 1.05, label: 'Contact', target: { type: 'panel', id: 'contact' } },

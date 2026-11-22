@@ -12,7 +12,7 @@ type Transition = 'idle' | 'cover' | 'reveal';
 export default function WorldExperience({ onExit, onFatalError }: { onExit: () => void; onFatalError: () => void }) {
   const devScene = import.meta.env.DEV && /(?:asset-export|preview)=observatory/.test(window.location.search) ? 'observatory' : 'town';
   const sampleSpawn = import.meta.env.DEV && new URLSearchParams(window.location.search).get('preview') === 'style-sample'
-    ? { x: 0.7, z: -3.6 } : townSpawn;
+    ? { x: 4.4, z: -4.4 } : townSpawn;
   const [nearest, setNearest] = useState<Anchor | null>(null);
   const [activePanel, setActivePanel] = useState<PanelId | null>(null);
   const [scene, setScene] = useState<SceneId>(devScene);

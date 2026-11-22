@@ -76,15 +76,16 @@ function SceneCamera({ scene, spawn }: { scene: SceneId; spawn: Point }) {
     : Math.min(size.width / 10, size.height / 11);
   const height = scene === 'town' ? 18 : 9;
   const depth = scene === 'town' ? 20 : 11;
+  const focusZ = scene === 'town' ? spawn.z - 3.5 : spawn.z;
 
   return (
     <OrthographicCamera
       makeDefault
       zoom={zoom}
-      position={[spawn.x, height, spawn.z + depth]}
+      position={[spawn.x, height, focusZ + depth]}
       near={0.1}
       far={65}
-      onUpdate={(camera) => camera.lookAt(spawn.x, 0, spawn.z)}
+      onUpdate={(camera) => camera.lookAt(spawn.x, 0, focusZ)}
     />
   );
 }

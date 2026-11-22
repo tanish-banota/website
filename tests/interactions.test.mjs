@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { blocked, observatoryBounds, observatoryObstacles, observatorySpawn, PLAYER_RADIUS, townBounds, townObstacles, townReturnSpawn } from '../src/world/collision.ts';
+import { blocked, observatoryBounds, observatoryObstacles, observatorySpawn, PLAYER_RADIUS, townBounds, townObstacles, townReturnSpawn, townSpawn } from '../src/world/collision.ts';
 import { anchors, nearestAnchor } from '../src/world/interactions.ts';
 
 test('nearest valid anchor wins and exactly one target is returned', () => {
@@ -39,4 +39,37 @@ test('town and interior anchors and transition spawns are clear of obstacles', (
   assert.deepEqual(anchors.find((anchor) => anchor.id === 'observatory-door')?.target, { type: 'scene', id: 'observatory' });
   assert.deepEqual(anchors.find((anchor) => anchor.id === 'observatory-exit')?.target, { type: 'scene', id: 'town' });
   assert.deepEqual(anchors.find((anchor) => anchor.id === 'north-lookout')?.target, { type: 'lookout' });
+});
+
+test('the fountain has two clear side routes and every town interaction is reachable', () => {
+  assert.equal(blocked(0, 1.35, PLAYER_RADIUS, townObstacles, townBounds), true);
+  for (const x of [-2.15, 2.15]) {
+    for (let z = -1.6; z <= 4.25; z += 0.25) {
+      assert.equal(blocked(x, z, PLAYER_RADIUS, townObstacles, townBounds), false, `side route ${x}, ${z}`);
+    }
+  }
+  const step = 0.25;
+  const minX = -12.5;
+  const minZ = -10;
+  const width = 101;
+  const height = 81;
+  const start = [Math.round((townSpawn.x - minX) / step), Math.round((townSpawn.z - minZ) / step)];
+  const queue = [start];
+  const visited = new Set([`${start[0]},${start[1]}`]);
+  for (let cursor = 0; cursor < queue.length; cursor++) {
+    const [ix, iz] = queue[cursor];
+    for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = ix + dx;
+      const nz = iz + dz;
+      const key = `${nx},${nz}`;
+      if (nx < 0 || nx >= width || nz < 0 || nz >= height || visited.has(key)) continue;
+      if (blocked(minX + nx * step, minZ + nz * step, PLAYER_RADIUS, townObstacles, townBounds)) continue;
+      visited.add(key);
+      queue.push([nx, nz]);
+    }
+  }
+  for (const target of [...anchors.filter((anchor) => anchor.scene === 'town'), townReturnSpawn]) {
+    assert.ok(queue.some(([ix, iz]) => Math.hypot(minX + ix * step - target.x, minZ + iz * step - target.z) < 0.35),
+      `${target.id ?? 'town return spawn'} is unreachable`);
+  }
 });

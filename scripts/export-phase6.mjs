@@ -20,7 +20,7 @@ const browser = spawn(browserPath, ['--headless=new', '--disable-gpu', '--enable
 browser.stderr.on('data', (chunk) => { if (process.env.TWILIGHT_EXPORT_DEBUG) process.stderr.write(chunk); });
 const delay = (ms) => new Promise((resolveDelay) => setTimeout(resolveDelay, ms));
 async function until(task, label) {
-  const deadline = Date.now() + 30000;
+  const deadline = Date.now() + 60000;
   let last;
   while (Date.now() < deadline) {
     try { const result = await task(); if (result) return result; } catch (error) { last = error; }
@@ -51,7 +51,7 @@ try {
     return new Promise((resolveCommand, reject) => {
       pending.set(next, { resolve: resolveCommand, reject });
       socket.send(JSON.stringify({ id: next, method, params }));
-      setTimeout(() => { if (pending.delete(next)) reject(new Error(`${method} timed out (socket ${socket.readyState})`)); }, 10000);
+      setTimeout(() => { if (pending.delete(next)) reject(new Error(`${method} timed out (socket ${socket.readyState})`)); }, 30000);
     });
   }
   async function evaluate(expression) {
@@ -86,17 +86,21 @@ try {
     const tower = asset.getObjectByName('ClockTower');
     const colors = [];
     tower?.traverse(object => { if (object.isMesh && object.material.color) colors.push(object.material.color.getHexString()); });
-    return { tower: Boolean(tower), fountain: Boolean(asset.getObjectByName('Fountain')), colors,
+    return { tower: Boolean(tower), face: Boolean(asset.getObjectByName('ClockFace')),
+      paving: Boolean(asset.getObjectByName('PlazaPaving')),
+      fountain: Boolean(asset.getObjectByName('Fountain')), colors,
       request: performance.getEntriesByType('resource').some(entry => entry.name.includes('/models/town.glb')) };
   })()`);
-  assert.ok(runtime.tower && runtime.fountain && runtime.request, 'normal application did not load the exported town GLB');
+  assert.ok(runtime.tower && runtime.face && runtime.paving && runtime.fountain && runtime.request,
+    'normal application did not load the exported square landmarks');
   const expected = process.argv.find((arg) => arg.startsWith('--expect-clock-color='))?.split('=')[1]?.replace('#', '').toLowerCase();
   if (expected) assert.ok(runtime.colors.includes(expected), `normal application clock colors ${runtime.colors.join(', ')} lack ${expected}`);
   console.log(`Normal application loaded exported GLB; clock colors: ${runtime.colors.join(', ')}`);
   const screenshot = process.argv.find((arg) => arg.startsWith('--screenshot='))?.slice('--screenshot='.length);
   if (screenshot) {
-    await command('Page.navigate', { url: `${appUrl}?preview=style-sample` });
-    await until(() => evaluate('Boolean(window.__twilightRuntimeAsset)'), 'style sample GLB');
+    const preview = process.argv.find((arg) => arg.startsWith('--preview='))?.slice('--preview='.length) ?? 'style-sample';
+    await command('Page.navigate', { url: preview === 'plaza' ? appUrl : `${appUrl}?preview=style-sample` });
+    await until(() => evaluate('Boolean(window.__twilightRuntimeAsset)'), `${preview} GLB`);
     await evaluate("document.querySelector('.world-guide-close')?.click()");
     await delay(800);
     const capture = await command('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });

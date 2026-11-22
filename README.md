@@ -37,13 +37,17 @@ Edit code geometry in `src/world/Town.tsx`, `ClockTower.tsx`, `Fountain.tsx`, `O
 
 `BatchedStaticKit` explicitly shares equivalent opaque, textureless basic or standard materials, then batches only meshes with the same material object and shadow settings within a named landmark. Textured, transparent, or custom shader materials stay separate. Named groups such as `ClockTower`, `Fountain`, `ObservatoryExterior`, `Telescope`, and `ExitFrame` remain in the GLBs as replacement points for future custom models. Fountain water is a live runtime layer in `WorldCanvas`, outside the town export. The moon is a runtime lookout reveal and is not part of either GLB. Source preview and the normal route both include the live water. A temporary magenta clock face was exported and observed in the normal app, then removed and exported again; this confirmed that source edits reach the runtime asset.
 
-These models are code-built approximations of the supplied references: the clock tower has a simple faceted roof and face, the fountain has a compact stone basin and animated flat water, and the observatory uses a simple dome and cutaway room. The reference images' detailed masonry, sculpted fountain figure, telescope silhouette, stained glass, and moon facial features are not reproduced in this preparation phase.
+These models are code-built approximations of the supplied references. The observatory uses a simple dome and cutaway room. The references' detailed masonry, sculpted fountain figure, telescope silhouette, stained glass, and moon facial features are not reproduced.
 
 ### Fountain-reference style sample
 
 `src/world/StyleSample.tsx` replaces the rear house beside the square with a rounded cream stone corner, individually beveled purple roof tiles, jointed pavers, and a flower planter. The nearby trees now have rounded overlapping canopies. The sample uses shared rough, nonmetallic materials and thin ground insets for contact shade. The grass no longer emits light; a warm directional key, soft hemisphere and opposite fill, and a low-intensity generated room reflection keep the fixed twilight scene readable. No bloom or depth-of-field effect is used.
 
 Run `npm run dev` and open `/?preview=style-sample` to inspect the normal GLB at gameplay zoom near the sample. `npm run export:assets -- --screenshot=preview/style-sample.png --shadow-check` regenerates the assets and captures [the gameplay screenshot](preview/style-sample.png) plus [a second view after a short walk](preview/style-sample-moved.png) for comparing shadow edges. The reference's detailed stone carving, dense flowers, textured paving, and sculpted foliage remain approximations made from simple geometry and restrained color variation.
+
+### Central square
+
+`ClockTower.tsx` places a stepped cream-stone tower at the north edge of the square, with a large ringed decorative face, radial markings, side walls, and a central door. `Fountain.tsx` places a segmented basin, upper bowl, and original compass-flower crest in the foreground. Its live blue water, streams, and ripples remain outside the static town export. `Town.tsx` builds the paved radial surround and positions the planters near its edge. All steps and raised stonework are decorative; movement remains flat X/Z. `collision.ts` and `interactions.ts` keep the basin solid, the About prompt on open ground, and clear side routes around the fountain. The town camera frames both landmarks on arrival. [Normal runtime capture](preview/central-square.png) was taken from the exported GLB after closing the guide.
 
 ## Phase 6 measured performance
 

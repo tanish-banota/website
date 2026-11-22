@@ -22,6 +22,30 @@ function Path({ from, to, width = 1.2 }: { from: Point; to: Point; width?: numbe
   );
 }
 
+function PlazaPaving() {
+  const sectors = Array.from({ length: 24 }, (_, index) => index);
+  return <group name="PlazaPaving" position={[0, 0, 1.35]}>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.08, 0]} receiveShadow>
+      <circleGeometry args={[4.3, 48]} />
+      <meshStandardMaterial color={paint.stoneShade} roughness={1} />
+    </mesh>
+    {sectors.map((sector) => <mesh key={sector} rotation={[-Math.PI / 2, 0, 0]}
+      position={[0, 0.11, 0]} receiveShadow>
+      <ringGeometry args={[1.66, 3.92, 1, 1,
+        sector * Math.PI * 2 / sectors.length + 0.012, Math.PI * 2 / sectors.length - 0.024]} />
+      <meshStandardMaterial color={sector % 6 === 0 ? paint.cream : '#E8DFD0'} roughness={0.94} />
+    </mesh>)}
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.12, 0]}>
+      <ringGeometry args={[3.99, 4.18, 48]} />
+      <meshStandardMaterial color={paint.cream} roughness={0.92} />
+    </mesh>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.122, 0]}>
+      <ringGeometry args={[1.55, 1.62, 40]} />
+      <meshStandardMaterial color={paint.cream} roughness={0.92} />
+    </mesh>
+  </group>;
+}
+
 function Building({ position, width = 2.2, depth = 2, height = 2.4, roof = paint.roof, groundedFoundation = false }: {
   position: Position; width?: number; depth?: number; height?: number; roof?: string; groundedFoundation?: boolean;
 }) {
@@ -181,11 +205,7 @@ export function Town() {
         <planeGeometry args={[25.8, 20.8]} />
         <meshStandardMaterial color={paint.grass} roughness={0.95} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.08, 1.2]} receiveShadow>
-        <circleGeometry args={[4.15, 40]} />
-        <meshStandardMaterial color={paint.cream} roughness={1} />
-      </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.095, 1.2]}><ringGeometry args={[3.86, 4.04, 40]} /><meshStandardMaterial color={paint.stoneShade} /></mesh>
+      <PlazaPaving />
       <Path from={[-3.2, 0]} to={[-5.15, -2.65]} />
       <Path from={[-5.15, -2.65]} to={[-7.95, -4.75]} />
       <Path from={[-4, 2]} to={[-6.2, 2]} width={1.1} />
@@ -209,9 +229,9 @@ export function Town() {
       <Tree position={[4.8, 0, -7.5]} scale={0.9} />
       <Tree position={[10.7, 0, 1.7]} scale={0.85} />
       <Tree position={[10.6, 0, 7.4]} scale={1.1} />
-      <Lantern position={[-3.35, 0, -0.5]} />
+      <Lantern position={[-4.55, 0, 0.25]} />
       <Lantern position={[-5.95, 0, -3.9]} />
-      <Lantern position={[3.45, 0, 2.2]} />
+      <Lantern position={[4.6, 0, 2.1]} />
     </BatchedStaticKit>
   );
 }
