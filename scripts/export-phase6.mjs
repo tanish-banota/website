@@ -75,15 +75,17 @@ try {
     const jsonLength = buffer.readUInt32LE(12);
     const names = JSON.parse(buffer.toString('utf8', 20, 20 + jsonLength)).nodes?.map((node) => node.name) ?? [];
     const requiredGroups = name === 'Town'
-      ? ['ClockTower', 'Fountain', 'FountainCrest', 'ObservatoryExterior', 'TriangulatedDome', 'DomePanels', 'DomeRibs', 'ObservatoryDoor', 'RoofTelescope']
+      ? ['ClockTower', 'Fountain', 'FountainCrest', 'NorthLookout', 'ObservatoryExterior', 'TriangulatedDome', 'DomePanels', 'DomeRibs', 'ObservatoryDoor', 'RoofTelescope']
       : ['ObservatoryInterior', 'ObservatoryFloor', 'InteriorStarDome', 'TiledLowerWall', 'StarPanels', 'DomeRibs', 'Telescope', 'Eyepiece', 'StarDisplay'];
     assert.ok(requiredGroups.every((group) => names.includes(group)), `${file} lost replaceable groups`);
     assert.ok(!names.includes('FountainWater'), `${file} contains runtime water`);
+    assert.ok(!names.includes('LookoutMoon'), `${file} contains the runtime moon`);
     await writeFile(resolve(root, 'public/models', file), buffer);
     console.log(`${file}: ${buffer.length} bytes; landmark groups preserved`);
   }
   await command('Page.navigate', { url: appUrl });
   await until(() => evaluate('Boolean(window.__twilightRuntimeAsset)'), 'normal application GLB');
+  assert.equal(await evaluate("document.querySelector('.site-footer') === null"), true, 'Explore town should not show the portfolio footer');
   const runtime = await evaluate(`(() => {
     const asset = window.__twilightRuntimeAsset;
     const tower = asset.getObjectByName('ClockTower');
@@ -92,11 +94,12 @@ try {
     return { tower: Boolean(tower), face: Boolean(asset.getObjectByName('ClockFace')),
       paving: Boolean(asset.getObjectByName('PlazaPaving')),
       fountain: Boolean(asset.getObjectByName('Fountain')),
+      lookout: Boolean(asset.getObjectByName('NorthLookout')),
       dome: Boolean(asset.getObjectByName('TriangulatedDome')),
       telescope: Boolean(asset.getObjectByName('RoofTelescope')), colors,
       request: performance.getEntriesByType('resource').some(entry => entry.name.includes('/models/town.glb')) };
   })()`);
-  assert.ok(runtime.tower && runtime.face && runtime.paving && runtime.fountain && runtime.dome && runtime.telescope && runtime.request,
+  assert.ok(runtime.tower && runtime.face && runtime.paving && runtime.fountain && runtime.lookout && runtime.dome && runtime.telescope && runtime.request,
     'normal application did not load the exported square landmarks');
   const expected = process.argv.find((arg) => arg.startsWith('--expect-clock-color='))?.split('=')[1]?.replace('#', '').toLowerCase();
   if (expected) assert.ok(runtime.colors.includes(expected), `normal application clock colors ${runtime.colors.join(', ')} lack ${expected}`);
@@ -123,7 +126,16 @@ try {
     await command('Page.navigate', { url: preview === 'plaza' ? appUrl : `${appUrl}?preview=${encodeURIComponent(preview)}` });
     await until(() => evaluate('Boolean(window.__twilightRuntimeAsset)'), `${preview} GLB`);
     await evaluate("document.querySelector('.world-guide-close')?.click()");
-    await delay(800);
+    if (preview === 'lookout') {
+      await until(() => evaluate("document.querySelector('.interaction-prompt')?.textContent?.includes('Look at the moon')"), 'lookout prompt');
+      await command('Input.dispatchKeyEvent', { type: 'keyDown', key: 'e', code: 'KeyE', windowsVirtualKeyCode: 69 });
+      await command('Input.dispatchKeyEvent', { type: 'keyUp', key: 'e', code: 'KeyE', windowsVirtualKeyCode: 69 });
+      await until(() => evaluate("Boolean(document.querySelector('.lookout-controls'))"), 'lookout mode');
+      await until(() => evaluate("performance.getEntriesByType('resource').some(entry => entry.name.includes('/models/majoras-moon.glb'))"), 'runtime moon GLB request');
+      await until(() => evaluate("window.__twilightRuntimeAsset?.getObjectByName('ObservatoryExterior')?.visible === false"), 'isolated lookout GLB');
+      assert.equal(await evaluate("window.__twilightRuntimeAsset.getObjectByName('NorthLookout')?.visible === true"), true, 'lookout terrace should remain visible');
+      await delay(3000);
+    } else await delay(800);
     const capture = await command('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
     const destination = resolve(root, screenshot);
     const previewRoot = resolve(root, 'preview');
@@ -132,6 +144,12 @@ try {
     await mkdir(resolve(root, 'preview'), { recursive: true });
     await writeFile(destination, Buffer.from(capture.data, 'base64'));
     console.log(`Normal gameplay zoom screenshot: ${screenshot}`);
+    if (preview === 'lookout') {
+      await command('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
+      await command('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
+      await until(() => evaluate("window.__twilightRuntimeAsset?.getObjectByName('ObservatoryExterior')?.visible === true"), 'restored town GLB');
+      assert.equal(await evaluate("document.querySelector('.site-footer') === null"), true, 'returned town should not show the portfolio footer');
+    }
     if (process.argv.includes('--shadow-check')) {
       await evaluate("window.dispatchEvent(new KeyboardEvent('keydown', { key: 'd' }))");
       await delay(400);

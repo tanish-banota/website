@@ -4,6 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import { PMREMGenerator } from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { northLookout } from './collision';
 import type { Point } from './collision';
 import { FollowCamera } from './FollowCamera';
 import { interiorCameraPreset } from './interiorCamera';
@@ -14,10 +15,13 @@ import { ObservatoryFallback } from './ObservatoryFallback';
 import { Player } from './Player';
 import { TownFallback } from './TownFallback';
 import { FountainWater } from './Fountain';
+import { LookoutMoon } from './LookoutMoon';
+import { LookoutHorizon } from './LookoutHorizon';
 
 const TownSource = lazy(() => import('./Town').then((module) => ({ default: module.Town })));
 const ObservatorySource = lazy(() => import('./Observatory').then((module) => ({ default: module.Observatory })));
 const ModelAsset = lazy(() => import('./ModelAsset').then((module) => ({ default: module.ModelAsset })));
+const SketchfabMoon = lazy(() => import('./SketchfabMoon').then((module) => ({ default: module.SketchfabMoon })));
 
 type WorldMetrics = { scene: SceneId; seconds: number; frames: number; fps: number; drawCalls: number; triangles: number; capturedAt: string };
 
@@ -77,29 +81,26 @@ function SceneCamera({ scene, spawn }: { scene: SceneId; spawn: Point }) {
     : Math.min(size.width / 9.3, size.height / 8.2);
   const height = scene === 'town' ? 18 : interiorCameraPreset.height;
   const depth = scene === 'town' ? 20 : interiorCameraPreset.depth;
-  const focusZ = scene === 'town' ? spawn.z - 4 : spawn.z;
-
   return (
     <OrthographicCamera
       makeDefault
       zoom={zoom}
-      position={scene === 'town' ? [spawn.x, height, focusZ + depth] : [0, height, depth]}
+      position={scene === 'town' ? [spawn.x, height, spawn.z - 4 + depth] : [0, height, depth]}
       near={0.1}
-      far={65}
-      onUpdate={(camera) => scene === 'town'
-        ? camera.lookAt(spawn.x, 0, focusZ)
-        : camera.lookAt(0, interiorCameraPreset.targetHeight, interiorCameraPreset.targetZ)}
+      far={100}
     />
   );
 }
 
-export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPanel, onAssetError, onFatalError }: {
+export function WorldCanvas({ scene, spawn, enabled, lookoutActive, onNearestChange, onOpenPanel, onAssetError, onMoonAssetError, onFatalError }: {
   scene: SceneId;
   spawn: Point;
   enabled: boolean;
+  lookoutActive: boolean;
   onNearestChange: (anchor: Anchor | null) => void;
   onOpenPanel: (anchor: Anchor) => void;
   onAssetError: () => void;
+  onMoonAssetError: () => void;
   onFatalError: () => void;
 }) {
   const playerPosition = useRef({ ...spawn });
@@ -147,16 +148,23 @@ export function WorldCanvas({ scene, spawn, enabled, onNearestChange, onOpenPane
         </>}
         {scene === 'town' ? (
           <AssetBoundary key="town" fallback={<TownFallback />} onError={onAssetError}>
-            <Suspense fallback={<TownFallback />}>{exportMode ? <TownSource /> : <ModelAsset file="town.glb" />}</Suspense>
+            <Suspense fallback={<TownFallback />}>{exportMode ? <TownSource /> : <ModelAsset file="town.glb" lookoutOnly={lookoutActive} />}</Suspense>
           </AssetBoundary>
         ) : (
           <AssetBoundary key="observatory" fallback={<ObservatoryFallback />} onError={onAssetError}>
             <Suspense fallback={<ObservatoryFallback />}>{exportMode ? <ObservatorySource /> : <ModelAsset file="observatory.glb" />}</Suspense>
           </AssetBoundary>
         )}
-        {scene === 'town' && <FountainWater />}
+        {scene === 'town' && !lookoutActive && <FountainWater />}
+        {scene === 'town' && lookoutActive && <LookoutHorizon />}
+        {scene === 'town' && lookoutActive && <pointLight position={[northLookout.x, 3, northLookout.z + 1]} intensity={2.4} distance={5} color="#EDBC70" />}
+        {scene === 'town' && lookoutActive && <AssetBoundary fallback={<LookoutMoon position={[northLookout.x, 15.3, -32]} />} onError={onMoonAssetError}>
+          <Suspense fallback={<LookoutMoon position={[northLookout.x, 15.3, -32]} />}>
+            <SketchfabMoon position={[northLookout.x, 15.3, -32]} />
+          </Suspense>
+        </AssetBoundary>}
         <Player position={playerPosition} spawn={spawn} scene={scene} enabled={enabled} />
-        <FollowCamera position={playerPosition} spawn={spawn} scene={scene} />
+        <FollowCamera position={playerPosition} spawn={spawn} scene={scene} lookoutActive={lookoutActive} />
         <InteractionTracker
           position={playerPosition}
           scene={scene}

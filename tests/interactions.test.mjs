@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { blocked, observatoryBounds, observatoryObstacles, observatorySpawn, PLAYER_RADIUS, townBounds, townObstacles, townReturnSpawn, townSpawn } from '../src/world/collision.ts';
+import { blocked, northLookout, observatoryBounds, observatoryObstacles, observatorySpawn, PLAYER_RADIUS, townBounds, townObstacles, townReturnSpawn, townSpawn } from '../src/world/collision.ts';
 import { anchors, nearestAnchor } from '../src/world/interactions.ts';
 
 test('nearest valid anchor wins and exactly one target is returned', () => {
@@ -84,5 +84,18 @@ test('the observatory spawn can reach the eyepiece and exit on open floor', () =
       const z = observatorySpawn.z + (anchor.z - observatorySpawn.z) * amount;
       assert.equal(blocked(x, z, PLAYER_RADIUS, observatoryObstacles, observatoryBounds), false, `${id} route at ${amount}`);
     }
+  }
+});
+
+test('northern lookout has a clear approach and solid stone side walls', () => {
+  assert.ok(northLookout.z < -8);
+  for (let step = 0; step <= 20; step++) {
+    const amount = step / 20;
+    const x = -4.25 + (northLookout.x + 4.25) * amount;
+    const z = -6.25 + (northLookout.z + 6.25) * amount;
+    assert.equal(blocked(x, z, PLAYER_RADIUS, townObstacles, townBounds), false, `lookout approach at ${amount}`);
+  }
+  for (const x of [northLookout.x - 1.95, northLookout.x + 1.95]) {
+    assert.equal(blocked(x, northLookout.z - 0.3, PLAYER_RADIUS, townObstacles, townBounds), true);
   }
 });

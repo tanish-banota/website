@@ -14,12 +14,15 @@ export function InteractionTracker({ position, scene, enabled, onNearestChange, 
   onActivate: (anchor: Anchor) => void;
 }) {
   const current = useRef<Anchor | null>(null);
+  const activationHeld = useRef(false);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Scene changes intentionally clear a stale interaction prompt.
+  // Reset the prompt whenever tracking pauses or a scene changes.
   useEffect(() => {
-    current.current = null;
-    onNearestChange(null);
-  }, [scene, onNearestChange]);
+    if (!enabled || current.current?.scene !== scene) {
+      current.current = null;
+      onNearestChange(null);
+    }
+  }, [scene, enabled, onNearestChange]);
 
   useFrame(() => {
     if (!enabled) return;
@@ -30,14 +33,23 @@ export function InteractionTracker({ position, scene, enabled, onNearestChange, 
   });
 
   useEffect(() => {
-    if (!enabled) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() !== 'e' || event.repeat || isUiTarget(event.target) || document.querySelector('dialog[open]')) return;
+      if (event.key.toLowerCase() !== 'e') return;
+      if (event.repeat || activationHeld.current) return;
+      activationHeld.current = true;
+      if (!enabled || isUiTarget(event.target) || document.querySelector('dialog[open]')) return;
       const target = current.current;
       if (target) onActivate(target);
     };
+    const onKeyUp = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === 'e') activationHeld.current = false;
+    };
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    window.addEventListener('keyup', onKeyUp);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keyup', onKeyUp);
+    };
   }, [enabled, onActivate]);
 
   return null;

@@ -11,6 +11,7 @@ export const MAX_FRAME_DELTA = 0.033;
 export const townBounds: Rect = { minX: -12.9, maxX: 12.9, minZ: -10.4, maxZ: 10.4 };
 export const townSpawn: Point = { x: 0, z: 4.25 };
 export const townReturnSpawn: Point = { x: -7.1, z: -3.25 };
+export const northLookout: Point = { x: -3.7, z: -8.8 };
 export const observatorySpawn: Point = { x: 0, z: 1.4 };
 export const observatoryBounds: Rect = { minX: -2.4, maxX: 2.4, minZ: -2.65, maxZ: 2.75 };
 export const observatoryObstacles: Rect[] = [
@@ -31,9 +32,12 @@ export const townObstacles: Obstacle[] = [
   { minX: 7.0, maxX: 7.8, minZ: 4.33, maxZ: 4.97 }, // post box
   { minX: -10.72, maxX: -5.88, minZ: -8.87, maxZ: -4.03 }, // faceted observatory base
   { minX: -8.9, maxX: -7.7, minZ: -4.16, maxZ: -3.85 }, // entrance vestibule
+  { minX: -5.84, maxX: -5.46, minZ: -9.94, maxZ: -8.26 }, // north lookout side walls
+  { minX: -1.94, maxX: -1.56, minZ: -9.94, maxZ: -8.26 },
+  { minX: -5.75, maxX: -4.615, minZ: -10.11, maxZ: -9.79 }, // lookout rear opening
+  { minX: -2.785, maxX: -1.65, minZ: -10.11, maxZ: -9.79 },
   { minX: -11.42, maxX: -11.08, minZ: 2.43, maxZ: 2.77 },
   { minX: -11.38, maxX: -11.02, minZ: -2.78, maxZ: -2.42 },
-  { minX: -4.35, maxX: -4.05, minZ: -7.85, maxZ: -7.55 },
   { minX: 4.65, maxX: 4.95, minZ: -7.65, maxZ: -7.35 },
   { minX: 3.55, maxX: 4.25, minZ: -3.9, maxZ: -3.15 }, // flower planter
   { minX: 10.55, maxX: 10.85, minZ: 1.55, maxZ: 1.85 },

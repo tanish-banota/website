@@ -97,6 +97,6 @@ export default function App() {
         </Suspense>
       </WorldErrorBoundary>
     ) : <Portfolio />}
-    <footer className="site-footer"><span>{portfolio.name}</span><span>Built for a quiet twilight.</span></footer>
+    {!isWorld && <footer className="site-footer"><span>{portfolio.name}</span><span>Built for a quiet twilight.</span></footer>}
   </div>;
 }

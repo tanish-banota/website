@@ -4,6 +4,7 @@ import { StoneCourse, Window } from './TownDetails';
 import { ClockTower } from './ClockTower';
 import { ObservatoryExterior } from './ObservatoryExterior';
 import { Fountain } from './Fountain';
+import { northLookout } from './collision';
 
 type Point = [number, number];
 type Position = [number, number, number];
@@ -210,9 +211,30 @@ export function Town() {
       <Path from={[-4, 2]} to={[-6.2, 2]} width={1.1} />
       <Path from={[3.6, 1.2]} to={[5.2, -0.2]} width={1.4} />
       <Path from={[3.6, 2.3]} to={[7.1, 4.1]} width={1.05} />
-      <group name="NorthLookout" position={[0, 0, -8.8]}>
-        <mesh position={[0, 0.1, 0]} receiveShadow><cylinderGeometry args={[0.75, 0.82, 0.2, 12]} /><meshStandardMaterial color={paint.stoneShade} roughness={1} /></mesh>
-        <mesh position={[0, 0.22, 0]} rotation={[-Math.PI / 2, 0, 0]}><ringGeometry args={[0.55, 0.65, 12]} /><meshStandardMaterial color={paint.gold} /></mesh>
+      <Path from={[-4.25, -6.25]} to={[northLookout.x, northLookout.z]} width={1.15} />
+      <group name="NorthLookout" position={[northLookout.x, 0, northLookout.z]}>
+        <mesh position={[0, -0.06, 0]} receiveShadow>
+          <cylinderGeometry args={[1.88, 1.98, 0.14, 20]} />
+          <meshStandardMaterial color={paint.stoneShade} roughness={0.95} />
+        </mesh>
+        <mesh position={[0, 0.019, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[1.66, 1.78, 32]} />
+          <meshStandardMaterial color={paint.cream} roughness={0.9} />
+        </mesh>
+        {[-1, 1].map((side) => <group key={side}>
+          <mesh position={[side * 1.95, 0.48, -0.3]} castShadow receiveShadow>
+            <boxGeometry args={[0.38, 0.96, 1.68]} />
+            <meshStandardMaterial color={paint.stoneShade} roughness={0.94} />
+          </mesh>
+          <mesh position={[side * 1.48, 0.39, -1.15]} castShadow receiveShadow>
+            <boxGeometry args={[1.13, 0.78, 0.32]} />
+            <meshStandardMaterial color={paint.cream} roughness={0.94} />
+          </mesh>
+          <mesh position={[side * 1.95, 1.01, -0.3]}>
+            <boxGeometry args={[0.44, 0.1, 1.73]} />
+            <meshStandardMaterial color={paint.cream} roughness={0.86} />
+          </mesh>
+        </group>)}
       </group>
       <group name="ClockTower"><ClockTower /></group>
       <Fountain />
@@ -222,7 +244,6 @@ export function Town() {
       <group name="ObservatoryExterior"><ObservatoryExterior /></group>
       <Tree position={[-11.25, 0, 2.6]} scale={0.9} />
       <Tree position={[-11.2, 0, -2.6]} scale={1.05} />
-      <Tree position={[-4.2, 0, -7.7]} scale={0.8} />
       <Tree position={[4.8, 0, -7.5]} scale={0.9} />
       <Tree position={[10.7, 0, 1.7]} scale={0.85} />
       <Tree position={[10.6, 0, 7.4]} scale={1.1} />
