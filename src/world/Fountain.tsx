@@ -10,7 +10,7 @@ export const plazaPlanterOffsets = [
 ] as const;
 
 const stone = new MeshStandardMaterial({ color: paint.cream, roughness: 0.85 });
-const weathered = new MeshStandardMaterial({ color: paint.stoneShade, roughness: 0.94 });
+const weathered = new MeshStandardMaterial({ color: '#CBBEAC', roughness: 0.94 });
 const blue = new MeshStandardMaterial({ color: paint.blue, roughness: 0.8 });
 const gold = new MeshStandardMaterial({ color: paint.gold, roughness: 0.7, metalness: 0.08 });
 const leaf = new MeshStandardMaterial({ color: paint.evergreen, roughness: 0.9 });
@@ -49,7 +49,7 @@ function FountainCrest() {
 
 function PlazaPlanter({ x, z }: { x: number; z: number }) {
   return <group position={[x, 0, z]}>
-    <mesh position={[0, 0.22, 0]} material={weathered} castShadow>
+    <mesh position={[0, 0.22, 0]} material={weathered} castShadow receiveShadow>
       <cylinderGeometry args={[0.35, 0.4, 0.42, 12]} />
     </mesh>
     <mesh position={[0, 0.46, 0]} rotation={[-Math.PI / 2, 0, 0]} material={stone}><torusGeometry args={[0.35, 0.065, 6, 16]} /></mesh>
@@ -62,7 +62,7 @@ function PlazaPlanter({ x, z }: { x: number; z: number }) {
 
 export function Fountain() {
   return <group name="Fountain" position={fountainPosition}>
-    <mesh position={[0, 0.28, 0]} material={weathered} castShadow>
+    <mesh position={[0, 0.28, 0]} material={weathered} castShadow receiveShadow>
       <cylinderGeometry args={[1.25, 1.31, 0.52, 32]} />
     </mesh>
     <mesh position={[0, 0.53, 0]} material={blue}>

@@ -12,12 +12,12 @@ const blue = new MeshStandardMaterial({ color: paint.blue, roughness: 0.78 });
 const purple = new MeshStandardMaterial({ color: paint.roof, roughness: 0.83 });
 const gold = new MeshStandardMaterial({ color: paint.gold, roughness: 0.66, metalness: 0.08 });
 
-function SoftStone({ size, position, surface = stone, radius = 0.08, castShadow = true }: {
+function SoftStone({ size, position, surface = stone, radius = 0.08, castShadow = true, receiveShadow = false }: {
   size: [number, number, number]; position: [number, number, number]; surface?: MeshStandardMaterial;
-  radius?: number; castShadow?: boolean;
+  radius?: number; castShadow?: boolean; receiveShadow?: boolean;
 }) {
   const geometry = useMemo(() => new RoundedBoxGeometry(...size, 2, radius), [size[0], size[1], size[2], radius]);
-  return <mesh geometry={geometry} material={surface} position={position} castShadow={castShadow} />;
+  return <mesh geometry={geometry} material={surface} position={position} castShadow={castShadow} receiveShadow={receiveShadow} />;
 }
 
 function ClockFace() {
@@ -50,7 +50,7 @@ function ClockFace() {
 
 function SideWing({ side }: { side: -1 | 1 }) {
   return <group position={[side * 2.38, 0, 0]}>
-    <SoftStone size={[1.38, 2.5, 2.06]} position={[0, 1.27, -0.1]} />
+    <SoftStone size={[1.38, 2.5, 2.06]} position={[0, 1.27, -0.1]} receiveShadow />
     <SoftStone size={[1.52, 0.25, 2.2]} position={[0, 0.2, -0.1]} surface={weathered} />
     <SoftStone size={[1.55, 0.22, 2.2]} position={[0, 2.48, -0.1]} surface={weathered} />
     {[-0.49, 0, 0.49].map((x) => <SoftStone key={x} size={[0.34, 0.32, 0.32]}
@@ -62,8 +62,8 @@ function SideWing({ side }: { side: -1 | 1 }) {
 
 export function ClockTower() {
   return <group position={clockTowerPosition}>
-    <SoftStone size={[3.6, 0.34, 2.65]} position={[0, 0.19, 0]} surface={weathered} />
-    <SoftStone size={[3.4, 4.9, 2.38]} position={[0, 2.48, 0]} radius={0.14} />
+    <SoftStone size={[3.6, 0.34, 2.65]} position={[0, 0.19, 0]} surface={weathered} receiveShadow />
+    <SoftStone size={[3.4, 4.9, 2.38]} position={[0, 2.48, 0]} radius={0.14} receiveShadow />
     <SoftStone size={[3.64, 0.25, 2.55]} position={[0, 2.02, 0]} surface={weathered} />
     <SoftStone size={[3.7, 0.3, 2.6]} position={[0, 4.8, 0]} surface={weathered} />
     {[-1.47, 1.47].map((x) => [0.7, 1.35, 2.7, 4.15].map((y) =>

@@ -26,7 +26,7 @@ const SketchfabMoon = lazy(() => import('./SketchfabMoon').then((module) => ({ d
 
 type WorldMetrics = { scene: SceneId; seconds: number; frames: number; fps: number; drawCalls: number; triangles: number; capturedAt: string };
 
-function ReflectionEnvironment() {
+function ReflectionEnvironment({ sceneId }: { sceneId: SceneId }) {
   const { gl, scene } = useThree();
   useEffect(() => {
     const generator = new PMREMGenerator(gl);
@@ -35,7 +35,7 @@ function ReflectionEnvironment() {
     const previous = scene.environment;
     const previousIntensity = scene.environmentIntensity;
     scene.environment = reflection;
-    scene.environmentIntensity = 0.35;
+    scene.environmentIntensity = sceneId === 'town' ? 0.22 : 0.35;
     room.dispose();
     generator.dispose();
     return () => {
@@ -43,7 +43,7 @@ function ReflectionEnvironment() {
       scene.environmentIntensity = previousIntensity;
       reflection.dispose();
     };
-  }, [gl, scene]);
+  }, [gl, scene, sceneId]);
   return null;
 }
 
@@ -135,17 +135,18 @@ export function WorldCanvas({ scene, spawn, enabled, lookoutActive, onNearestCha
         }}
       >
         <SceneCamera scene={scene} spawn={spawn} />
-        <ReflectionEnvironment />
+        <ReflectionEnvironment sceneId={scene} />
         <PerformanceProbe scene={scene} />
-        <ambientLight intensity={scene === 'town' ? 0.5 : 0.22} color="#B9A8CF" />
-        <hemisphereLight args={['#D4C7E1', '#798873', scene === 'town' ? 0.65 : 0.38]} />
-        <directionalLight position={[-6, 9, -5]} intensity={scene === 'town' ? 0.3 : 0.38} color="#A9BBD0" />
+        <ambientLight intensity={scene === 'town' ? 0.29 : 0.22} color="#8791BB" />
+        <hemisphereLight args={['#A4AAD2', '#546A73', scene === 'town' ? 0.5 : 0.38]} />
+        <directionalLight position={[-6, 9, -5]} intensity={scene === 'town' ? 0.42 : 0.38} color="#8399C9" />
         <directionalLight
           position={[8, 14, 6]}
-          intensity={scene === 'town' ? 1.8 : 0.72}
-          color="#F7D9A2"
+          intensity={scene === 'town' ? 1.35 : 0.72}
+          color={scene === 'town' ? '#EEC99D' : '#F7D9A2'}
           castShadow
           shadow-normalBias={0.025}
+          shadow-radius={1.6}
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
           shadow-camera-left={-14}
@@ -155,6 +156,11 @@ export function WorldCanvas({ scene, spawn, enabled, lookoutActive, onNearestCha
           shadow-camera-near={1}
           shadow-camera-far={45}
         />
+        {scene === 'town' && !lookoutActive && <>
+          <pointLight position={[0, 2.5, -1.5]} intensity={3.2} distance={5} color="#EDBC70" />
+          <pointLight position={[4.6, 2.5, 2.1]} intensity={3.2} distance={5} color="#EDBC70" />
+          <pointLight position={[-5.95, 2.4, -3.9]} intensity={3.5} distance={4.5} color="#EDBC70" />
+        </>}
         {scene === 'observatory' && <>
           <pointLight position={[1.1, 2, -2]} intensity={1.4} distance={4.5} color="#6FCAEC" />
           <pointLight position={[-2.75, 1.8, -2.9]} intensity={0.55} distance={3.2} color="#EDBC70" />

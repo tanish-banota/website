@@ -9,7 +9,7 @@ type Route = { points: Point[]; width: number };
 // All courses sit over a single, flat ground plane. The narrow dark bed shows
 // through the fitted gaps as mortar; none of this geometry affects collision.
 const mortar = new MeshStandardMaterial({ color: '#CEC4B5', roughness: 1 });
-const stones = ['#F3EBDD', '#ECE3D5', '#E5DCCD'].map((color) => new MeshStandardMaterial({ color, roughness: 0.97 }));
+const stones = ['#E9E3DB', '#E4DED6', '#DDD8D0'].map((color) => new MeshStandardMaterial({ color, roughness: 0.97 }));
 const edging = new MeshStandardMaterial({ color: paint.stoneShade, roughness: 1 });
 const grassMaterial = new MeshStandardMaterial({ vertexColors: true, roughness: 1 });
 
