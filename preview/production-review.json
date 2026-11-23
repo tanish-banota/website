@@ -6,7 +6,7 @@
   },
   "assets": {
     "town.glb": {
-      "bytes": 5000444,
+      "bytes": 4998752,
       "meshes": 141,
       "materials": 86,
       "textures": 0,
@@ -14,7 +14,7 @@
       "transparent": 0
     },
     "observatory.glb": {
-      "bytes": 624564,
+      "bytes": 630540,
       "meshes": 56,
       "materials": 43,
       "textures": 4,
@@ -51,20 +51,20 @@
     "receivers": 18
   },
   "town": {
-    "seconds": 5.003599999976158,
-    "fps": 58.55783835666243,
-    "drawCalls": 267,
-    "triangles": 175916,
-    "geometries": 166,
+    "seconds": 5.012099999952317,
+    "fps": 60.05466770472729,
+    "drawCalls": 259,
+    "triangles": 174256,
+    "geometries": 167,
     "textures": 4,
-    "heapBytes": 120106623
+    "heapBytes": 81310444
   },
   "sceneChanges": [
     {
       "scene": "town",
-      "calls": 251,
-      "triangles": 172140,
-      "geometries": 227,
+      "calls": 241,
+      "triangles": 170460,
+      "geometries": 228,
       "textures": 10,
       "moon": false,
       "water": true,
@@ -76,9 +76,9 @@
     },
     {
       "scene": "town",
-      "calls": 251,
-      "triangles": 172140,
-      "geometries": 227,
+      "calls": 241,
+      "triangles": 170460,
+      "geometries": 228,
       "textures": 12,
       "moon": false,
       "water": true,
@@ -90,9 +90,9 @@
     },
     {
       "scene": "observatory",
-      "calls": 111,
-      "triangles": 15916,
-      "geometries": 215,
+      "calls": 99,
+      "triangles": 14248,
+      "geometries": 216,
       "textures": 13,
       "moon": false,
       "water": false,
@@ -102,20 +102,20 @@
         8.4
       ],
       "performance": {
-        "seconds": 5.000799999976159,
-        "fps": 60.19036954116041,
-        "drawCalls": 111,
-        "triangles": 15916,
-        "geometries": 215,
+        "seconds": 5.013400000000002,
+        "fps": 60.03909522479753,
+        "drawCalls": 99,
+        "triangles": 14248,
+        "geometries": 216,
         "textures": 13,
-        "heapBytes": 118449988
+        "heapBytes": 96688215
       }
     },
     {
       "scene": "town",
-      "calls": 251,
-      "triangles": 172140,
-      "geometries": 227,
+      "calls": 241,
+      "triangles": 170460,
+      "geometries": 228,
       "textures": 14,
       "moon": false,
       "water": true,
@@ -130,6 +130,7 @@
     "sourceAndRuntimeCaptured": true,
     "worldFirstAndPortfolio": true,
     "fountainCollisionAndAnchors": true,
+    "everyTownPanel": true,
     "repeatedObservatoryLoops": 3,
     "telescopePanel": true,
     "lookoutEscapeAndButton": true,
@@ -137,6 +138,7 @@
     "clearedInputAndCameraReturn": true,
     "reducedMotion": true,
     "moonAssetRecovery": true,
+    "observatoryAssetRecovery": true,
     "failedAssetRecovery": true
   }
 }

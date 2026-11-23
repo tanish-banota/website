@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { ExtrudeGeometry, MeshStandardMaterial, Shape, Vector2 } from 'three';
-import type { Group } from 'three';
+import type { Group, Mesh } from 'three';
 import { paint } from './palette';
 
 export const fountainPosition: [number, number, number] = [0, 0, 1.35];
@@ -97,18 +97,28 @@ export function Fountain() {
 // Both water levels, streams, and ripples stay live outside the static GLB.
 export function FountainWater() {
   const ripples = useRef<Group>(null);
+  const upperWater = useRef<Mesh>(null);
   useFrame(({ clock }) => {
-    if (!ripples.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const pulse = 1 + Math.sin(clock.elapsedTime * 1.7) * 0.045;
-    ripples.current.scale.set(pulse, 1, pulse);
+    if (!ripples.current) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const time = clock.elapsedTime;
+    if (upperWater.current) upperWater.current.position.y = 1.42 + (reduced ? 0 : Math.sin(time * 0.91 + 1) * 0.005);
+    ripples.current.children.forEach((child, index) => {
+      const ring = child as Mesh;
+      const phase = reduced ? 0 : time * (index < 2 ? 0.31 : 0.52) + index * 0.93;
+      const spread = reduced ? 1 : 0.97 + Math.sin(phase) * (index < 2 ? 0.035 : 0.07);
+      ring.scale.set(spread, 1, spread);
+      (ring.material as MeshStandardMaterial).opacity = (index < 2 ? 0.42 : 0.58) * (reduced ? 1 : 0.85 + Math.cos(phase + 0.8) * 0.15);
+    });
   });
   return <group name="FountainWater" position={fountainPosition}>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.575, 0]}>
+    {/* Keep the basin surface above the opaque basin top at y=0.57. */}
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.59, 0]}>
       <circleGeometry args={[1.05, 32]} />
       <meshStandardMaterial color="#4789A8" emissive="#215377" emissiveIntensity={0.18}
         transparent opacity={0.86} roughness={0.38} metalness={0.05} depthWrite={false} />
     </mesh>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 1.42, 0]}>
+    <mesh ref={upperWater} rotation={[-Math.PI / 2, 0, 0]} position={[0, 1.42, 0]}>
       <circleGeometry args={[0.48, 20]} />
       <meshStandardMaterial color="#75B0CA" transparent opacity={0.78} roughness={0.36} depthWrite={false} />
     </mesh>
@@ -118,12 +128,12 @@ export function FountainWater() {
         <meshStandardMaterial color="#75B0CA" transparent opacity={0.72} roughness={0.3} depthWrite={false} />
       </mesh>)}
     <group ref={ripples}>
-      {[0.63, 0.91].map((radius) => <mesh key={radius} position={[0, 0.595, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      {[0.63, 0.91].map((radius) => <mesh key={radius} position={[0, 0.625, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <torusGeometry args={[radius, 0.018, 4, 32]} />
         <meshStandardMaterial color="#B7D9E4" transparent opacity={0.42} depthWrite={false} />
       </mesh>)}
       {[[0.56, 0], [-0.56, 0], [0, 0.56], [0, -0.56]].map(([x, z]) =>
-        <mesh key={`${x}-${z}`} position={[x, 0.6, z]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh key={`${x}-${z}`} position={[x, 0.63, z]} rotation={[-Math.PI / 2, 0, 0]}>
           <torusGeometry args={[0.13, 0.022, 4, 16]} />
           <meshStandardMaterial color="#B7D9E4" transparent opacity={0.58} depthWrite={false} />
         </mesh>)}

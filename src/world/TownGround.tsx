@@ -98,7 +98,7 @@ export function PlazaPaving() {
 }
 
 const grassPatches: [number, number, number, number, string][] = [
-  [-8.7, 4.8, 3.8, 2.3, '#718060'], [-2.5, 7.4, 3.7, 2.8, '#617251'],
+  [-8.7, 4.8, 3.8, 2.3, '#718060'],
   [7.8, 8.4, 4.8, 2.8, '#71805F'], [9.3, -6.1, 3.9, 2.9, '#617351'],
   [-9.7, -8.5, 4.2, 3.0, '#718060'], [1.9, -9.2, 4.9, 3.4, '#627251'],
   [-6.5, -1.5, 1.6, 1.15, '#8A8667'], [5.4, 0.8, 1.7, 1.1, '#888467'],
@@ -117,7 +117,7 @@ export function GrassVariation() {
   }), []);
   return <group name="GrassVariation">
     {grassPatches.map(([x, z, width, depth], index) => <mesh key={`${x},${z}`} geometry={geometry[index]}
-      rotation={[-Math.PI / 2, 0, 0]} position={[x, 0.012, z]} scale={[width, depth, 1]} receiveShadow>
+      rotation={[-Math.PI / 2, 0, 0]} position={[x, 0.025, z]} scale={[width, depth, 1]} receiveShadow>
       <primitive object={grassMaterial} attach="material" />
     </mesh>)}
   </group>;

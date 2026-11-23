@@ -1,0 +1,1269 @@
+[
+  {
+    "label": "final",
+    "name": "desktop",
+    "width": 1440,
+    "height": 900,
+    "mode": "guide",
+    "player": {
+      "x": 0,
+      "z": 9.6
+    },
+    "elements": {
+      "switch": {
+        "x": 1169.125,
+        "y": 24,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1416,
+        "bottom": 77.34375
+      },
+      "switchButton": {
+        "x": 1173.796875,
+        "y": 28.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 1294.890625,
+        "bottom": 72.671875
+      },
+      "guide": {
+        "x": 24,
+        "y": 605.875,
+        "width": 330,
+        "height": 270.125,
+        "right": 354,
+        "bottom": 876
+      },
+      "close": {
+        "x": 299.40625,
+        "y": 615.671875,
+        "width": 44,
+        "height": 44,
+        "right": 343.40625,
+        "bottom": 659.671875
+      },
+      "reopen": null,
+      "prompt": null,
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "right": 1440,
+        "bottom": 900
+      },
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "innerHeight": 900
+    }
+  },
+  {
+    "label": "final",
+    "name": "desktop",
+    "width": 1440,
+    "height": 900,
+    "mode": "guide-prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 1169.125,
+        "y": 24,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1416,
+        "bottom": 77.34375
+      },
+      "switchButton": {
+        "x": 1173.796875,
+        "y": 28.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 1294.890625,
+        "bottom": 72.671875
+      },
+      "guide": {
+        "x": 24,
+        "y": 605.875,
+        "width": 330,
+        "height": 270.125,
+        "right": 354,
+        "bottom": 876
+      },
+      "close": {
+        "x": 299.40625,
+        "y": 615.671875,
+        "width": 44,
+        "height": 44,
+        "right": 343.40625,
+        "bottom": 659.671875
+      },
+      "reopen": null,
+      "prompt": {
+        "x": 652.5078125,
+        "y": 838.65625,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 787.4921875,
+        "bottom": 876
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "right": 1440,
+        "bottom": 900
+      },
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "innerHeight": 900
+    }
+  },
+  {
+    "label": "final",
+    "name": "desktop",
+    "width": 1440,
+    "height": 900,
+    "mode": "prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 1169.125,
+        "y": 24,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1416,
+        "bottom": 77.34375
+      },
+      "switchButton": {
+        "x": 1173.796875,
+        "y": 28.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 1294.890625,
+        "bottom": 72.671875
+      },
+      "guide": null,
+      "close": null,
+      "reopen": {
+        "x": 24,
+        "y": 832,
+        "width": 161.828125,
+        "height": 44,
+        "right": 185.828125,
+        "bottom": 876
+      },
+      "prompt": {
+        "x": 652.5078125,
+        "y": 838.65625,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 787.4921875,
+        "bottom": 876
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "right": 1440,
+        "bottom": 900
+      },
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "innerHeight": 900
+    }
+  },
+  {
+    "label": "final",
+    "name": "laptop",
+    "width": 1280,
+    "height": 720,
+    "mode": "guide",
+    "player": {
+      "x": 0,
+      "z": 9.6
+    },
+    "elements": {
+      "switch": {
+        "x": 1009.125,
+        "y": 24,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1256,
+        "bottom": 77.34375
+      },
+      "switchButton": {
+        "x": 1013.796875,
+        "y": 28.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 1134.890625,
+        "bottom": 72.671875
+      },
+      "guide": {
+        "x": 24,
+        "y": 425.875,
+        "width": 330,
+        "height": 270.125,
+        "right": 354,
+        "bottom": 696
+      },
+      "close": {
+        "x": 299.40625,
+        "y": 435.671875,
+        "width": 44,
+        "height": 44,
+        "right": 343.40625,
+        "bottom": 479.671875
+      },
+      "reopen": null,
+      "prompt": null,
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "right": 1280,
+        "bottom": 720
+      },
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "innerHeight": 720
+    }
+  },
+  {
+    "label": "final",
+    "name": "laptop",
+    "width": 1280,
+    "height": 720,
+    "mode": "guide-prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 1009.125,
+        "y": 24,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1256,
+        "bottom": 77.34375
+      },
+      "switchButton": {
+        "x": 1013.796875,
+        "y": 28.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 1134.890625,
+        "bottom": 72.671875
+      },
+      "guide": {
+        "x": 24,
+        "y": 425.875,
+        "width": 330,
+        "height": 270.125,
+        "right": 354,
+        "bottom": 696
+      },
+      "close": {
+        "x": 299.40625,
+        "y": 435.671875,
+        "width": 44,
+        "height": 44,
+        "right": 343.40625,
+        "bottom": 479.671875
+      },
+      "reopen": null,
+      "prompt": {
+        "x": 572.5078125,
+        "y": 658.65625,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 707.4921875,
+        "bottom": 696
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "right": 1280,
+        "bottom": 720
+      },
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "innerHeight": 720
+    }
+  },
+  {
+    "label": "final",
+    "name": "laptop",
+    "width": 1280,
+    "height": 720,
+    "mode": "prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 1009.125,
+        "y": 24,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1256,
+        "bottom": 77.34375
+      },
+      "switchButton": {
+        "x": 1013.796875,
+        "y": 28.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 1134.890625,
+        "bottom": 72.671875
+      },
+      "guide": null,
+      "close": null,
+      "reopen": {
+        "x": 24,
+        "y": 652,
+        "width": 161.828125,
+        "height": 44,
+        "right": 185.828125,
+        "bottom": 696
+      },
+      "prompt": {
+        "x": 572.5078125,
+        "y": 658.65625,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 707.4921875,
+        "bottom": 696
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "right": 1280,
+        "bottom": 720
+      },
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "innerHeight": 720
+    }
+  },
+  {
+    "label": "final",
+    "name": "narrow",
+    "width": 390,
+    "height": 844,
+    "mode": "guide",
+    "player": {
+      "x": 0,
+      "z": 9.6
+    },
+    "elements": {
+      "switch": {
+        "x": 157.6875,
+        "y": 16,
+        "width": 216.3125,
+        "height": 53.34375,
+        "right": 374,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 162.359375,
+        "y": 20.671875,
+        "width": 105.484375,
+        "height": 44,
+        "right": 267.84375,
+        "bottom": 64.671875
+      },
+      "guide": {
+        "x": 16,
+        "y": 618.15625,
+        "width": 358,
+        "height": 209.84375,
+        "right": 374,
+        "bottom": 828
+      },
+      "close": {
+        "x": 319.40625,
+        "y": 627.953125,
+        "width": 44,
+        "height": 44,
+        "right": 363.40625,
+        "bottom": 671.953125
+      },
+      "reopen": null,
+      "prompt": null,
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "right": 390,
+        "bottom": 844
+      },
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "innerHeight": 844
+    }
+  },
+  {
+    "label": "final",
+    "name": "narrow",
+    "width": 390,
+    "height": 844,
+    "mode": "guide-prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 157.6875,
+        "y": 16,
+        "width": 216.3125,
+        "height": 53.34375,
+        "right": 374,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 162.359375,
+        "y": 20.671875,
+        "width": 105.484375,
+        "height": 44,
+        "right": 267.84375,
+        "bottom": 64.671875
+      },
+      "guide": {
+        "x": 16,
+        "y": 618.15625,
+        "width": 358,
+        "height": 209.84375,
+        "right": 374,
+        "bottom": 828
+      },
+      "close": {
+        "x": 319.40625,
+        "y": 627.953125,
+        "width": 44,
+        "height": 44,
+        "right": 363.40625,
+        "bottom": 671.953125
+      },
+      "reopen": null,
+      "prompt": {
+        "x": 16,
+        "y": 84,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 150.984375,
+        "bottom": 121.34375
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "right": 390,
+        "bottom": 844
+      },
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "innerHeight": 844
+    }
+  },
+  {
+    "label": "final",
+    "name": "narrow",
+    "width": 390,
+    "height": 844,
+    "mode": "prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 157.6875,
+        "y": 16,
+        "width": 216.3125,
+        "height": 53.34375,
+        "right": 374,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 162.359375,
+        "y": 20.671875,
+        "width": 105.484375,
+        "height": 44,
+        "right": 267.84375,
+        "bottom": 64.671875
+      },
+      "guide": null,
+      "close": null,
+      "reopen": {
+        "x": 16,
+        "y": 784,
+        "width": 161.828125,
+        "height": 44,
+        "right": 177.828125,
+        "bottom": 828
+      },
+      "prompt": {
+        "x": 16,
+        "y": 84,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 150.984375,
+        "bottom": 121.34375
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "right": 390,
+        "bottom": 844
+      },
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "innerHeight": 844
+    }
+  },
+  {
+    "label": "final",
+    "name": "short",
+    "width": 1024,
+    "height": 560,
+    "mode": "guide",
+    "player": {
+      "x": 0,
+      "z": 9.6
+    },
+    "elements": {
+      "switch": {
+        "x": 756.65625,
+        "y": 20.46875,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1003.53125,
+        "bottom": 73.8125
+      },
+      "switchButton": {
+        "x": 761.328125,
+        "y": 25.140625,
+        "width": 121.09375,
+        "height": 44,
+        "right": 882.421875,
+        "bottom": 69.140625
+      },
+      "guide": {
+        "x": 20.46875,
+        "y": 279.28125,
+        "width": 330,
+        "height": 260.25,
+        "right": 350.46875,
+        "bottom": 539.53125
+      },
+      "close": {
+        "x": 295.875,
+        "y": 289.078125,
+        "width": 44,
+        "height": 44,
+        "right": 339.875,
+        "bottom": 333.078125
+      },
+      "reopen": null,
+      "prompt": null,
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 560,
+        "right": 1024,
+        "bottom": 560
+      },
+      "scrollWidth": 1024,
+      "innerWidth": 1024,
+      "innerHeight": 560
+    }
+  },
+  {
+    "label": "final",
+    "name": "short",
+    "width": 1024,
+    "height": 560,
+    "mode": "guide-prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 756.65625,
+        "y": 20.46875,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1003.53125,
+        "bottom": 73.8125
+      },
+      "switchButton": {
+        "x": 761.328125,
+        "y": 25.140625,
+        "width": 121.09375,
+        "height": 44,
+        "right": 882.421875,
+        "bottom": 69.140625
+      },
+      "guide": {
+        "x": 20.46875,
+        "y": 279.28125,
+        "width": 330,
+        "height": 260.25,
+        "right": 350.46875,
+        "bottom": 539.53125
+      },
+      "close": {
+        "x": 295.875,
+        "y": 289.078125,
+        "width": 44,
+        "height": 44,
+        "right": 339.875,
+        "bottom": 333.078125
+      },
+      "reopen": null,
+      "prompt": {
+        "x": 444.5078125,
+        "y": 502.1875,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 579.4921875,
+        "bottom": 539.53125
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 560,
+        "right": 1024,
+        "bottom": 560
+      },
+      "scrollWidth": 1024,
+      "innerWidth": 1024,
+      "innerHeight": 560
+    }
+  },
+  {
+    "label": "final",
+    "name": "short",
+    "width": 1024,
+    "height": 560,
+    "mode": "prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 756.65625,
+        "y": 20.46875,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 1003.53125,
+        "bottom": 73.8125
+      },
+      "switchButton": {
+        "x": 761.328125,
+        "y": 25.140625,
+        "width": 121.09375,
+        "height": 44,
+        "right": 882.421875,
+        "bottom": 69.140625
+      },
+      "guide": null,
+      "close": null,
+      "reopen": {
+        "x": 20.46875,
+        "y": 495.53125,
+        "width": 161.828125,
+        "height": 44,
+        "right": 182.296875,
+        "bottom": 539.53125
+      },
+      "prompt": {
+        "x": 868.546875,
+        "y": 502.1875,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 1003.53125,
+        "bottom": 539.53125
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 560,
+        "right": 1024,
+        "bottom": 560
+      },
+      "scrollWidth": 1024,
+      "innerWidth": 1024,
+      "innerHeight": 560
+    }
+  },
+  {
+    "label": "final",
+    "name": "zoom-150",
+    "width": 960,
+    "height": 600,
+    "mode": "guide",
+    "player": {
+      "x": 0,
+      "z": 9.6
+    },
+    "elements": {
+      "switch": {
+        "x": 693.9375,
+        "y": 19.1875,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 940.8125,
+        "bottom": 72.53125
+      },
+      "switchButton": {
+        "x": 698.609375,
+        "y": 23.859375,
+        "width": 121.09375,
+        "height": 44,
+        "right": 819.703125,
+        "bottom": 67.859375
+      },
+      "guide": {
+        "x": 19.1875,
+        "y": 324.78125,
+        "width": 330,
+        "height": 256.03125,
+        "right": 349.1875,
+        "bottom": 580.8125
+      },
+      "close": {
+        "x": 294.59375,
+        "y": 334.578125,
+        "width": 44,
+        "height": 44,
+        "right": 338.59375,
+        "bottom": 378.578125
+      },
+      "reopen": null,
+      "prompt": null,
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 960,
+        "height": 600,
+        "right": 960,
+        "bottom": 600
+      },
+      "scrollWidth": 960,
+      "innerWidth": 960,
+      "innerHeight": 600
+    }
+  },
+  {
+    "label": "final",
+    "name": "zoom-150",
+    "width": 960,
+    "height": 600,
+    "mode": "guide-prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 693.9375,
+        "y": 19.1875,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 940.8125,
+        "bottom": 72.53125
+      },
+      "switchButton": {
+        "x": 698.609375,
+        "y": 23.859375,
+        "width": 121.09375,
+        "height": 44,
+        "right": 819.703125,
+        "bottom": 67.859375
+      },
+      "guide": {
+        "x": 19.1875,
+        "y": 324.78125,
+        "width": 330,
+        "height": 256.03125,
+        "right": 349.1875,
+        "bottom": 580.8125
+      },
+      "close": {
+        "x": 294.59375,
+        "y": 334.578125,
+        "width": 44,
+        "height": 44,
+        "right": 338.59375,
+        "bottom": 378.578125
+      },
+      "reopen": null,
+      "prompt": {
+        "x": 412.5078125,
+        "y": 543.46875,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 547.4921875,
+        "bottom": 580.8125
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 960,
+        "height": 600,
+        "right": 960,
+        "bottom": 600
+      },
+      "scrollWidth": 960,
+      "innerWidth": 960,
+      "innerHeight": 600
+    }
+  },
+  {
+    "label": "final",
+    "name": "zoom-150",
+    "width": 960,
+    "height": 600,
+    "mode": "prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 693.9375,
+        "y": 19.1875,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 940.8125,
+        "bottom": 72.53125
+      },
+      "switchButton": {
+        "x": 698.609375,
+        "y": 23.859375,
+        "width": 121.09375,
+        "height": 44,
+        "right": 819.703125,
+        "bottom": 67.859375
+      },
+      "guide": null,
+      "close": null,
+      "reopen": {
+        "x": 19.1875,
+        "y": 536.8125,
+        "width": 161.828125,
+        "height": 44,
+        "right": 181.015625,
+        "bottom": 580.8125
+      },
+      "prompt": {
+        "x": 805.828125,
+        "y": 543.46875,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 940.8125,
+        "bottom": 580.8125
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 960,
+        "height": 600,
+        "right": 960,
+        "bottom": 600
+      },
+      "scrollWidth": 960,
+      "innerWidth": 960,
+      "innerHeight": 600
+    }
+  },
+  {
+    "label": "final",
+    "name": "zoom-200",
+    "width": 720,
+    "height": 450,
+    "mode": "guide",
+    "player": {
+      "x": 0,
+      "z": 9.6
+    },
+    "elements": {
+      "switch": {
+        "x": 457.125,
+        "y": 16,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 704,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 461.796875,
+        "y": 20.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 582.890625,
+        "bottom": 64.671875
+      },
+      "guide": {
+        "x": 16,
+        "y": 212.265625,
+        "width": 330,
+        "height": 221.734375,
+        "right": 346,
+        "bottom": 434
+      },
+      "close": {
+        "x": 291.40625,
+        "y": 222.0625,
+        "width": 44,
+        "height": 44,
+        "right": 335.40625,
+        "bottom": 266.0625
+      },
+      "reopen": null,
+      "prompt": null,
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 720,
+        "height": 450,
+        "right": 720,
+        "bottom": 450
+      },
+      "scrollWidth": 720,
+      "innerWidth": 720,
+      "innerHeight": 450
+    }
+  },
+  {
+    "label": "final",
+    "name": "zoom-200",
+    "width": 720,
+    "height": 450,
+    "mode": "guide-prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 457.125,
+        "y": 16,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 704,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 461.796875,
+        "y": 20.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 582.890625,
+        "bottom": 64.671875
+      },
+      "guide": {
+        "x": 16,
+        "y": 212.265625,
+        "width": 330,
+        "height": 221.734375,
+        "right": 346,
+        "bottom": 434
+      },
+      "close": {
+        "x": 291.40625,
+        "y": 222.0625,
+        "width": 44,
+        "height": 44,
+        "right": 335.40625,
+        "bottom": 266.0625
+      },
+      "reopen": null,
+      "prompt": {
+        "x": 16,
+        "y": 84,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 150.984375,
+        "bottom": 121.34375
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 720,
+        "height": 450,
+        "right": 720,
+        "bottom": 450
+      },
+      "scrollWidth": 720,
+      "innerWidth": 720,
+      "innerHeight": 450
+    }
+  },
+  {
+    "label": "final",
+    "name": "zoom-200",
+    "width": 720,
+    "height": 450,
+    "mode": "prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 457.125,
+        "y": 16,
+        "width": 246.875,
+        "height": 53.34375,
+        "right": 704,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 461.796875,
+        "y": 20.671875,
+        "width": 121.09375,
+        "height": 44,
+        "right": 582.890625,
+        "bottom": 64.671875
+      },
+      "guide": null,
+      "close": null,
+      "reopen": {
+        "x": 16,
+        "y": 390,
+        "width": 161.828125,
+        "height": 44,
+        "right": 177.828125,
+        "bottom": 434
+      },
+      "prompt": {
+        "x": 569.015625,
+        "y": 396.65625,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 704,
+        "bottom": 434
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 720,
+        "height": 450,
+        "right": 720,
+        "bottom": 450
+      },
+      "scrollWidth": 720,
+      "innerWidth": 720,
+      "innerHeight": 450
+    }
+  },
+  {
+    "label": "final",
+    "name": "narrow-zoom",
+    "width": 320,
+    "height": 560,
+    "mode": "guide",
+    "player": {
+      "x": 0,
+      "z": 9.6
+    },
+    "elements": {
+      "switch": {
+        "x": 87.6875,
+        "y": 16,
+        "width": 216.3125,
+        "height": 53.34375,
+        "right": 304,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 92.359375,
+        "y": 20.671875,
+        "width": 105.484375,
+        "height": 44,
+        "right": 197.84375,
+        "bottom": 64.671875
+      },
+      "guide": {
+        "x": 16,
+        "y": 283.359375,
+        "width": 288,
+        "height": 260.640625,
+        "right": 304,
+        "bottom": 544
+      },
+      "close": {
+        "x": 249.40625,
+        "y": 293.15625,
+        "width": 44,
+        "height": 44,
+        "right": 293.40625,
+        "bottom": 337.15625
+      },
+      "reopen": null,
+      "prompt": null,
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 560,
+        "right": 320,
+        "bottom": 560
+      },
+      "scrollWidth": 320,
+      "innerWidth": 320,
+      "innerHeight": 560
+    }
+  },
+  {
+    "label": "final",
+    "name": "narrow-zoom",
+    "width": 320,
+    "height": 560,
+    "mode": "guide-prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 87.6875,
+        "y": 16,
+        "width": 216.3125,
+        "height": 53.34375,
+        "right": 304,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 92.359375,
+        "y": 20.671875,
+        "width": 105.484375,
+        "height": 44,
+        "right": 197.84375,
+        "bottom": 64.671875
+      },
+      "guide": {
+        "x": 16,
+        "y": 283.359375,
+        "width": 288,
+        "height": 260.640625,
+        "right": 304,
+        "bottom": 544
+      },
+      "close": {
+        "x": 249.40625,
+        "y": 293.15625,
+        "width": 44,
+        "height": 44,
+        "right": 293.40625,
+        "bottom": 337.15625
+      },
+      "reopen": null,
+      "prompt": {
+        "x": 16,
+        "y": 84,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 150.984375,
+        "bottom": 121.34375
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 560,
+        "right": 320,
+        "bottom": 560
+      },
+      "scrollWidth": 320,
+      "innerWidth": 320,
+      "innerHeight": 560
+    }
+  },
+  {
+    "label": "final",
+    "name": "narrow-zoom",
+    "width": 320,
+    "height": 560,
+    "mode": "prompt",
+    "player": {
+      "x": 0,
+      "z": 3.55
+    },
+    "elements": {
+      "switch": {
+        "x": 87.6875,
+        "y": 16,
+        "width": 216.3125,
+        "height": 53.34375,
+        "right": 304,
+        "bottom": 69.34375
+      },
+      "switchButton": {
+        "x": 92.359375,
+        "y": 20.671875,
+        "width": 105.484375,
+        "height": 44,
+        "right": 197.84375,
+        "bottom": 64.671875
+      },
+      "guide": null,
+      "close": null,
+      "reopen": {
+        "x": 16,
+        "y": 500,
+        "width": 161.828125,
+        "height": 44,
+        "right": 177.828125,
+        "bottom": 544
+      },
+      "prompt": {
+        "x": 16,
+        "y": 84,
+        "width": 134.984375,
+        "height": 37.34375,
+        "right": 150.984375,
+        "bottom": 121.34375
+      },
+      "world": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 560,
+        "right": 320,
+        "bottom": 560
+      },
+      "scrollWidth": 320,
+      "innerWidth": 320,
+      "innerHeight": 560
+    }
+  }
+]

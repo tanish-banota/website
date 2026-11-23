@@ -183,6 +183,11 @@ try {
   for (const [x, z, label] of [[0, 3.55, 'About Tanish'], [-6.5, 3.1, 'Event Finder'], [6.5, 0.65, 'Experience'], [7.4, 5.55, 'Contact']]) {
     await teleport(x, z);
     await prompt(label);
+    await pressInteraction();
+    await until(() => evaluate("Boolean(document.querySelector('dialog[open]'))"), `${label} panel`);
+    assert.equal(await evaluate("document.activeElement?.id"), 'dialog-title', `${label} dialog did not receive focus`);
+    await press('Escape', 'Escape', 27);
+    await until(() => evaluate("!document.querySelector('dialog[open]')"), `${label} panel close`);
   }
   await teleport(1.92, 1.35);
   await command('Input.dispatchKeyEvent', { type: 'keyDown', key: 'a', code: 'KeyA', windowsVirtualKeyCode: 65 });
@@ -279,6 +284,21 @@ try {
   await evaluate("document.querySelector('.lookout-controls button').click()");
   await until(() => evaluate("!window.__twilightRenderInfo?.moon"), 'fallback moon return');
 
+  // The observatory's model may also fail without trapping the player inside.
+  await command('Network.setBlockedURLs', { urls: ['*observatory.glb'] });
+  await navigate(`${production}?diagnostics=1`, 'Boolean(window.__twilightPlayerPosition && window.__twilightRenderInfo)');
+  await closeGuide();
+  await teleport(-8.3, -3.32);
+  await prompt('Enter observatory');
+  await pressInteraction();
+  await until(() => evaluate("Boolean(document.querySelector('.world-view.interior'))"), 'observatory fallback entry');
+  await evaluate("document.querySelector('.world-guide-reopen')?.click()");
+  await until(() => evaluate("Boolean(document.querySelector('.world-overlay [role=status]'))"), 'observatory asset fallback');
+  await teleport(0, 2.35);
+  await prompt('Exit observatory');
+  await pressInteraction();
+  await until(() => evaluate("!document.querySelector('.world-view.interior')"), 'observatory fallback exit');
+
   // Block the shipped town GLB to exercise primitive fallback and the HTML route.
   await command('Network.setBlockedURLs', { urls: ['*town.glb'] });
   await navigate(`${production}?diagnostics=1`, "Boolean(document.querySelector('.world-view'))");
@@ -314,9 +334,9 @@ try {
   const report = { browser: renderer, assets, sourceTownMeshes, runtimeTownMeshes,
     sourceInteriorMeshes, runtimeInteriorMeshes, town: townPerformance, sceneChanges: sceneMemory, checks: {
     sourceAndRuntimeCaptured: true, worldFirstAndPortfolio: true, fountainCollisionAndAnchors: true,
-    repeatedObservatoryLoops: 3, telescopePanel: true, lookoutEscapeAndButton: true,
+    everyTownPanel: true, repeatedObservatoryLoops: 3, telescopePanel: true, lookoutEscapeAndButton: true,
     moonAndWaterIsolation: true, clearedInputAndCameraReturn: true, reducedMotion: true,
-    moonAssetRecovery: true, failedAssetRecovery: true,
+    moonAssetRecovery: true, observatoryAssetRecovery: true, failedAssetRecovery: true,
   } };
   await writeFile(resolve(root, 'preview', 'production-review.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));

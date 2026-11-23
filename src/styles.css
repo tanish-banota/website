@@ -36,3 +36,21 @@
 .world-view.lookout-mode{background:radial-gradient(ellipse at 50% 26%,#51415d 0,#29213f 58%,#211b35 100%)}.lookout-controls{position:absolute;z-index:3;bottom:1.3rem;left:1.4rem;max-width:min(23rem,calc(100% - 2.8rem));padding:1rem 1.15rem;border:1px solid #edbc7080;border-radius:5px;background:#263750e8;color:#f3ebdd;box-shadow:0 12px 35px #17122388}.lookout-controls .eyebrow{margin-bottom:.35rem;color:#edbc70}.lookout-controls p:not(.eyebrow){margin-bottom:.7rem;font-size:.9rem}.lookout-controls button{border:1px solid #edbc70;border-radius:4px;padding:.6rem .9rem;background:#edbc70;color:#263750;font-weight:750}.lookout-controls button:hover{background:#f3ebdd}.lookout-controls button span{font-size:.75rem;font-weight:600}
 .lookout-controls .lookout-credit{margin:.7rem 0 0;font-size:.68rem;line-height:1.35;color:#d8ccbc}.lookout-credit a{text-underline-offset:.16em}
 @media(max-width:650px){.world-view-switch{top:.75rem;right:1rem}.world-view.guide-closed .interaction-prompt{bottom:5rem}.world-guide-reopen{bottom:1rem;left:1rem}}
+
+/* Final presentation: one edge rhythm and a viewport-sized playfield at browser zoom. */
+.site-shell.world-mode{--world-inset:clamp(1rem,2vw,1.5rem);min-height:100svh}
+.world-mode .world-view{min-height:100svh;height:auto}
+.world-view-switch{top:var(--world-inset);right:var(--world-inset);max-width:calc(100% - 2 * var(--world-inset))}
+.world-overlay,.lookout-controls{left:var(--world-inset);bottom:var(--world-inset);max-width:calc(100% - 2 * var(--world-inset))}
+.world-overlay{width:min(330px,calc(100% - 2 * var(--world-inset)));max-height:calc(100svh - 5.5rem);overflow:auto}
+.world-guide-reopen{left:var(--world-inset);bottom:var(--world-inset);min-height:44px}
+.interaction-prompt{bottom:var(--world-inset);min-height:0;max-width:calc(100% - 2 * var(--world-inset))}
+.interaction-prompt p{gap:.5rem;padding:.38rem .65rem;font-size:.82rem;line-height:1.25;white-space:normal}
+.interaction-prompt kbd{flex:none;min-width:1.45rem;height:1.45rem;font-size:.76rem}
+.view-switch button,.world-guide-close,.lookout-controls button{min-height:44px}
+.world-guide-close{width:44px;height:44px}
+@media(max-width:800px){.world-view:not(.guide-closed) .interaction-prompt{top:5.25rem;bottom:auto;left:var(--world-inset);transform:none}}
+@media(max-height:600px) and (min-width:651px){.world-view.guide-closed .interaction-prompt{right:var(--world-inset);left:auto;transform:none}}
+@media(max-width:650px){.interaction-prompt,.world-view.guide-closed .interaction-prompt{top:5.25rem;bottom:auto;left:var(--world-inset);transform:none}.world-overlay{width:calc(100% - 2 * var(--world-inset))}}
+.world-view:not(.interior)::before{opacity:.42;animation-duration:9s}
+@keyframes starlight{to{opacity:.35}}

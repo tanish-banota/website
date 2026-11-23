@@ -1,0 +1,728 @@
+[
+  {
+    "name": "start",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": 0,
+      "z": 7.2
+    },
+    "camera": [
+      0,
+      18,
+      20.739122947947042
+    ],
+    "patchPx": [
+      546.9230769230769,
+      757.1983483274234
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-start.png"
+  },
+  {
+    "name": "moving-1",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -0.6501000001430512,
+      "z": 7.2
+    },
+    "camera": [
+      -0.30728409167411697,
+      18,
+      20.739121584300445
+    ],
+    "patchPx": [
+      568.1965909620542,
+      757.1984114819106
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-moving-1.png"
+  },
+  {
+    "name": "moving-2",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -2.7006000001430515,
+      "z": 7.2
+    },
+    "camera": [
+      -1.9978572666973622,
+      18,
+      20.73912155842313
+    ],
+    "patchPx": [
+      685.2362723098174,
+      757.1984126803652
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-moving-2.png"
+  },
+  {
+    "name": "moving-3",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -4.254300000071526,
+      "z": 7.2
+    },
+    "camera": [
+      -3.321685380797435,
+      18,
+      20.739121558315034
+    ],
+    "patchPx": [
+      776.885910978284,
+      757.1984126853714
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-moving-3.png"
+  },
+  {
+    "name": "moving-4",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -5.610600000143051,
+      "z": 7.2
+    },
+    "camera": [
+      -4.4714349805988425,
+      18,
+      20.739121558313514
+    ],
+    "patchPx": [
+      856.4839601953045,
+      757.1984126854418
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-moving-4.png"
+  },
+  {
+    "name": "moving-5",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.158900000214577,
+      "z": 7.2
+    },
+    "camera": [
+      -5.787328784465545,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      947.5843004629994,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-moving-5.png"
+  },
+  {
+    "name": "settling-1",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -8.107200000286102,
+      "z": 7.2
+    },
+    "camera": [
+      -6.838011220297851,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1020.323853712928,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-settling-1.png"
+  },
+  {
+    "name": "settling-2",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -8.107200000286102,
+      "z": 7.2
+    },
+    "camera": [
+      -6.889863484933963,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1023.9136258800437,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-settling-2.png"
+  },
+  {
+    "name": "settling-3",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -8.107200000286102,
+      "z": 7.2
+    },
+    "camera": [
+      -6.891109659440028,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1023.9998994996942,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-settling-3.png"
+  },
+  {
+    "name": "settling-4",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -8.107200000286102,
+      "z": 7.2
+    },
+    "camera": [
+      -6.891119835192467,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1024.0006039748632,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-settling-4.png"
+  },
+  {
+    "name": "settling-5",
+    "mode": "shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -8.107200000286102,
+      "z": 7.2
+    },
+    "camera": [
+      -6.891119996322555,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1024.0006151300229,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-shadows-settling-5.png"
+  },
+  {
+    "name": "start",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": 0,
+      "z": 7.2
+    },
+    "camera": [
+      0,
+      18,
+      20.73912282074557
+    ],
+    "patchPx": [
+      546.9230769230769,
+      757.1983542184979
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-start.png"
+  },
+  {
+    "name": "moving-1",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -0.6516000001430512,
+      "z": 7.2
+    },
+    "camera": [
+      -0.308365963089345,
+      18,
+      20.73912158822953
+    ],
+    "patchPx": [
+      568.2714897523393,
+      757.198411299943
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-moving-1.png"
+  },
+  {
+    "name": "moving-2",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -2.0468999998569486,
+      "z": 7.2
+    },
+    "camera": [
+      -1.4430555404616656,
+      18,
+      20.739121559037876
+    ],
+    "patchPx": [
+      646.8269220319615,
+      757.1984126518944
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-moving-2.png"
+  },
+  {
+    "name": "moving-3",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -3.550199999928474,
+      "z": 7.2
+    },
+    "camera": [
+      -2.7197580809607262,
+      18,
+      20.739121558326623
+    ],
+    "patchPx": [
+      735.2140209895887,
+      757.1984126848346
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-moving-3.png"
+  },
+  {
+    "name": "moving-4",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -4.899300000071525,
+      "z": 7.2
+    },
+    "camera": [
+      -3.866457810494884,
+      18,
+      20.739121558313826
+    ],
+    "patchPx": [
+      814.6009253419536,
+      757.1984126854273
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-moving-4.png"
+  },
+  {
+    "name": "moving-5",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -6.348899999856946,
+      "z": 7.2
+    },
+    "camera": [
+      -5.098607501779825,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      899.9035962770648,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-moving-5.png"
+  },
+  {
+    "name": "settling-1",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.301699999928471,
+      "z": 7.2
+    },
+    "camera": [
+      -6.1458978376460935,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      972.4083118370372,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-settling-1.png"
+  },
+  {
+    "name": "settling-2",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.301699999928471,
+      "z": 7.2
+    },
+    "camera": [
+      -6.204790626081731,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      976.4855048825815,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-settling-2.png"
+  },
+  {
+    "name": "settling-3",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.301699999928471,
+      "z": 7.2
+    },
+    "camera": [
+      -6.206399868555126,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      976.5969139768933,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-settling-3.png"
+  },
+  {
+    "name": "settling-4",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.301699999928471,
+      "z": 7.2
+    },
+    "camera": [
+      -6.206444273806223,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      976.5999881865846,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-settling-4.png"
+  },
+  {
+    "name": "settling-5",
+    "mode": "no-shadows",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.301699999928471,
+      "z": 7.2
+    },
+    "camera": [
+      -6.2064449825102415,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      976.6000372507091,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-shadows-settling-5.png"
+  },
+  {
+    "name": "start",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": 0,
+      "z": 7.2
+    },
+    "camera": [
+      0,
+      18,
+      20.73912297375299
+    ],
+    "patchPx": [
+      546.9230769230769,
+      757.1983471322741
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-start.png"
+  },
+  {
+    "name": "moving-1",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -0.6476999999284744,
+      "z": 7.2
+    },
+    "camera": [
+      -0.3055784609342034,
+      18,
+      20.73912156523333
+    ],
+    "patchPx": [
+      568.0785088339064,
+      757.1984123649648
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-moving-1.png"
+  },
+  {
+    "name": "moving-2",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -2.517600000143051,
+      "z": 7.2
+    },
+    "camera": [
+      -1.8447756235017652,
+      18,
+      20.739121558357066
+    ],
+    "patchPx": [
+      674.6383123962761,
+      757.1984126834247
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-moving-2.png"
+  },
+  {
+    "name": "moving-3",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -3.966600000143051,
+      "z": 7.2
+    },
+    "camera": [
+      -3.073653808669156,
+      18,
+      20.739121558314384
+    ],
+    "patchPx": [
+      759.7144944463262,
+      757.1984126854015
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-moving-3.png"
+  },
+  {
+    "name": "moving-4",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -5.567100000143051,
+      "z": 7.2
+    },
+    "camera": [
+      -4.4340997480011435,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      853.8992133231561,
+      757.1984126854431
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-moving-4.png"
+  },
+  {
+    "name": "moving-5",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.115100000143051,
+      "z": 7.2
+    },
+    "camera": [
+      -5.749803162653283,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      944.9863727990735,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-moving-5.png"
+  },
+  {
+    "name": "settling-1",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.91760000014305,
+      "z": 7.2
+    },
+    "camera": [
+      -6.669416694760055,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1008.6519250218499,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-settling-1.png"
+  },
+  {
+    "name": "settling-2",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.91760000014305,
+      "z": 7.2
+    },
+    "camera": [
+      -6.72939686805415,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1012.804398557595,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-settling-2.png"
+  },
+  {
+    "name": "settling-3",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.91760000014305,
+      "z": 7.2
+    },
+    "camera": [
+      -6.729950896118851,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1012.8427543466897,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-settling-3.png"
+  },
+  {
+    "name": "settling-4",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.91760000014305,
+      "z": 7.2
+    },
+    "camera": [
+      -6.729959811513844,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1012.8433715663429,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-settling-4.png"
+  },
+  {
+    "name": "settling-5",
+    "mode": "no-grass-tint",
+    "viewport": [
+      1440,
+      900
+    ],
+    "player": {
+      "x": -7.91760000014305,
+      "z": 7.2
+    },
+    "camera": [
+      -6.72995999743877,
+      18,
+      20.73912155831348
+    ],
+    "patchPx": [
+      1012.8433844380687,
+      757.1984126854436
+    ],
+    "path": "C:\\Users\\tanis\\OneDrive\\Documents\\website\\preview\\shadow-motion\\final-no-grass-tint-settling-5.png"
+  }
+]

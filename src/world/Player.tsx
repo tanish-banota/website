@@ -77,15 +77,16 @@ export function Player({ position, spawn, scene, enabled }: { position: MutableR
 
   return <group ref={model} position={[spawn.x, 0, spawn.z]}><group ref={body}>
     {[-1, 1].map((side) => <group key={side} ref={side < 0 ? leftFoot : rightFoot} position={[side * 0.16, 0.13, 0.035]}>
-      <mesh material={boots} castShadow><capsuleGeometry args={[0.115, 0.11, 3, 10]} /></mesh>
-      <mesh material={boots} position={[0, -0.06, 0.07]} scale={[0.12, 0.085, 0.2]} castShadow><sphereGeometry args={[1, 10, 8]} /></mesh>
+      <mesh material={boots}><capsuleGeometry args={[0.115, 0.11, 3, 10]} /></mesh>
+      <mesh material={boots} position={[0, -0.06, 0.07]} scale={[0.12, 0.085, 0.2]}><sphereGeometry args={[1, 10, 8]} /></mesh>
     </group>)}
-    <mesh material={clothShade} position={[0, 0.45, -0.08]} castShadow><coneGeometry args={[0.36, 0.78, 12]} /></mesh>
+    <mesh material={clothShade} position={[0, 0.45, -0.08]}><coneGeometry args={[0.36, 0.78, 12]} /></mesh>
+    {/* Broad body, head, and hat form a stable silhouette in the town shadow map. */}
     <mesh material={cloth} position={[0, 0.48, 0.02]} castShadow><cylinderGeometry args={[0.22, 0.32, 0.72, 12]} /></mesh>
-    <mesh material={cloth} position={[0, 0.77, 0]} scale={[0.31, 0.24, 0.25]} castShadow><sphereGeometry args={[1, 14, 10]} /></mesh>
+    <mesh material={cloth} position={[0, 0.77, 0]} scale={[0.31, 0.24, 0.25]}><sphereGeometry args={[1, 14, 10]} /></mesh>
     {[-1, 1].map((side) => <group key={side} ref={side < 0 ? leftArm : rightArm} position={[side * 0.31, 0.73, 0]} rotation={[0, 0, side * 0.18]}>
-      <mesh material={cloth} position={[0, -0.13, 0]} castShadow><capsuleGeometry args={[0.105, 0.23, 3, 10]} /></mesh>
-      <mesh material={skin} position={[0, -0.36, 0.025]} castShadow><sphereGeometry args={[0.125, 12, 10]} /></mesh>
+      <mesh material={cloth} position={[0, -0.13, 0]}><capsuleGeometry args={[0.105, 0.23, 3, 10]} /></mesh>
+      <mesh material={skin} position={[0, -0.36, 0.025]}><sphereGeometry args={[0.125, 12, 10]} /></mesh>
     </group>)}
     <mesh material={skin} position={[0, 1.08, 0.015]} scale={[0.38, 0.39, 0.36]} castShadow><sphereGeometry args={[1, 20, 14]} /></mesh>
     <mesh material={skin} position={[0, 0.99, 0.36]} scale={[0.12, 0.09, 0.06]}><sphereGeometry args={[1, 10, 8]} /></mesh>
@@ -93,9 +94,9 @@ export function Player({ position, spawn, scene, enabled }: { position: MutableR
       <mesh material={eyes} scale={[0.043, 0.065, 0.02]}><sphereGeometry args={[1, 10, 8]} /></mesh>
       <mesh material={skin} position={[-0.012, 0.025, 0.018]} scale={[0.013, 0.019, 0.008]}><sphereGeometry args={[1, 8, 6]} /></mesh>
     </group>)}
-    <mesh material={hat} position={[0, 1.32, 0]} castShadow><cylinderGeometry args={[0.44, 0.44, 0.12, 18]} /></mesh>
+    <mesh material={hat} position={[0, 1.32, 0]}><cylinderGeometry args={[0.44, 0.44, 0.12, 18]} /></mesh>
     <mesh material={hat} position={[0, 1.58, 0]} castShadow><coneGeometry args={[0.37, 0.62, 12]} /></mesh>
-    <mesh material={clothShade} position={[0, 1.4, 0]} castShadow><cylinderGeometry args={[0.345, 0.37, 0.08, 12]} /></mesh>
+    <mesh material={clothShade} position={[0, 1.4, 0]}><cylinderGeometry args={[0.345, 0.37, 0.08, 12]} /></mesh>
     <mesh material={gold} position={[0, 1.4, 0.354]} scale={[0.075, 0.065, 0.022]}><sphereGeometry args={[1, 10, 8]} /></mesh>
   </group></group>;
 }

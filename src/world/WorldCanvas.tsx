@@ -15,6 +15,7 @@ import { ObservatoryFallback } from './ObservatoryFallback';
 import { Player } from './Player';
 import { TownFallback } from './TownFallback';
 import { FountainWater } from './Fountain';
+import { AmbientFoliage } from './AmbientFoliage';
 import { LookoutMoon } from './LookoutMoon';
 import { LookoutHorizon } from './LookoutHorizon';
 import { townCameraZoom } from './townCamera';
@@ -176,6 +177,7 @@ export function WorldCanvas({ scene, spawn, enabled, lookoutActive, onNearestCha
           </AssetBoundary>
         )}
         {scene === 'town' && !lookoutActive && <FountainWater />}
+        {scene === 'town' && !lookoutActive && <AmbientFoliage />}
         {scene === 'town' && lookoutActive && <LookoutHorizon />}
         {scene === 'town' && lookoutActive && <pointLight position={[northLookout.x, 3, northLookout.z + 1]} intensity={2.4} distance={5} color="#EDBC70" />}
         {scene === 'town' && lookoutActive && <AssetBoundary fallback={<LookoutMoon position={[northLookout.x, 15.3, lookoutMoonZ]} />} onError={onMoonAssetError}>

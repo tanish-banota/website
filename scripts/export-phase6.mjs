@@ -16,7 +16,7 @@ const browserPath = process.env.TWILIGHT_BROWSER || [
 if (!browserPath) throw new Error('Set TWILIGHT_BROWSER to a Chrome or Edge executable');
 const profile = await mkdtemp(join(tmpdir(), 'twilight-export-'));
 const vite = spawn(process.execPath, [resolve(root, 'node_modules/vite/bin/vite.js'), '--host', '127.0.0.1', '--port', String(appPort), '--strictPort'], { cwd: root, stdio: 'ignore' });
-const browser = spawn(browserPath, ['--headless=new', '--disable-gpu', '--enable-unsafe-swiftshader', '--no-first-run', '--remote-debugging-port=0', `--user-data-dir=${profile}`, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
+const browser = spawn(browserPath, ['--headless=new', '--no-first-run', '--remote-debugging-port=0', `--user-data-dir=${profile}`, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
 browser.stderr.on('data', (chunk) => { if (process.env.TWILIGHT_EXPORT_DEBUG) process.stderr.write(chunk); });
 const delay = (ms) => new Promise((resolveDelay) => setTimeout(resolveDelay, ms));
 async function until(task, label) {
