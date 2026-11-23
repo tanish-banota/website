@@ -10,8 +10,8 @@ function TriangulatedDome() {
   const surface = useMemo(createObservatoryDome, []);
   const panels = useMemo(() => surface.triangles.map((triangle) => panelGeometry(surface.vertices, triangle)), [surface]);
   const panelMaterials = useMemo(() => ['#263750', '#304A72', '#51477C', '#365681'].map((color) =>
-    new MeshStandardMaterial({ color, roughness: 0.43, metalness: 0.16, side: DoubleSide })), []);
-  const ribMaterial = useMemo(() => new MeshStandardMaterial({ color: '#17283E', roughness: 0.77, metalness: 0.07 }), []);
+    new MeshStandardMaterial({ color, roughness: 0.54, metalness: 0.1, side: DoubleSide })), []);
+  const ribMaterial = useMemo(() => new MeshStandardMaterial({ color: paint.blue, roughness: 0.78, metalness: 0.04 }), []);
   return <group name="TriangulatedDome">
     <group name="DomePanels">
       {panels.map((geometry, index) => <mesh key={surface.triangles[index].join(':')} geometry={geometry}
@@ -31,7 +31,19 @@ function DomeRib({ edge, vertices, material }: { edge: DomeEdge; vertices: Vecto
   const center = useMemo(() => new Vector3().addVectors(start, end).multiplyScalar(0.5), [start, end]);
   const quaternion = useMemo(() => new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), direction.clone().normalize()), [direction]);
   return <mesh position={center} quaternion={quaternion} material={material} castShadow>
-    <cylinderGeometry args={[0.045, 0.045, direction.length(), 5]} />
+    <cylinderGeometry args={[0.033, 0.033, direction.length(), 5]} />
+  </mesh>;
+}
+
+function TelescopeStrut({ from, to }: { from: [number, number, number]; to: [number, number, number] }) {
+  const start = new Vector3(...from);
+  const end = new Vector3(...to);
+  const direction = end.clone().sub(start);
+  const center = start.add(end).multiplyScalar(0.5);
+  const quaternion = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), direction.clone().normalize());
+  return <mesh position={[center.x, center.y, center.z]} quaternion={quaternion} castShadow>
+    <cylinderGeometry args={[0.075, 0.095, direction.length(), 8]} />
+    <meshStandardMaterial color={paint.steel} roughness={0.75} metalness={0.08} />
   </mesh>;
 }
 
@@ -43,11 +55,17 @@ function TelescopeSupport() {
       const radius = 0.72 - t * 0.24;
       return new Vector3(Math.sin(angle) * radius, 2.94 + t * 0.85, Math.cos(angle) * radius);
     });
-    return new TubeGeometry(new CatmullRomCurve3(points), 48, 0.065, 6, false);
+    return new TubeGeometry(new CatmullRomCurve3(points), 48, 0.048, 6, false);
   }, []);
   return <group name="TelescopeSupport">
+    <mesh position={[0.12, 3.08, -0.08]} castShadow>
+      <cylinderGeometry args={[0.55, 0.66, 0.2, 12]} />
+      <meshStandardMaterial color={paint.blue} roughness={0.82} />
+    </mesh>
+    <TelescopeStrut from={[-0.58, 2.76, 0]} to={[-0.12, 3.67, 0]} />
+    <TelescopeStrut from={[0.62, 2.76, 0]} to={[0.33, 3.67, 0]} />
     <mesh position={[0, 3.28, 0]} castShadow>
-      <cylinderGeometry args={[0.14, 0.2, 0.76, 10]} />
+      <cylinderGeometry args={[0.18, 0.25, 0.76, 10]} />
       <meshStandardMaterial color={paint.blue} roughness={0.8} />
     </mesh>
     <mesh geometry={helix} castShadow>
@@ -68,9 +86,9 @@ function RoofTelescope() {
       <cylinderGeometry args={[0.42, 0.47, 2.45, 16]} />
       <meshStandardMaterial color={paint.steel} roughness={0.59} metalness={0.17} />
     </mesh>
-    {[0.25, 0.91, 1.65, 2.38].map((height) => <mesh key={height}
+    {[0.25, 1.24, 2.38].map((height) => <mesh key={height}
       position={[0, height, 0]} rotation={[-Math.PI / 2, 0, 0]} castShadow>
-      <torusGeometry args={[0.46, 0.09, 7, 20]} />
+      <torusGeometry args={[0.46, 0.065, 7, 20]} />
       <meshStandardMaterial color={paint.blue} roughness={0.74} metalness={0.1} />
     </mesh>)}
     <mesh position={[0, 2.56, 0]} rotation={[-Math.PI / 2, 0, 0]}>

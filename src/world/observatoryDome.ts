@@ -53,8 +53,10 @@ export function createObservatoryDome() {
 export function panelGeometry(vertices: Vector3[], [a, b, c]: DomeTriangle) {
   const points = [vertices[a], vertices[b], vertices[c]];
   const center = new Vector3().add(points[0]).add(points[1]).add(points[2]).multiplyScalar(1 / 3);
+  const normal = new Vector3().subVectors(points[1], points[0])
+    .cross(new Vector3().subVectors(points[2], points[0])).normalize();
   const positions = points.flatMap((point) => {
-    const inset = center.clone().lerp(point, 0.965);
+    const inset = center.clone().lerp(point, 0.976).addScaledVector(normal, -0.018);
     return [inset.x, inset.y, inset.z];
   });
   const geometry = new BufferGeometry();

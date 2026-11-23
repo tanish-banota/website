@@ -63,7 +63,7 @@ function PlazaPlanter({ x, z }: { x: number; z: number }) {
 export function Fountain() {
   return <group name="Fountain" position={fountainPosition}>
     <mesh position={[0, 0.28, 0]} material={weathered} castShadow receiveShadow>
-      <cylinderGeometry args={[1.25, 1.31, 0.52, 32]} />
+      <cylinderGeometry args={[1.31, 1.34, 0.54, 32]} />
     </mesh>
     <mesh position={[0, 0.53, 0]} material={blue}>
       <cylinderGeometry args={[1.08, 1.08, 0.08, 32]} />
@@ -73,7 +73,7 @@ export function Fountain() {
       return <group key={angle} rotation={[0, angle, 0]}>
         <mesh position={[0, 0.62, 0]} rotation={[-Math.PI / 2, 0, 0]}
           material={accent ? stone : weathered} castShadow>
-          <torusGeometry args={[1.17, 0.14, 6, 8, arc * 0.97]} />
+          <torusGeometry args={[1.2, 0.17, 6, 8, arc * 0.97]} />
         </mesh>
       </group>;
     })}
@@ -83,11 +83,11 @@ export function Fountain() {
     <mesh position={[0, 0.84, 0]} material={weathered} castShadow>
       <cylinderGeometry args={[0.23, 0.36, 0.66, 12]} />
     </mesh>
-    <mesh position={[0, 1.23, 0]} material={stone} castShadow>
-      <cylinderGeometry args={[0.49, 0.33, 0.26, 16]} />
+    <mesh position={[0, 1.25, 0]} material={stone} castShadow receiveShadow>
+      <cylinderGeometry args={[0.57, 0.36, 0.3, 16]} />
     </mesh>
-    <mesh position={[0, 1.42, 0]} rotation={[-Math.PI / 2, 0, 0]} material={weathered}>
-      <torusGeometry args={[0.46, 0.09, 6, 24]} />
+    <mesh position={[0, 1.41, 0]} rotation={[-Math.PI / 2, 0, 0]} material={weathered}>
+      <torusGeometry args={[0.54, 0.105, 6, 24]} />
     </mesh>
     <FountainCrest />
     {plazaPlanterOffsets.map(([x, z]) => <PlazaPlanter key={`${x}-${z}`} x={x} z={z} />)}
@@ -108,20 +108,25 @@ export function FountainWater() {
       <meshStandardMaterial color="#4789A8" emissive="#215377" emissiveIntensity={0.18}
         transparent opacity={0.86} roughness={0.38} metalness={0.05} depthWrite={false} />
     </mesh>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 1.43, 0]}>
-      <circleGeometry args={[0.41, 20]} />
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 1.42, 0]}>
+      <circleGeometry args={[0.48, 20]} />
       <meshStandardMaterial color="#75B0CA" transparent opacity={0.78} roughness={0.36} depthWrite={false} />
     </mesh>
-    {[[0.5, 0], [-0.5, 0], [0, 0.5], [0, -0.5]].map(([x, z]) =>
+    {[[0.56, 0], [-0.56, 0], [0, 0.56], [0, -0.56]].map(([x, z]) =>
       <mesh key={`${x}-${z}`} position={[x, 0.98, z]}>
-        <cylinderGeometry args={[0.026, 0.035, 0.76, 6]} />
-        <meshStandardMaterial color="#75B0CA" transparent opacity={0.65} roughness={0.3} depthWrite={false} />
+        <cylinderGeometry args={[0.04, 0.05, 0.78, 7]} />
+        <meshStandardMaterial color="#75B0CA" transparent opacity={0.72} roughness={0.3} depthWrite={false} />
       </mesh>)}
     <group ref={ripples}>
       {[0.63, 0.91].map((radius) => <mesh key={radius} position={[0, 0.595, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <torusGeometry args={[radius, 0.018, 4, 32]} />
         <meshStandardMaterial color="#B7D9E4" transparent opacity={0.42} depthWrite={false} />
       </mesh>)}
+      {[[0.56, 0], [-0.56, 0], [0, 0.56], [0, -0.56]].map(([x, z]) =>
+        <mesh key={`${x}-${z}`} position={[x, 0.6, z]} rotation={[-Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.13, 0.022, 4, 16]} />
+          <meshStandardMaterial color="#B7D9E4" transparent opacity={0.58} depthWrite={false} />
+        </mesh>)}
     </group>
   </group>;
 }

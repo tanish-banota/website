@@ -22,29 +22,43 @@ function SoftStone({ size, position, surface = stone, radius = 0.08, castShadow 
 
 function ClockFace() {
   const marks = Array.from({ length: 12 }, (_, index) => index);
-  return <group name="ClockFace" position={[0, 3.55, 1.29]}>
+  return <group name="ClockFace" position={[0, 3.58, 1.34]}>
     <mesh rotation={[Math.PI / 2, 0, 0]} material={weathered} castShadow>
-      <cylinderGeometry args={[1.3, 1.3, 0.16, 48]} />
+      <cylinderGeometry args={[1.44, 1.44, 0.22, 8]} />
     </mesh>
-    <mesh position={[0, 0, 0.1]} material={blue}><circleGeometry args={[1.16, 48]} /></mesh>
-    <mesh position={[0, 0, 0.15]} material={gold}><torusGeometry args={[1.18, 0.085, 8, 48]} /></mesh>
-    <mesh position={[0, 0, 0.17]} material={paleStone}><torusGeometry args={[0.98, 0.025, 6, 48]} /></mesh>
-    <mesh position={[0, 0, 0.17]} material={purple}><torusGeometry args={[0.69, 0.025, 6, 48]} /></mesh>
+    <mesh position={[0, 0, 0.12]} material={purple}>
+      <circleGeometry args={[1.31, 48]} />
+    </mesh>
+    <mesh position={[0, 0, 0.18]} material={blue}>
+      <circleGeometry args={[1.17, 48]} />
+    </mesh>
+    <mesh position={[0, 0, 0.16]} material={paleStone} castShadow>
+      <torusGeometry args={[1.4, 0.12, 8, 48]} />
+    </mesh>
+    <mesh position={[0, 0, 0.22]} material={gold}>
+      <torusGeometry args={[1.24, 0.065, 8, 48]} />
+    </mesh>
+    <mesh position={[0, 0, 0.225]} material={purple}>
+      <torusGeometry args={[0.79, 0.035, 6, 48]} />
+    </mesh>
     {marks.map((mark) => {
       const angle = mark * Math.PI / 6;
-      return <mesh key={mark} position={[Math.sin(angle) * 0.84, Math.cos(angle) * 0.84, 0.19]}
+      return <mesh key={mark} position={[Math.sin(angle) * 1.01, Math.cos(angle) * 1.01, 0.235]}
         rotation={[0, 0, -angle]} material={mark % 3 === 0 ? gold : paleStone}>
-        <boxGeometry args={[mark % 3 === 0 ? 0.085 : 0.045, 0.19, 0.035]} />
+        <boxGeometry args={[mark % 3 === 0 ? 0.1 : 0.055, mark % 3 === 0 ? 0.23 : 0.16, 0.04]} />
       </mesh>;
     })}
-    <mesh position={[0, 0.25, 0.21]} rotation={[0, 0, -0.55]} material={gold}>
-      <boxGeometry args={[0.085, 0.58, 0.05]} />
+    <mesh position={[0, 0.27, 0.27]} rotation={[0, 0, -0.55]} material={gold}>
+      <boxGeometry args={[0.1, 0.68, 0.06]} />
     </mesh>
-    <mesh position={[-0.2, -0.01, 0.22]} rotation={[0, 0, Math.PI / 2]} material={paleStone}>
-      <boxGeometry args={[0.07, 0.47, 0.05]} />
+    <mesh position={[-0.23, -0.01, 0.27]} rotation={[0, 0, Math.PI / 2]} material={paleStone}>
+      <boxGeometry args={[0.075, 0.52, 0.05]} />
     </mesh>
-    <mesh position={[0, 0, 0.24]} material={gold}><sphereGeometry args={[0.095, 12, 8]} /></mesh>
-    <mesh position={[0, -1.12, 0.16]} material={purple}><octahedronGeometry args={[0.12]} /></mesh>
+    <mesh position={[0, 0, 0.31]} material={gold}><sphereGeometry args={[0.11, 12, 8]} /></mesh>
+    {[[0, 1.57], [1.57, 0], [0, -1.57], [-1.57, 0]].map(([x, y]) =>
+      <mesh key={`${x}-${y}`} position={[x, y, 0.13]} material={x === 0 ? purple : gold}>
+        <octahedronGeometry args={[0.16]} />
+      </mesh>)}
   </group>;
 }
 
@@ -53,8 +67,7 @@ function SideWing({ side }: { side: -1 | 1 }) {
     <SoftStone size={[1.38, 2.5, 2.06]} position={[0, 1.27, -0.1]} receiveShadow />
     <SoftStone size={[1.52, 0.25, 2.2]} position={[0, 0.2, -0.1]} surface={weathered} />
     <SoftStone size={[1.55, 0.22, 2.2]} position={[0, 2.48, -0.1]} surface={weathered} />
-    {[-0.49, 0, 0.49].map((x) => <SoftStone key={x} size={[0.34, 0.32, 0.32]}
-      position={[x, 2.75, 0.82]} surface={x === 0 ? stone : paleStone} />)}
+    <SoftStone size={[1.28, 0.18, 0.26]} position={[0, 2.55, 0.87]} surface={paleStone} />
     <SoftStone size={[0.58, 0.86, 0.09]} position={[0, 1.42, 0.98]} surface={blue} castShadow={false} />
     <SoftStone size={[0.4, 0.64, 0.1]} position={[0, 1.42, 1.04]} surface={gold} castShadow={false} />
   </group>;
@@ -66,19 +79,22 @@ export function ClockTower() {
     <SoftStone size={[3.4, 4.9, 2.38]} position={[0, 2.48, 0]} radius={0.14} receiveShadow />
     <SoftStone size={[3.64, 0.25, 2.55]} position={[0, 2.02, 0]} surface={weathered} />
     <SoftStone size={[3.7, 0.3, 2.6]} position={[0, 4.8, 0]} surface={weathered} />
-    {[-1.47, 1.47].map((x) => [0.7, 1.35, 2.7, 4.15].map((y) =>
-      <SoftStone key={`${x}-${y}`} size={[0.28, 0.34, 0.28]} position={[x, y, 1.11]}
-        surface={y === 1.35 || y === 4.15 ? paleStone : weathered} />))}
+    {[-1.48, 1.48].map((x) => <SoftStone key={x} size={[0.24, 2.55, 0.27]}
+      position={[x, 3.52, 1.18]} surface={weathered} />)}
     <SoftStone size={[1.06, 2.0, 0.12]} position={[0, 1.03, 1.25]} surface={blue} castShadow={false} />
     <SoftStone size={[1.3, 0.2, 0.35]} position={[0, 2.08, 1.22]} surface={paleStone} />
     <ClockFace />
     <SideWing side={-1} /><SideWing side={1} />
-    <SoftStone size={[3.04, 0.27, 2.15]} position={[0, 5.14, 0]} surface={paleStone} />
-    <SoftStone size={[2.2, 0.36, 1.84]} position={[0, 5.47, 0]} surface={weathered} />
-    <SoftStone size={[1.45, 0.42, 1.45]} position={[0, 5.83, 0]} surface={stone} />
-    <mesh position={[0, 6.23, 0]} material={purple} castShadow>
-      <coneGeometry args={[0.95, 0.9, 4]} />
+    <SoftStone size={[3.05, 0.22, 2.18]} position={[0, 5.06, 0]} surface={paleStone} />
+    <SoftStone size={[1.56, 0.9, 1.45]} position={[0, 5.58, 0]} surface={weathered} />
+    <SoftStone size={[1.02, 0.64, 0.1]} position={[0, 5.61, 0.76]} surface={blue} castShadow={false} />
+    <mesh position={[0, 5.64, 0.84]} material={purple} rotation={[0, 0, Math.PI / 4]}>
+      <boxGeometry args={[0.39, 0.39, 0.11]} />
     </mesh>
-    <mesh position={[0, 6.72, 0]} material={gold}><octahedronGeometry args={[0.16]} /></mesh>
+    <SoftStone size={[1.88, 0.18, 1.7]} position={[0, 6.09, 0]} surface={stone} />
+    <mesh position={[0, 6.55, 0]} material={purple} castShadow>
+      <coneGeometry args={[0.76, 1.06, 4]} />
+    </mesh>
+    <mesh position={[0, 7.12, 0]} material={gold}><octahedronGeometry args={[0.16]} /></mesh>
   </group>;
 }
