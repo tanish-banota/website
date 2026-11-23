@@ -4,7 +4,7 @@ import { ClockTower } from './ClockTower';
 import { ObservatoryExterior } from './ObservatoryExterior';
 import { Fountain } from './Fountain';
 import { TownHall } from './TownBuilding';
-import { GardenPatch, Shrub, Tree } from './TownScenery';
+import { Bench, GardenPatch, ObservatoryGarden, PlazaBorders, Shrub, SouthernPlanting, Tree } from './TownScenery';
 import { northLookout } from './collision';
 import { TownBoundary } from './TownBoundary';
 import { TownGround } from './TownGround';
@@ -132,21 +132,30 @@ export function Town() {
       <group name="PostBox"><PostBox /></group>
       <group name="ObservatoryExterior"><ObservatoryExterior /></group>
       <group name="TownScenery">
-        <Tree position={[-11.25, 0, 2.6]} scale={0.9} />
-        <Tree position={[-11.2, 0, -2.6]} scale={1.05} />
-        <Tree position={[4.8, 0, -7.5]} scale={0.9} />
-        <Tree position={[10.7, 0, 1.7]} scale={0.85} />
-        <Tree position={[10.6, 0, 7.4]} scale={1.1} />
-        <GardenPatch position={[-10.1, 0, 5.2]} />
-        <GardenPatch position={[9.35, 0, -2.4]} size={0.85} />
-        <GardenPatch position={[8.9, 0, 7.85]} size={0.9} />
-        <Shrub position={[-11.75, 0, 4.4]} />
-        <Shrub position={[-10.25, 0, -0.95]} scale={0.8} />
+        <ObservatoryGarden />
+        <group>
+          <Tree position={[-11.25, 0, 2.6]} scale={0.9} variant={1} />
+          <Bench position={[-9, 0, 3.05]} />
+          <GardenPatch position={[-10.1, 0, 5.2]} cool />
+          <Shrub position={[-11.75, 0, 4.4]} />
+        </group>
+        <PlazaBorders />
+        <group>
+          <Tree position={[10.7, 0, 1.7]} scale={0.85} variant={2} />
+          <GardenPatch position={[9.35, 0, -2.4]} size={0.85} />
+          <Shrub position={[11.65, 0, 2.8]} scale={0.8} />
+        </group>
+        <Tree position={[4.8, 0, -7.5]} scale={0.9} variant={3} />
         <Shrub position={[5.8, 0, -8.2]} scale={0.85} />
-        <Shrub position={[11.65, 0, 2.8]} scale={0.8} />
-        <Shrub position={[11.8, 0, 6.15]} scale={0.9} />
+        <group>
+          <Tree position={[10.6, 0, 7.4]} scale={1.1} variant={5} />
+          <GardenPatch position={[8.9, 0, 7.85]} size={0.9} />
+          <Shrub position={[11.8, 0, 6.15]} scale={0.9} />
+        </group>
+        <SouthernPlanting />
       </group>
       <Lantern position={[-4.55, 0, 0.25]} />
+      <Lantern position={[-8.8, 0, 1.5]} />
       <Lantern position={[-5.95, 0, -3.9]} />
       <Lantern position={[4.6, 0, 2.1]} />
     </BatchedStaticKit>

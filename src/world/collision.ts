@@ -36,6 +36,13 @@ export const townObstacles: Obstacle[] = [
   { x: -10.1, z: 5.2, radius: 0.68 }, // edged flower beds
   { x: 9.35, z: -2.4, radius: 0.58 },
   { x: 8.9, z: 7.85, radius: 0.61 },
+  { minX: -9.76, maxX: -8.24, minZ: 2.7, maxZ: 3.4 }, // notice corner bench
+  { minX: 5.02, maxX: 5.62, minZ: 0.22, maxZ: 0.8 }, // town hall entrance planters
+  { minX: 7.38, maxX: 7.98, minZ: 0.22, maxZ: 0.8 },
+  { x: -11.3, z: -4.42, radius: 0.6 }, // observatory garden edged beds
+  { x: -9.45, z: -9.34, radius: 0.72 },
+  { x: -3.2, z: 8.5, radius: 0.53 }, // southern entrance small beds
+  { x: 4.28, z: 9.3, radius: 0.52 },
   { minX: 7.0, maxX: 7.8, minZ: 4.33, maxZ: 4.97 }, // post box
   { minX: -10.72, maxX: -5.88, minZ: -8.87, maxZ: -4.03 }, // faceted observatory base
   { minX: -8.9, maxX: -7.7, minZ: -4.16, maxZ: -3.85 }, // entrance vestibule
@@ -44,12 +51,13 @@ export const townObstacles: Obstacle[] = [
   { minX: -5.75, maxX: -4.615, minZ: northLookout.z - 1.31, maxZ: northLookout.z - 0.99 }, // lookout rear opening
   { minX: -2.785, maxX: -1.65, minZ: northLookout.z - 1.31, maxZ: northLookout.z - 0.99 },
   { minX: -11.42, maxX: -11.08, minZ: 2.43, maxZ: 2.77 },
-  { minX: -11.38, maxX: -11.02, minZ: -2.78, maxZ: -2.42 },
+  { minX: -11.53, maxX: -11.17, minZ: -7.08, maxZ: -6.72 },
   { minX: 4.65, maxX: 4.95, minZ: -7.65, maxZ: -7.35 },
   { minX: 3.55, maxX: 4.25, minZ: -3.9, maxZ: -3.15 }, // flower planter
   { minX: 10.55, maxX: 10.85, minZ: 1.55, maxZ: 1.85 },
   { minX: 10.42, maxX: 10.78, minZ: 7.22, maxZ: 7.58 },
   { minX: -4.63, maxX: -4.47, minZ: 0.17, maxZ: 0.33 },
+  { minX: -8.88, maxX: -8.72, minZ: 1.42, maxZ: 1.58 },
   { minX: -6.03, maxX: -5.87, minZ: -3.98, maxZ: -3.82 },
   { minX: 4.52, maxX: 4.68, minZ: 2.02, maxZ: 2.18 },
 ];

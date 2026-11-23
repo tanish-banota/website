@@ -50,6 +50,8 @@ The player starts at the southern entrance. The observatory door, telescope eyep
 
 Later passes added the E-triggered moon lookout, fuller trees and gardens, the refined town hall and player, a closer bounded exterior camera, and a production review. The exterior composition pass added a broken stone boundary behind the clock, planted side edges, and a flat southern entrance. The two houses removed earlier remain absent.
 
+The scenery composition pass grouped the observatory's cool flower garden, the notice-board bench and lantern, broken planted plaza borders, a sheltered town-hall entrance, and small southern entrance plantings. Trees now use deterministic size, lean, and rotation variants with overlapping canopies and earth-toned bases. The fountain and main routes remain open.
+
 ## Where to make changes
 
 | Change | Main files |
@@ -106,20 +108,22 @@ The exterior composition comparison is in `preview/camera-pass/`: `environment-b
 
 The later `relocation-baseline` and `relocation-final` captures record the entrance spawn, the wall behind the clock, and the lookout before and after moving it farther north at those same viewport sizes.
 
+The `scenery-composition-baseline` and `scenery-composition-final` captures record this pass at the same player positions and 1440 × 900 and 390 × 844 viewports. Both use the normal GLB runtime; the JSON files contain the player and render states.
+
 ### Latest measured performance
 
-The November 22, 2026 review used a 1440 × 900 headless Edge 158 viewport with hardware accelerated D3D11 on an Intel Arc 140V GPU, Intel Core Ultra 7 256V, and 16 GB RAM. Five-second samples began after the GLBs loaded.
+The November 23, 2026 review used a 1440 × 900 headless Edge 158 viewport with hardware accelerated D3D11 on an Intel Arc 140V GPU. Five-second samples began after the GLBs loaded.
 
 | Scene | FPS | Draw calls | Triangles |
 | --- | ---: | ---: | ---: |
-| Town entrance | 60.2 | 218 | 191,958 |
+| Town entrance | 58.6 | 267 | 175,916 |
 | Observatory interior | 60.1 | 111 | 15,916 |
 
-The browser was capped near 60 FPS. These numbers show that this hardware held that rate; they are not a lower-end-device prediction. The exterior composition added geometry; the current entrance view measures 218 draw calls and 191,958 triangles. Draw calls depend on camera position, so this is not directly comparable with the older square sample. The town exceeds the earlier 150-draw-call starting target and should be measured again on slower GPUs before further scenery expansion. After three observatory loops, the warmed town renderer returned to 202 geometries and 8 textures each time, with no progressive GPU resource increase.
+The browser was capped near 60 FPS. These numbers describe this hardware, not a lower-end-device prediction. At the same entrance position, the scenery pass increased draw calls from 246 to 267 while reducing visible triangles from 182,240 to 175,916. The town exceeds the earlier 150-draw-call starting target and should be measured on slower GPUs before further scenery expansion.
 
 | Runtime asset | Size |
 | --- | ---: |
-| `town.glb` | 5.16 MB |
+| `town.glb` | 5.00 MB |
 | `observatory.glb` | 0.62 MB |
 | `majoras-moon.glb` | 0.19 MB |
 

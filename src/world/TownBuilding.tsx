@@ -15,6 +15,8 @@ const material = {
   roofDark: finish('#584571', 0.83),
   glass: new MeshStandardMaterial({ color: paint.gold, emissive: paint.gold, emissiveIntensity: 0.34, roughness: 0.66, metalness: 0 }),
   sign: finish(paint.steel, 0.8),
+  foliage: finish(paint.evergreen),
+  foliageLight: finish('#62765C'),
 };
 const body = new RoundedBoxGeometry(4.3, 3, 3.1, 3, 0.14);
 const foundation = new RoundedBoxGeometry(4.52, 0.35, 3.31, 3, 0.09);
@@ -31,6 +33,9 @@ const mullion = new BoxGeometry(0.055, 0.72, 0.055);
 const sill = new RoundedBoxGeometry(0.92, 0.12, 0.27, 2, 0.05);
 const knob = new SphereGeometry(0.06, 10, 8);
 const signBoard = new RoundedBoxGeometry(1.7, 0.41, 0.15, 3, 0.08);
+const canopy = new RoundedBoxGeometry(2.2, 0.16, 1.12, 3, 0.07);
+const planter = new RoundedBoxGeometry(0.66, 0.38, 0.58, 2, 0.08);
+const bush = new SphereGeometry(1, 12, 8);
 
 function RoofSlope({ side }: { side: -1 | 1 }) {
   return <group position={[side * 1.16, 3.31, 0]} rotation={[0, 0, -side * 0.32]}>
@@ -63,6 +68,14 @@ export function TownHall() {
     <mesh geometry={doorFrame} material={material.trim} position={[0, 1.04, 1.62]} castShadow />
     <mesh geometry={door} material={material.door} position={[0, 0.99, 1.74]} />
     <mesh geometry={knob} material={material.glass} position={[0.36, 0.97, 1.82]} />
+    {/* A shallow entrance shelter keeps the sign above and the approach below visible. */}
+    <mesh geometry={canopy} material={material.roofDark} position={[0, 1.94, 2.02]} castShadow />
+    <mesh geometry={canopy} material={material.roof} position={[0, 2.04, 2.02]} scale={[0.96, 0.38, 0.96]} castShadow />
+    {[-1, 1].map((side) => <group key={side} position={[side * 1.14, 0, 2.16]}>
+      <mesh geometry={planter} material={material.foundation} position={[0, 0.2, 0]} castShadow />
+      <mesh geometry={bush} material={material.foliage} position={[0, 0.53, 0]} scale={[0.29, 0.29, 0.25]} castShadow />
+      <mesh geometry={bush} material={material.foliageLight} position={[side * 0.13, 0.61, -0.06]} scale={[0.18, 0.19, 0.18]} castShadow />
+    </group>)}
     <Window x={-1.42} /><Window x={1.42} />
     <mesh geometry={signBoard} material={material.trim} position={[0, 2.69, 1.69]} castShadow />
     <mesh geometry={signBoard} material={material.sign} position={[0, 2.69, 1.8]} scale={[0.88, 0.8, 0.36]} />
