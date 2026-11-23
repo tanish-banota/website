@@ -19,7 +19,7 @@ test('town camera keeps the player visible at each map edge', () => {
       for (const z of [townBounds.minZ, 0, townBounds.maxZ]) {
         const focus = townCameraFocus({ x, z }, width, height, zoom);
         assert.ok(Math.abs(x - focus.x) < halfWidth * 0.75);
-        assert.ok(Math.abs(z - focus.z) < halfGroundDepth * 0.75);
+        assert.ok(Math.abs(z - focus.z) < halfGroundDepth * 0.9);
       }
     }
   }

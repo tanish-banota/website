@@ -8,8 +8,8 @@ import type { SceneId } from './interactions';
 import { interiorCameraOffset, interiorCameraPreset } from './interiorCamera';
 import { townCameraFocus, townCameraOffset, townCameraZoom } from './townCamera';
 
-const lookoutPosition = new Vector3(northLookout.x, 5.1, -4.7);
-const lookoutTarget = new Vector3(northLookout.x, 10.5, -29);
+const lookoutPosition = new Vector3(northLookout.x, 5.1, northLookout.z + 4.1);
+const lookoutTarget = new Vector3(northLookout.x, 10.5, northLookout.z - 20.2);
 
 export function FollowCamera({ position, spawn, scene, lookoutActive }: {
   position: MutableRefObject<Point>; spawn: Point; scene: SceneId; lookoutActive: boolean;

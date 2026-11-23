@@ -29,13 +29,16 @@ try {
   await until(async () => (await fetch(`http://127.0.0.1:${port}/`)).ok, 'Vite');
   browser = await chromium.launch({ executablePath: browserPath, headless: true });
   const records = [];
-  const positions = [['square', 0, 4.25], ['observatory-approach', -7, -3.5], ['eastern-edge', 12.25, 2], ['southern-edge', 0, 10]];
+  const positions = [['square', 0, 4.25], ['observatory-approach', -7, -3.5], ['eastern-edge', 12.25, 2], ['southern-edge', 0, 10], ['former-lookout-site', -3.7, -8.8], ['north-lookout', -3.7, -12.4]];
   await mkdir(resolve(root, 'preview', 'camera-pass'), { recursive: true });
   for (const [viewport, width, height] of [['desktop', 1440, 900], ['narrow', 390, 844]]) {
     const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
     await page.goto(`http://127.0.0.1:${port}/?diagnostics=1`);
     await page.waitForFunction(() => Boolean(window.__twilightPlayerPosition && window.__twilightRenderInfo && window.__twilightRuntimeAsset));
     await page.locator('.world-guide-close').click();
+    await pause(1600);
+    await page.screenshot({ path: resolve(root, 'preview', 'camera-pass', `${label}-${viewport}-entry.png`) });
+    records.push({ label, viewport, width, height, name: 'entry', player: await page.evaluate(() => window.__twilightPlayerPosition.current), render: await page.evaluate(() => window.__twilightRenderInfo) });
     for (const [name, x, z] of positions) {
       await page.evaluate(({ x, z }) => { window.__twilightPlayerPosition.current = { x, z }; }, { x, z });
       await pause(1600);

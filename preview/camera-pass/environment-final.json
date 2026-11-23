@@ -1,0 +1,252 @@
+[
+  {
+    "label": "environment-final",
+    "viewport": "desktop",
+    "width": 1440,
+    "height": 900,
+    "name": "square",
+    "player": {
+      "x": 0,
+      "z": 4.25
+    },
+    "render": {
+      "scene": "town",
+      "calls": 232,
+      "triangles": 194606,
+      "geometries": 146,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        0,
+        18,
+        16.75
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "desktop",
+    "width": 1440,
+    "height": 900,
+    "name": "observatory-approach",
+    "player": {
+      "x": -7,
+      "z": -3.5
+    },
+    "render": {
+      "scene": "town",
+      "calls": 218,
+      "triangles": 190302,
+      "geometries": 146,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        -5.949995671150609,
+        18,
+        14.944079754796986
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "desktop",
+    "width": 1440,
+    "height": 900,
+    "name": "eastern-edge",
+    "player": {
+      "x": 12.25,
+      "z": 2
+    },
+    "render": {
+      "scene": "town",
+      "calls": 206,
+      "triangles": 189822,
+      "geometries": 146,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        7.179988985528947,
+        18,
+        14.944078440921906
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "desktop",
+    "width": 1440,
+    "height": 900,
+    "name": "southern-edge",
+    "player": {
+      "x": 0,
+      "z": 10
+    },
+    "render": {
+      "scene": "town",
+      "calls": 220,
+      "triangles": 192102,
+      "geometries": 146,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        0.000007755549076745013,
+        18,
+        24.499989678061525
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "desktop",
+    "width": 1440,
+    "height": 900,
+    "name": "north-lookout",
+    "player": {
+      "x": -3.7,
+      "z": -8.8
+    },
+    "render": {
+      "scene": "town",
+      "calls": 231,
+      "triangles": 194306,
+      "geometries": 146,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        -3.1449973806488907,
+        18,
+        14.9440863996604
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "narrow",
+    "width": 390,
+    "height": 844,
+    "name": "square",
+    "player": {
+      "x": 0,
+      "z": 4.25
+    },
+    "render": {
+      "scene": "town",
+      "calls": 196,
+      "triangles": 187630,
+      "geometries": 131,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        0,
+        18,
+        18.051443972249338
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "narrow",
+    "width": 390,
+    "height": 844,
+    "name": "observatory-approach",
+    "player": {
+      "x": -7,
+      "z": -3.5
+    },
+    "render": {
+      "scene": "town",
+      "calls": 196,
+      "triangles": 173694,
+      "geometries": 138,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        -5.9499902963531595,
+        18,
+        18.051443972249338
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "narrow",
+    "width": 390,
+    "height": 844,
+    "name": "eastern-edge",
+    "player": {
+      "x": 12.25,
+      "z": 2
+    },
+    "render": {
+      "scene": "town",
+      "calls": 164,
+      "triangles": 170166,
+      "geometries": 146,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        10.287479776738834,
+        18,
+        18.051443972249338
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "narrow",
+    "width": 390,
+    "height": 844,
+    "name": "southern-edge",
+    "player": {
+      "x": 0,
+      "z": 10
+    },
+    "render": {
+      "scene": "town",
+      "calls": 196,
+      "triangles": 187630,
+      "geometries": 146,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        0.0000144926032658891,
+        18,
+        21.94855053765139
+      ]
+    }
+  },
+  {
+    "label": "environment-final",
+    "viewport": "narrow",
+    "width": 390,
+    "height": 844,
+    "name": "north-lookout",
+    "player": {
+      "x": -3.7,
+      "z": -8.8
+    },
+    "render": {
+      "scene": "town",
+      "calls": 208,
+      "triangles": 175222,
+      "geometries": 146,
+      "textures": 4,
+      "moon": false,
+      "water": true,
+      "camera": [
+        -3.1449948954693774,
+        18,
+        18.051450297471124
+      ]
+    }
+  }
+]

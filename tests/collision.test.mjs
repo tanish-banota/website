@@ -58,3 +58,13 @@ test('long frames are clamped and the town spawn starts clear', () => {
   const stalled = moveOnGround(townSpawn, { x: 1, z: 0 }, 2, townObstacles, townBounds);
   assert.deepEqual(stalled, normal);
 });
+
+test('southern entrance and northern lookout gap stay walkable beside solid scenery', () => {
+  for (const z of [10, 9.45, 8, 6]) {
+    assert.equal(blocked(0, z, PLAYER_RADIUS, townObstacles, townBounds), false, `southern route blocked at z=${z}`);
+  }
+  assert.equal(blocked(2.8, 9.45, PLAYER_RADIUS, townObstacles, townBounds), true, 'entrance pier is solid');
+  assert.ok(townSpawn.z > 9, 'entry spawn sits in the southern gateway');
+  assert.equal(blocked(-4.1, -11.15, PLAYER_RADIUS, townObstacles, townBounds), false, 'lookout opening stays clear');
+  assert.equal(blocked(-1.0, -10.35, PLAYER_RADIUS, townObstacles, townBounds), true, 'rear wall is solid');
+});

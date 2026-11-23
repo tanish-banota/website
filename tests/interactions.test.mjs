@@ -50,9 +50,9 @@ test('the fountain has two clear side routes and every town interaction is reach
   }
   const step = 0.25;
   const minX = -12.5;
-  const minZ = -10;
+  const minZ = -14;
   const width = 101;
-  const height = 81;
+  const height = 97;
   const start = [Math.round((townSpawn.x - minX) / step), Math.round((townSpawn.z - minZ) / step)];
   const queue = [start];
   const visited = new Set([`${start[0]},${start[1]}`]);

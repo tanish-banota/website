@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import { PMREMGenerator } from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { northLookout } from './collision';
+import { lookoutMoonZ, northLookout } from './collision';
 import type { Point } from './collision';
 import { FollowCamera } from './FollowCamera';
 import { interiorCameraPreset } from './interiorCamera';
@@ -172,9 +172,9 @@ export function WorldCanvas({ scene, spawn, enabled, lookoutActive, onNearestCha
         {scene === 'town' && !lookoutActive && <FountainWater />}
         {scene === 'town' && lookoutActive && <LookoutHorizon />}
         {scene === 'town' && lookoutActive && <pointLight position={[northLookout.x, 3, northLookout.z + 1]} intensity={2.4} distance={5} color="#EDBC70" />}
-        {scene === 'town' && lookoutActive && <AssetBoundary fallback={<LookoutMoon position={[northLookout.x, 15.3, -32]} />} onError={onMoonAssetError}>
-          <Suspense fallback={<LookoutMoon position={[northLookout.x, 15.3, -32]} />}>
-            <SketchfabMoon position={[northLookout.x, 15.3, -32]} />
+        {scene === 'town' && lookoutActive && <AssetBoundary fallback={<LookoutMoon position={[northLookout.x, 15.3, lookoutMoonZ]} />} onError={onMoonAssetError}>
+          <Suspense fallback={<LookoutMoon position={[northLookout.x, 15.3, lookoutMoonZ]} />}>
+            <SketchfabMoon position={[northLookout.x, 15.3, lookoutMoonZ]} />
           </Suspense>
         </AssetBoundary>}
         <Player position={playerPosition} spawn={spawn} scene={scene} enabled={enabled} />

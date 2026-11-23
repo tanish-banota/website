@@ -1,3 +1,5 @@
+import { boundaryCollision } from './townBoundaryLayout.ts';
+
 export type Point = { x: number; z: number };
 export type Rect = { minX: number; maxX: number; minZ: number; maxZ: number };
 export type Circle = Point & { radius: number };
@@ -7,11 +9,12 @@ export const PLAYER_RADIUS = 0.3;
 export const WALK_SPEED = 3;
 export const MAX_FRAME_DELTA = 0.033;
 
-// The visible terrain is 25.8 x 20.8, centered on the origin.
-export const townBounds: Rect = { minX: -12.9, maxX: 12.9, minZ: -10.4, maxZ: 10.4 };
-export const townSpawn: Point = { x: 0, z: 4.25 };
+// Walkable ground has authored bounds; decorative terrain extends beyond it.
+export const townBounds: Rect = { minX: -12.9, maxX: 12.9, minZ: -14, maxZ: 10.4 };
+export const townSpawn: Point = { x: 0, z: 9.6 };
 export const townReturnSpawn: Point = { x: -7.1, z: -3.25 };
-export const northLookout: Point = { x: -3.7, z: -8.8 };
+export const northLookout: Point = { x: -3.7, z: -12.4 };
+export const lookoutMoonZ = northLookout.z - 23.2;
 export const observatorySpawn: Point = { x: 0, z: 1.4 };
 export const observatoryBounds: Rect = { minX: -2.4, maxX: 2.4, minZ: -2.65, maxZ: 2.75 };
 export const observatoryObstacles: Rect[] = [
@@ -21,6 +24,7 @@ export const observatoryObstacles: Rect[] = [
 
 // Hand-authored ground footprints for Phase 2 geometry. Decorative roofs do not affect walking.
 export const townObstacles: Obstacle[] = [
+  ...boundaryCollision,
   { x: 0, z: 1.35, radius: 1.48 }, // fountain's outer stone plinth
   { minX: -3.2, maxX: 3.2, minZ: -5.05, maxZ: -2.38 }, // clock tower and side walls
   { minX: -3.7, maxX: -2.9, minZ: -1.1, maxZ: -0.3 }, // rear plaza planters
@@ -35,10 +39,10 @@ export const townObstacles: Obstacle[] = [
   { minX: 7.0, maxX: 7.8, minZ: 4.33, maxZ: 4.97 }, // post box
   { minX: -10.72, maxX: -5.88, minZ: -8.87, maxZ: -4.03 }, // faceted observatory base
   { minX: -8.9, maxX: -7.7, minZ: -4.16, maxZ: -3.85 }, // entrance vestibule
-  { minX: -5.84, maxX: -5.46, minZ: -9.94, maxZ: -8.26 }, // north lookout side walls
-  { minX: -1.94, maxX: -1.56, minZ: -9.94, maxZ: -8.26 },
-  { minX: -5.75, maxX: -4.615, minZ: -10.11, maxZ: -9.79 }, // lookout rear opening
-  { minX: -2.785, maxX: -1.65, minZ: -10.11, maxZ: -9.79 },
+  { minX: -5.84, maxX: -5.46, minZ: northLookout.z - 1.14, maxZ: northLookout.z + 0.54 }, // north lookout side walls
+  { minX: -1.94, maxX: -1.56, minZ: northLookout.z - 1.14, maxZ: northLookout.z + 0.54 },
+  { minX: -5.75, maxX: -4.615, minZ: northLookout.z - 1.31, maxZ: northLookout.z - 0.99 }, // lookout rear opening
+  { minX: -2.785, maxX: -1.65, minZ: northLookout.z - 1.31, maxZ: northLookout.z - 0.99 },
   { minX: -11.42, maxX: -11.08, minZ: 2.43, maxZ: 2.77 },
   { minX: -11.38, maxX: -11.02, minZ: -2.78, maxZ: -2.42 },
   { minX: 4.65, maxX: 4.95, minZ: -7.65, maxZ: -7.35 },

@@ -13,7 +13,7 @@ export function LookoutHorizon() {
     shape.closePath();
     return shape;
   }, []);
-  return <mesh name="LookoutHorizon" position={[northLookout.x, 0, -11.5]}>
+  return <mesh name="LookoutHorizon" position={[northLookout.x, 0, northLookout.z - 2.7]}>
     <shapeGeometry args={[silhouette]} />
     <meshBasicMaterial color="#22243C" />
   </mesh>;

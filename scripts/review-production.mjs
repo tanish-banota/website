@@ -228,7 +228,7 @@ try {
   // The faced moon is a live, isolated reveal, and held input cannot resume movement.
   await navigate(`${production}?diagnostics=1`, 'Boolean(window.__twilightPlayerPosition && window.__twilightRenderInfo)');
   await closeGuide();
-  await teleport(-3.7, -8.8);
+  await teleport(-3.7, -12.4);
   await prompt('Look at the moon');
   await settle(2300);
   const beforeLookoutCamera = (await state()).camera;
@@ -259,7 +259,7 @@ try {
   await command('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
   await navigate(`${production}?diagnostics=1`, 'Boolean(window.__twilightPlayerPosition && window.__twilightRenderInfo)');
   await closeGuide();
-  await teleport(-3.7, -8.8);
+  await teleport(-3.7, -12.4);
   await prompt('Look at the moon');
   await pressInteraction();
   await until(() => evaluate("Boolean(window.__twilightRenderInfo?.moon)"), 'reduced-motion lookout');
@@ -272,7 +272,7 @@ try {
   await command('Network.setBlockedURLs', { urls: ['*majoras-moon.glb'] });
   await navigate(`${production}?diagnostics=1`, 'Boolean(window.__twilightPlayerPosition && window.__twilightRenderInfo)');
   await closeGuide();
-  await teleport(-3.7, -8.8);
+  await teleport(-3.7, -12.4);
   await prompt('Look at the moon');
   await pressInteraction();
   await until(() => evaluate("Boolean(document.querySelector('.lookout-credit[role=status]') && window.__twilightRenderInfo?.moon)"), 'generated moon fallback');

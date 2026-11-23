@@ -34,7 +34,7 @@ npm run preview
 
 The town guide can be closed and reopened with **Show town guide**. Once dismissed, it stays closed on later town visits until reopened. Project dialogs manage focus, and movement keys clear when a panel, scene transition, or lookout view takes control. Reduced-motion preferences shorten or remove camera, scene, star, and walking animation.
 
-The observatory door, telescope eyepiece, and exit form a repeatable loop. The northern lookout is near the top edge of the exterior map; the faced moon loads only after pressing E there. During that view, the player and terrace remain visible while the other town scenery is hidden. Town movement is flat X/Z, so steps and raised details are decorative. The fountain basin and substantial props have collision footprints, with walkable routes around them.
+The player starts at the southern entrance. The observatory door, telescope eyepiece, and exit form a repeatable loop. The northern lookout is beyond the clock tower near the top edge of the exterior map; the faced moon loads only after pressing E there. During that view, the player and terrace remain visible while the other town scenery is hidden. Town movement is flat X/Z, so steps and raised details are decorative. The fountain basin and substantial props have collision footprints, with walkable routes around them.
 
 ## How the project developed
 
@@ -48,7 +48,7 @@ The observatory door, telescope eyepiece, and exit form a repeatable loop. The n
 | 6. Assets and rendering | Code geometry exported as GLBs, compatible material batching, lighting and shadow work, and runtime asset checks. |
 | 7. Access and recovery | Direct portfolio access, persistent guide dismissal, accessible panels, reduced motion, and fallbacks for WebGL or model failures. |
 
-Later passes added the E-triggered moon lookout, fuller trees and gardens, the refined town hall and player, and a production review. The two houses removed earlier remain absent.
+Later passes added the E-triggered moon lookout, fuller trees and gardens, the refined town hall and player, a closer bounded exterior camera, and a production review. The exterior composition pass added a broken stone boundary behind the clock, planted side edges, and a flat southern entrance. The two houses removed earlier remain absent.
 
 ## Where to make changes
 
@@ -57,6 +57,7 @@ Later passes added the E-triggered moon lookout, fuller trees and gardens, the r
 | Portfolio text, links, projects, experience, contact | `src/data/portfolio.ts` |
 | Town layout and static landmarks | `src/world/Town.tsx`, `ClockTower.tsx`, `Fountain.tsx`, `ObservatoryExterior.tsx` |
 | Trees, gardens, town hall | `src/world/TownScenery.tsx`, `TownBuilding.tsx` |
+| Exterior boundary layout and entrance | `src/world/TownBoundary.tsx`, `townBoundaryLayout.ts`, `collision.ts` |
 | Observatory room | `src/world/ObservatoryInterior.tsx`, `InteriorStarDome.tsx`, `InteriorTelescope.tsx` |
 | Player appearance and walking motion | `src/world/Player.tsx` |
 | Collision and interaction locations | `src/world/collision.ts`, `interactions.ts` |
@@ -101,20 +102,24 @@ The unit tests cover movement, fountain and landmark reachability, observatory s
 
 For direct comparisons, see [town source](preview/review-town-source.png) and [loaded town GLB](preview/review-town-runtime.png), plus [interior source](preview/review-interior-source.png) and [loaded interior GLB](preview/review-interior-runtime.png). The [moving shadow capture](preview/review-shadow-motion.png) shows the plaza after a short walk. Earlier [plaza](preview/scenery-before-plaza.png) and [observatory approach](preview/scenery-before-observatory.png) captures can be compared with the [updated plaza](preview/scenery-after-plaza.png) and [updated approach](preview/scenery-after-observatory.png).
 
+The exterior composition comparison is in `preview/camera-pass/`: `environment-baseline` and `environment-final` capture the square, observatory approach, eastern and southern edges, and northern lookout at 1440 x 900 and 390 x 844. Their JSON files record the player position and camera state for each view.
+
+The later `relocation-baseline` and `relocation-final` captures record the entrance spawn, the wall behind the clock, and the lookout before and after moving it farther north at those same viewport sizes.
+
 ### Latest measured performance
 
 The November 22, 2026 review used a 1440 × 900 headless Edge 158 viewport with hardware accelerated D3D11 on an Intel Arc 140V GPU, Intel Core Ultra 7 256V, and 16 GB RAM. Five-second samples began after the GLBs loaded.
 
 | Scene | FPS | Draw calls | Triangles |
 | --- | ---: | ---: | ---: |
-| Town | 60.2 | 191 | 124,934 |
-| Observatory interior | 59.9 | 111 | 15,916 |
+| Town entrance | 60.2 | 218 | 191,958 |
+| Observatory interior | 60.1 | 111 | 15,916 |
 
-The browser was capped near 60 FPS. These numbers show that this hardware held that rate; they are not a lower-end-device prediction. The town exceeds the earlier 150-draw-call starting target, so it should be measured again on slower GPUs before reducing shadow or geometry quality. After three observatory loops, the warmed town renderer returned to 180 geometries and 8 textures each time, with no progressive GPU resource increase.
+The browser was capped near 60 FPS. These numbers show that this hardware held that rate; they are not a lower-end-device prediction. The exterior composition added geometry; the current entrance view measures 218 draw calls and 191,958 triangles. Draw calls depend on camera position, so this is not directly comparable with the older square sample. The town exceeds the earlier 150-draw-call starting target and should be measured again on slower GPUs before further scenery expansion. After three observatory loops, the warmed town renderer returned to 202 geometries and 8 textures each time, with no progressive GPU resource increase.
 
 | Runtime asset | Size |
 | --- | ---: |
-| `town.glb` | 4.12 MB |
+| `town.glb` | 5.16 MB |
 | `observatory.glb` | 0.62 MB |
 | `majoras-moon.glb` | 0.19 MB |
 

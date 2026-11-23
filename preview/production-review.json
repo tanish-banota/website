@@ -6,11 +6,11 @@
   },
   "assets": {
     "town.glb": {
-      "bytes": 4116696,
-      "meshes": 95,
-      "materials": 65,
+      "bytes": 5155936,
+      "meshes": 117,
+      "materials": 74,
       "textures": 0,
-      "opaque": 65,
+      "opaque": 74,
       "transparent": 0
     },
     "observatory.glb": {
@@ -31,14 +31,14 @@
     }
   },
   "sourceTownMeshes": {
-    "meshes": 96,
-    "casters": 51,
-    "receivers": 12
+    "meshes": 118,
+    "casters": 70,
+    "receivers": 18
   },
   "runtimeTownMeshes": {
-    "meshes": 96,
-    "casters": 51,
-    "receivers": 12
+    "meshes": 118,
+    "casters": 70,
+    "receivers": 18
   },
   "sourceInteriorMeshes": {
     "meshes": 56,
@@ -51,48 +51,48 @@
     "receivers": 18
   },
   "town": {
-    "seconds": 5.015799999952316,
-    "fps": 60.20973723092448,
-    "drawCalls": 191,
-    "triangles": 124934,
-    "geometries": 124,
+    "seconds": 5.0034,
+    "fps": 60.15909181756406,
+    "drawCalls": 218,
+    "triangles": 191958,
+    "geometries": 141,
     "textures": 4,
-    "heapBytes": 98860846
+    "heapBytes": 109000611
   },
   "sceneChanges": [
     {
       "scene": "town",
-      "calls": 177,
-      "triangles": 120630,
-      "geometries": 180,
+      "calls": 213,
+      "triangles": 190150,
+      "geometries": 202,
       "textures": 8,
       "moon": false,
       "water": true,
       "camera": [
         -6.034999999999999,
         18,
-        14.944078440920947
+        11.344078440920947
       ]
     },
     {
       "scene": "town",
-      "calls": 177,
-      "triangles": 120630,
-      "geometries": 180,
+      "calls": 213,
+      "triangles": 190150,
+      "geometries": 202,
       "textures": 8,
       "moon": false,
       "water": true,
       "camera": [
         -6.034999999999999,
         18,
-        14.944078440920947
+        11.344078440920947
       ]
     },
     {
       "scene": "observatory",
       "calls": 111,
       "triangles": 15916,
-      "geometries": 172,
+      "geometries": 194,
       "textures": 8,
       "moon": false,
       "water": false,
@@ -102,27 +102,27 @@
         8.4
       ],
       "performance": {
-        "seconds": 5.0005,
-        "fps": 60.193980601939806,
+        "seconds": 5.012099999976159,
+        "fps": 60.054667704441606,
         "drawCalls": 111,
         "triangles": 15916,
-        "geometries": 172,
+        "geometries": 194,
         "textures": 8,
-        "heapBytes": 89547256
+        "heapBytes": 127386491
       }
     },
     {
       "scene": "town",
-      "calls": 177,
-      "triangles": 120630,
-      "geometries": 180,
+      "calls": 213,
+      "triangles": 190150,
+      "geometries": 202,
       "textures": 8,
       "moon": false,
       "water": true,
       "camera": [
         -6.034999999999999,
         18,
-        14.944078440920947
+        11.344078440920947
       ]
     }
   ],

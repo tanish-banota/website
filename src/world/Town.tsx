@@ -6,6 +6,7 @@ import { Fountain } from './Fountain';
 import { TownHall } from './TownBuilding';
 import { GardenPatch, Shrub, Tree } from './TownScenery';
 import { northLookout } from './collision';
+import { TownBoundary } from './TownBoundary';
 
 type Point = [number, number];
 type Position = [number, number, number];
@@ -136,6 +137,7 @@ export function Town() {
         <meshStandardMaterial color={paint.grass} roughness={0.95} />
       </mesh>
       <PlazaPaving />
+      <TownBoundary />
       <Path from={[-3.2, 0]} to={[-5.15, -2.65]} />
       <Path from={[-5.15, -2.65]} to={[-7.1, -3.25]} />
       <Path from={[-7.1, -3.25]} to={[-8.3, -3.4]} width={1.1} />
