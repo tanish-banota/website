@@ -6,8 +6,8 @@ import { northLookout } from './collision';
 import type { Point } from './collision';
 import type { SceneId } from './interactions';
 import { interiorCameraOffset, interiorCameraPreset } from './interiorCamera';
+import { townCameraFocus, townCameraOffset, townCameraZoom } from './townCamera';
 
-const townOffset = { height: 18, depth: 20, focus: 4 };
 const lookoutPosition = new Vector3(northLookout.x, 5.1, -4.7);
 const lookoutTarget = new Vector3(northLookout.x, 10.5, -29);
 
@@ -20,15 +20,17 @@ export function FollowCamera({ position, spawn, scene, lookoutActive }: {
   const focus = useRef(new Vector3());
   const reduceMotion = useRef(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Resizing is handled by the smooth per-frame follow.
   useLayoutEffect(() => {
     if (scene === 'observatory') {
       camera.position.set(0, interiorCameraPreset.height, interiorCameraPreset.depth);
       camera.lookAt(0, interiorCameraPreset.targetHeight, interiorCameraPreset.targetZ);
       focus.current.set(0, interiorCameraPreset.targetHeight, interiorCameraPreset.targetZ);
     } else {
-      camera.position.set(spawn.x, townOffset.height, spawn.z + townOffset.depth - townOffset.focus);
-      camera.lookAt(spawn.x, 0, spawn.z - townOffset.focus);
-      focus.current.set(spawn.x, 0, spawn.z - townOffset.focus);
+      const target = townCameraFocus(spawn, size.width, size.height, townCameraZoom(size.width, size.height));
+      camera.position.set(target.x, townCameraOffset.height, target.z + townCameraOffset.depth);
+      camera.lookAt(target.x, 0, target.z);
+      focus.current.set(target.x, 0, target.z);
     }
   }, [camera, scene, spawn]);
 
@@ -45,7 +47,7 @@ export function FollowCamera({ position, spawn, scene, lookoutActive }: {
     const orthographic = camera as OrthographicCamera;
     const zoom = scene === 'observatory' ? Math.min(size.width / 9.3, size.height / 8.2)
       : lookoutActive ? Math.min(size.width / 19, size.height / 18)
-        : Math.min(size.width / 27, size.height / 17);
+        : townCameraZoom(size.width, size.height);
     if (Math.abs(orthographic.zoom - zoom) > 0.01) {
       orthographic.zoom += (zoom - orthographic.zoom) * follow;
       orthographic.updateProjectionMatrix();
@@ -65,9 +67,9 @@ export function FollowCamera({ position, spawn, scene, lookoutActive }: {
       camera.lookAt(focus.current);
       return;
     }
-    destination.current.set(position.current.x, townOffset.height,
-      position.current.z + townOffset.depth - townOffset.focus);
-    townTarget.current.set(position.current.x, 0, position.current.z - townOffset.focus);
+    const target = townCameraFocus(position.current, size.width, size.height, zoom);
+    destination.current.set(target.x, townCameraOffset.height, target.z + townCameraOffset.depth);
+    townTarget.current.set(target.x, 0, target.z);
     camera.position.lerp(destination.current, follow);
     focus.current.lerp(townTarget.current, follow);
     camera.lookAt(focus.current);

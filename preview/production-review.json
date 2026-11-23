@@ -6,7 +6,7 @@
   },
   "assets": {
     "town.glb": {
-      "bytes": 4116700,
+      "bytes": 4116696,
       "meshes": 95,
       "materials": 65,
       "textures": 0,
@@ -51,41 +51,41 @@
     "receivers": 18
   },
   "town": {
-    "seconds": 5.000000000023841,
-    "fps": 60.19999999971295,
+    "seconds": 5.015799999952316,
+    "fps": 60.20973723092448,
     "drawCalls": 191,
     "triangles": 124934,
     "geometries": 124,
     "textures": 4,
-    "heapBytes": 97818516
+    "heapBytes": 98860846
   },
   "sceneChanges": [
     {
       "scene": "town",
-      "calls": 184,
-      "triangles": 124206,
+      "calls": 177,
+      "triangles": 120630,
       "geometries": 180,
       "textures": 8,
       "moon": false,
       "water": true,
       "camera": [
-        -7.1,
+        -6.034999999999999,
         18,
-        12.75
+        14.944078440920947
       ]
     },
     {
       "scene": "town",
-      "calls": 184,
-      "triangles": 124206,
+      "calls": 177,
+      "triangles": 120630,
       "geometries": 180,
       "textures": 8,
       "moon": false,
       "water": true,
       "camera": [
-        -7.1,
+        -6.034999999999999,
         18,
-        12.75
+        14.944078440920947
       ]
     },
     {
@@ -102,27 +102,27 @@
         8.4
       ],
       "performance": {
-        "seconds": 5.007199999904631,
-        "fps": 59.913724238239716,
+        "seconds": 5.0005,
+        "fps": 60.193980601939806,
         "drawCalls": 111,
         "triangles": 15916,
         "geometries": 172,
         "textures": 8,
-        "heapBytes": 89575329
+        "heapBytes": 89547256
       }
     },
     {
       "scene": "town",
-      "calls": 184,
-      "triangles": 124206,
+      "calls": 177,
+      "triangles": 120630,
       "geometries": 180,
       "textures": 8,
       "moon": false,
       "water": true,
       "camera": [
-        -7.1,
+        -6.034999999999999,
         18,
-        12.75
+        14.944078440920947
       ]
     }
   ],

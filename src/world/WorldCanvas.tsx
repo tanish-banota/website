@@ -17,6 +17,7 @@ import { TownFallback } from './TownFallback';
 import { FountainWater } from './Fountain';
 import { LookoutMoon } from './LookoutMoon';
 import { LookoutHorizon } from './LookoutHorizon';
+import { townCameraZoom } from './townCamera';
 
 const TownSource = lazy(() => import('./Town').then((module) => ({ default: module.Town })));
 const ObservatorySource = lazy(() => import('./Observatory').then((module) => ({ default: module.Observatory })));
@@ -90,7 +91,7 @@ function PerformanceProbe({ scene }: { scene: SceneId }) {
 function SceneCamera({ scene, spawn }: { scene: SceneId; spawn: Point }) {
   const { size } = useThree();
   const zoom = scene === 'town'
-    ? Math.min(size.width / 27, size.height / 17)
+    ? townCameraZoom(size.width, size.height)
     : Math.min(size.width / 9.3, size.height / 8.2);
   const height = scene === 'town' ? 18 : interiorCameraPreset.height;
   const depth = scene === 'town' ? 20 : interiorCameraPreset.depth;

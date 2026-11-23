@@ -128,11 +128,11 @@ export function Town() {
     <BatchedStaticKit>
       {/* The display base has depth; the walkable surface and every path stay flat. */}
       <mesh position={[0, -0.43, 0]} receiveShadow>
-        <boxGeometry args={[26, 0.86, 21]} />
+        <boxGeometry args={[70, 0.86, 70]} />
         <meshStandardMaterial color={paint.blue} roughness={1} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 0]} receiveShadow>
-        <planeGeometry args={[25.8, 20.8]} />
+        <planeGeometry args={[69.8, 69.8]} />
         <meshStandardMaterial color={paint.grass} roughness={0.95} />
       </mesh>
       <PlazaPaving />
