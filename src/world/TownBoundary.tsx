@@ -58,14 +58,6 @@ export function TownBoundary() {
     <group name="SouthEntrance">
       {southStoneRuns.map((run) => <StoneRun key={run.from.join(',')} run={run} />)}
       {entrancePosts.map(([x, z]) => <EntrancePost key={x} x={x} z={z} />)}
-      <mesh position={[0, 0.035, 7.9]} receiveShadow>
-        <boxGeometry args={[2.25, 0.07, 4.9]} />
-        <meshStandardMaterial color={paint.stoneShade} roughness={1} />
-      </mesh>
-      <mesh position={[0, 0.075, 7.9]} receiveShadow>
-        <boxGeometry args={[1.92, 0.03, 4.7]} />
-        <meshStandardMaterial color={paint.cream} roughness={1} />
-      </mesh>
     </group>
     <Hedge from={[-13.8, -2.6]} to={[-13.5, -0.9]} />
     <Hedge from={[-13.8, 6.0]} to={[-13.15, 8.2]} />

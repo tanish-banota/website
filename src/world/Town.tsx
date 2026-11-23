@@ -7,46 +7,9 @@ import { TownHall } from './TownBuilding';
 import { GardenPatch, Shrub, Tree } from './TownScenery';
 import { northLookout } from './collision';
 import { TownBoundary } from './TownBoundary';
+import { TownGround } from './TownGround';
 
-type Point = [number, number];
 type Position = [number, number, number];
-
-// The kit is built at world scale with bases at y=0. Decorative pieces never
-// participate in collision; collision.ts retains the approved footprints.
-function Path({ from, to, width = 1.2 }: { from: Point; to: Point; width?: number }) {
-  const dx = to[0] - from[0];
-  const dz = to[1] - from[1];
-  return (
-    <mesh position={[(from[0] + to[0]) / 2, 0.035, (from[1] + to[1]) / 2]} rotation={[0, Math.atan2(dx, dz), 0]} receiveShadow>
-      <boxGeometry args={[width, 0.07, Math.hypot(dx, dz)]} />
-      <meshStandardMaterial color={paint.cream} roughness={1} />
-    </mesh>
-  );
-}
-
-function PlazaPaving() {
-  const sectors = Array.from({ length: 24 }, (_, index) => index);
-  return <group name="PlazaPaving" position={[0, 0, 1.35]}>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.08, 0]} receiveShadow>
-      <circleGeometry args={[4.3, 48]} />
-      <meshStandardMaterial color={paint.stoneShade} roughness={1} />
-    </mesh>
-    {sectors.map((sector) => <mesh key={sector} rotation={[-Math.PI / 2, 0, 0]}
-      position={[0, 0.11, 0]} receiveShadow>
-      <ringGeometry args={[1.66, 3.92, 1, 1,
-        sector * Math.PI * 2 / sectors.length + 0.012, Math.PI * 2 / sectors.length - 0.024]} />
-      <meshStandardMaterial color={sector % 6 === 0 ? paint.cream : '#E8DFD0'} roughness={0.94} />
-    </mesh>)}
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.12, 0]}>
-      <ringGeometry args={[3.99, 4.18, 48]} />
-      <meshStandardMaterial color={paint.cream} roughness={0.92} />
-    </mesh>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.122, 0]}>
-      <ringGeometry args={[1.55, 1.62, 40]} />
-      <meshStandardMaterial color={paint.cream} roughness={0.92} />
-    </mesh>
-  </group>;
-}
 
 function NoticeBoard() {
   return (
@@ -136,15 +99,8 @@ export function Town() {
         <planeGeometry args={[69.8, 69.8]} />
         <meshStandardMaterial color={paint.grass} roughness={0.95} />
       </mesh>
-      <PlazaPaving />
+      <TownGround />
       <TownBoundary />
-      <Path from={[-3.2, 0]} to={[-5.15, -2.65]} />
-      <Path from={[-5.15, -2.65]} to={[-7.1, -3.25]} />
-      <Path from={[-7.1, -3.25]} to={[-8.3, -3.4]} width={1.1} />
-      <Path from={[-4, 2]} to={[-6.2, 2]} width={1.1} />
-      <Path from={[3.6, 1.2]} to={[5.2, -0.2]} width={1.4} />
-      <Path from={[3.6, 2.3]} to={[7.1, 4.1]} width={1.05} />
-      <Path from={[-4.25, -6.25]} to={[northLookout.x, northLookout.z]} width={1.15} />
       <group name="NorthLookout" position={[northLookout.x, 0, northLookout.z]}>
         <mesh position={[0, -0.06, 0]} receiveShadow>
           <cylinderGeometry args={[1.88, 1.98, 0.14, 20]} />
