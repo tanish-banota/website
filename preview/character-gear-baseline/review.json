@@ -1,0 +1,1391 @@
+{
+  "viewport": [
+    1440,
+    900
+  ],
+  "arrival": {
+    "position": {
+      "x": 0,
+      "z": 9.6
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        4.353205130218493e-15,
+        9.139112933098659e-8,
+        -4.763273864227813e-8,
+        1
+      ],
+      [
+        -1.3250581086196329e-15,
+        -2.7818160219794663e-8,
+        -4.763288075082528e-8,
+        1
+      ]
+    ],
+    "heading": 0,
+    "scene": "town",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "walking": {
+    "position": {
+      "x": 0,
+      "z": 8.601600000143058
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        -1.861773731299248e-8,
+        8.983770495675562e-8,
+        -0.18359229643742356,
+        0.9830024764408403
+      ],
+      [
+        1.7986210805765774e-8,
+        -2.7345318685515636e-8,
+        0.18359222459263833,
+        0.983002489859067
+      ]
+    ],
+    "heading": 3.141592653589793,
+    "scene": "town",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "stopped": {
+    "position": {
+      "x": 0,
+      "z": 7.804200000286113
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        -2.20266107861922e-11,
+        9.13911272212097e-8,
+        -0.00021483599887134135,
+        0.9999999769227618
+      ],
+      [
+        2.417646228155219e-11,
+        -2.7818159578921624e-8,
+        0.00021474075791677296,
+        0.9999999769432217
+      ]
+    ],
+    "heading": 3.141592653589793,
+    "scene": "town",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "edge": {
+    "position": {
+      "x": 12.6,
+      "z": 8
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        3.3321892045384844e-15,
+        9.13911293309868e-8,
+        -5.697683430340321e-8,
+        0.9999999999999996
+      ],
+      [
+        5.126878821009707e-16,
+        -2.7818160219794825e-8,
+        -3.828878657581741e-8,
+        1.0000000000000004
+      ]
+    ],
+    "heading": 3.141592653589793,
+    "scene": "town",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "blocked": {
+    "position": {
+      "x": 12.6,
+      "z": 8
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        4.353746385997914e-15,
+        9.139112933098661e-8,
+        -4.762597961321629e-8,
+        1.0000000000000002
+      ],
+      [
+        -1.3256432295764943e-15,
+        -2.781816021979466e-8,
+        -4.763963977918335e-8,
+        0.9999999999999998
+      ]
+    ],
+    "heading": 3.141592653589793,
+    "scene": "town",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "interior": {
+    "position": {
+      "x": 0,
+      "z": 1.4
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        4.353205130218493e-15,
+        9.139112933098659e-8,
+        -4.763273864227813e-8,
+        1
+      ],
+      [
+        -1.3250581086196329e-15,
+        -2.7818160219794663e-8,
+        -4.763288075082528e-8,
+        1
+      ]
+    ],
+    "heading": 0,
+    "scene": "observatory",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "interiorWalk": {
+    "position": {
+      "x": -0.9002999997138978,
+      "z": 1.4
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        -2.2871148370313e-8,
+        9.00321734904238e-8,
+        -0.1718091007634595,
+        0.9851302563538791
+      ],
+      [
+        2.670217372296297e-8,
+        -2.7404517492809438e-8,
+        0.17180901018272726,
+        0.9851303084964298
+      ]
+    ],
+    "heading": -1.5707963267948966,
+    "scene": "observatory",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "interiorStop": {
+    "position": {
+      "x": -1.8492000002861027,
+      "z": 1.4
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        -7.615842535130638e-12,
+        9.139112916142269e-8,
+        -0.00006006790389935888,
+        0.9999999981958998
+      ],
+      [
+        2.5137331317156305e-11,
+        -2.7818160168813626e-8,
+        0.000059972643375395936,
+        0.9999999982016811
+      ]
+    ],
+    "heading": -1.5707963267948966,
+    "scene": "observatory",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "turned": {
+    "position": {
+      "x": -1.0992000002861022,
+      "z": 1.4
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        -1.9194754100435193e-8,
+        8.97233505454485e-8,
+        -0.1901695938756483,
+        0.9817512544250515
+      ],
+      [
+        1.750074471551637e-8,
+        -2.731050720716011e-8,
+        0.19016947899696374,
+        0.9817512766775617
+      ]
+    ],
+    "heading": 1.5707963267948966,
+    "scene": "observatory",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "reducedMotion": {
+    "position": {
+      "x": 0.8522999997138977,
+      "z": 1.4
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12396008782020686,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      [
+        4.353205130218493e-15,
+        9.139112933098659e-8,
+        -4.763273864227813e-8,
+        1
+      ],
+      [
+        -1.3250581086196329e-15,
+        -2.7818160219794663e-8,
+        -4.763288075082528e-8,
+        1
+      ]
+    ],
+    "heading": 1.5707963267948966,
+    "scene": "observatory",
+    "skinned": [
+      {
+        "name": "Object_7",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_9",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_11",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_13",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_15",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_17",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_19",
+        "material": "equipment",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_21",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_23",
+        "material": "skin",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_25",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_27",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_29",
+        "material": "material",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_31",
+        "material": "mouth0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_33",
+        "material": "eyebrow0",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_35",
+        "material": "pupil",
+        "castsShadow": false,
+        "visible": true
+      },
+      {
+        "name": "Object_37",
+        "material": "clothes",
+        "castsShadow": true,
+        "visible": true
+      },
+      {
+        "name": "Object_39",
+        "material": "hair",
+        "castsShadow": true,
+        "visible": true
+      }
+    ]
+  },
+  "fallback": {
+    "position": {
+      "x": 0,
+      "z": 9.6
+    },
+    "visual": false,
+    "placeholder": true,
+    "legs": [
+      null,
+      null
+    ],
+    "heading": 0,
+    "scene": "town",
+    "skinned": []
+  },
+  "fallbackMove": {
+    "position": {
+      "x": 0,
+      "z": 8.849400000572206
+    },
+    "visual": false,
+    "placeholder": true,
+    "legs": [
+      null,
+      null
+    ],
+    "heading": 3.141592653589793,
+    "scene": "town",
+    "skinned": []
+  },
+  "interiorFallback": {
+    "position": {
+      "x": 0,
+      "z": 1.4
+    },
+    "visual": false,
+    "placeholder": true,
+    "legs": [
+      null,
+      null
+    ],
+    "heading": 0,
+    "scene": "observatory",
+    "skinned": []
+  }
+}

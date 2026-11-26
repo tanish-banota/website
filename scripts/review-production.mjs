@@ -151,6 +151,7 @@ try {
 
   await navigate(`${production}?diagnostics=1`, "Boolean(document.querySelector('canvas') && window.__twilightRenderInfo)");
   await until(() => evaluate("performance.getEntriesByType('resource').some(entry => entry.name.includes('/models/town.glb'))"), 'production town GLB');
+  await until(() => evaluate("window.__twilightPlayerVisualLoaded === true"), 'production character GLB');
   assert.match(await evaluate("document.querySelector('.world-overlay h1')?.textContent"), /quiet town/);
   assert.equal((await state()).moon, false);
   assert.equal((await state()).water, true);
@@ -206,6 +207,7 @@ try {
     await pressInteraction();
     await until(() => evaluate("document.querySelector('.world-view.interior') && window.__twilightRenderInfo?.scene === 'observatory'"), 'interior transition');
     await until(() => evaluate("performance.getEntriesByType('resource').some(entry => entry.name.includes('/models/observatory.glb'))"), 'production interior GLB');
+    await until(() => evaluate("window.__twilightPlayerVisualLoaded === true"), 'interior character GLB');
     await settle(1100);
     const interiorState = await state();
     assert.equal(interiorState.moon, false);
@@ -319,7 +321,7 @@ try {
   await evaluate("document.querySelector('.world-message button:last-child').click()");
   await until(() => evaluate("Boolean(document.querySelector('#about-title'))"), 'WebGL fallback portfolio');
 
-  const assets = Object.fromEntries(await Promise.all(['town.glb', 'observatory.glb', 'majoras-moon.glb'].map(async (name) => {
+  const assets = Object.fromEntries(await Promise.all(['town.glb', 'observatory.glb', 'majoras-moon.glb', 'toon_link_animated.glb'].map(async (name) => {
     const file = resolve(root, 'public/models', name);
     const buffer = await readFile(file);
     const jsonSize = buffer.readUInt32LE(12);
@@ -328,7 +330,7 @@ try {
     const summary = { bytes: (await stat(file)).size, meshes: gltf.meshes?.length ?? 0,
       materials: gltf.materials?.length ?? 0, textures: gltf.textures?.length ?? 0,
       opaque: alpha.OPAQUE?.length ?? 0, transparent: (alpha.BLEND?.length ?? 0) + (alpha.MASK?.length ?? 0) };
-    if (name !== 'majoras-moon.glb') assert.equal(summary.transparent, 0, `${name} gained a transparent static material`);
+    if (name === 'town.glb' || name === 'observatory.glb') assert.equal(summary.transparent, 0, `${name} gained a transparent static material`);
     return [name, summary];
   })));
   const report = { browser: renderer, assets, sourceTownMeshes, runtimeTownMeshes,

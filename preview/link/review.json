@@ -1,0 +1,178 @@
+{
+  "viewport": [
+    1440,
+    900
+  ],
+  "arrival": {
+    "position": {
+      "x": 0,
+      "z": 9.6
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12409726606499655,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      0,
+      0
+    ],
+    "scene": "town"
+  },
+  "walking": {
+    "position": {
+      "x": 0,
+      "z": 8.650500000000006
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12409726606499655,
+    "visualOffset": [
+      0,
+      0.0067278308492364205,
+      0
+    ],
+    "legs": [
+      0.10226302890839359,
+      -0.10226302890839359
+    ],
+    "scene": "town"
+  },
+  "edge": {
+    "position": {
+      "x": 12.6,
+      "z": 8
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12409726606499655,
+    "visualOffset": [
+      0,
+      0.00003986328179100951,
+      0
+    ],
+    "legs": [
+      0.0006059218832233444,
+      -0.0006059218832233444
+    ],
+    "scene": "town"
+  },
+  "blocked": {
+    "position": {
+      "x": 12.6,
+      "z": 8
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12409726606499655,
+    "visualOffset": [
+      0,
+      1.6056175335712037e-8,
+      0
+    ],
+    "legs": [
+      2.4405386510282293e-7,
+      -2.4405386510282293e-7
+    ],
+    "scene": "town"
+  },
+  "interior": {
+    "position": {
+      "x": 0,
+      "z": 1.4
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12409726606499655,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      0,
+      0
+    ],
+    "scene": "observatory"
+  },
+  "interiorWalk": {
+    "position": {
+      "x": -0.9003000004291535,
+      "z": 1.4
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12409726606499655,
+    "visualOffset": [
+      0,
+      0.009914085184106131,
+      0
+    ],
+    "legs": [
+      0.1506940947984132,
+      -0.1506940947984132
+    ],
+    "scene": "observatory"
+  },
+  "reducedMotion": {
+    "position": {
+      "x": -1.2489000005722048,
+      "z": 1.4
+    },
+    "visual": true,
+    "placeholder": false,
+    "scale": 0.12409726606499655,
+    "visualOffset": [
+      0,
+      0,
+      0
+    ],
+    "legs": [
+      0,
+      0
+    ],
+    "scene": "observatory"
+  },
+  "fallback": {
+    "position": {
+      "x": 0,
+      "z": 9.6
+    },
+    "visual": false,
+    "placeholder": true,
+    "legs": [
+      null,
+      null
+    ],
+    "scene": "town"
+  },
+  "fallbackMove": {
+    "position": {
+      "x": 0,
+      "z": 8.799
+    },
+    "visual": false,
+    "placeholder": true,
+    "legs": [
+      null,
+      null
+    ],
+    "scene": "town"
+  },
+  "interiorFallback": {
+    "position": {
+      "x": 0,
+      "z": 1.4
+    },
+    "visual": false,
+    "placeholder": true,
+    "legs": [
+      null,
+      null
+    ],
+    "scene": "observatory"
+  }
+}
